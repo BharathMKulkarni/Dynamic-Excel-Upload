@@ -12,3 +12,6 @@ Project done for my internship @ AVYSH
 *Pavan*  
 
 *Project Start Date* : 25th May 2021
+
+*Tech Stack To be Used* : 
+NodeJS, Express, MYSQL, HandleBars
