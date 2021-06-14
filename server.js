@@ -1,13 +1,14 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const dotenv = require('dotenv');
-const db = require('./database/models')
+const db = require('./models')
 const employeeRouter = require('./routes/employeeRoute.js');
 
 const app = express();
 
 // setting the static folder (public), all css and frontend js go here
 app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/uploads'));
 app.use(express.json());
 
 // using the routes created
