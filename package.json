@@ -20,10 +20,12 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.2",
+    "fast-csv": "^4.3.6",
     "multer": "^1.4.2",
     "mysql2": "^2.2.5",
     "read-excel-file": "^5.1.0",
     "sequelize": "^6.6.2",
-    "sequelize-cli": "^6.2.0"
+    "sequelize-cli": "^6.2.0",
+    "xlsx": "^0.17.0"
   }
 }

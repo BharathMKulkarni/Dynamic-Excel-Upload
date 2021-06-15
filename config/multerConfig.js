@@ -1,6 +1,14 @@
 const multer = require('multer');
 const path = require('path');
 
+const excelFilter = (req, file, cb) => {
+   if (file.originalname.endsWith(".xlsx") || file.originalname.endsWith(".csv")) {
+     cb(null, true);
+   } else {
+     cb("Please upload only csv file.", false);
+   }
+ };
+
 const storage = multer.diskStorage({
    destination: (req, file, cb) => {
       console.log("hello");
@@ -12,6 +20,6 @@ const storage = multer.diskStorage({
    }
 });   
    
-const upload = multer({storage: storage});
+const upload = multer({storage: storage, fileFilter: excelFilter});
 
 module.exports = upload;
