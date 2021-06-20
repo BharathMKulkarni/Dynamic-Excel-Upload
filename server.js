@@ -3,7 +3,7 @@ const exphbs = require('express-handlebars');
 const dotenv = require('dotenv');
 const db = require('./models')
 const employeeRouter = require('./routes/employeeRoute.js');
-
+const viewRouter=require('./routes/viewRoute.js')
 const app = express();
 
 // setting the static folder (public), all css and frontend js go here
@@ -13,7 +13,7 @@ app.use(express.json());
 
 // using the routes created
 app.use("/employee", employeeRouter);
-
+app.use("/view",viewRouter);
 dotenv.config();
 
 // Handlebars Setting
