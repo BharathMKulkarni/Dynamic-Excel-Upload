@@ -29,9 +29,9 @@ const port = 4000;
 db.sequelize.sync().then( req => {
     app.listen(port, () => {
         console.log(`App is running in port ${port}`);
-        createUsers(dummyUsers).then(result => {
-            console.log("dummy users created hopefully!");
-        });
+        // createUsers(dummyUsers).then(result => {
+        //     console.log("dummy users created hopefully!");
+        // });
     });
 });
 
