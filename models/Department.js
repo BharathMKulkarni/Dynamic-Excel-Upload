@@ -1,16 +1,15 @@
-// const { sequelize } = require(".");
 const { Model, DataTypes, Deferrable } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
     
-    class Employee extends Model {}
+    class Department extends Model {}
 
-    Employee.init({
-        eid: {
+    Department.init({
+        deptid: {
             type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4, 
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true
-        }, 
+        },
         userId: {
             type: DataTypes.UUID,
             references: {
@@ -18,33 +17,31 @@ module.exports = (sequelize, DataTypes) => {
                 key: 'user_id'
             },
             allowNull: false
-        }, 
+        },
         name: {
             type: DataTypes.STRING,
-            allowNull: false,
-            primaryKey: true
-        },
-        salary: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-            defaultValue: 1000
-        },
-        age: {
-            type: DataTypes.INTEGER,
             allowNull: false
+        },
+        managerName: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        createdOn: {
+            type: DataTypes.DATEONLY,
+            allowNull: true,
         }
     }, {
         indexes: [
             {
-                name: 'emp_user_name_idx',
+                name: 'dept_user_name_idx',
                 unique: true,
                 fields: ['user_id', 'name']
             }
         ],
         sequelize, 
         underscored: true,
-        modelName: 'employee'
+        modelName: 'department'
     });
 
-    return Employee;
+    return Department;
 }
