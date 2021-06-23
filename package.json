@@ -4,7 +4,9 @@
   "description": "Project to upload data from excel/csv files to database",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server js"
   },
   "repository": {
     "type": "git",
@@ -23,9 +25,12 @@
     "fast-csv": "^4.3.6",
     "multer": "^1.4.2",
     "mysql2": "^2.2.5",
-    "read-excel-file": "^5.1.0",
+    "read-excel-file": "^5.2.1",
     "sequelize": "^6.6.2",
     "sequelize-cli": "^6.2.0",
     "xlsx": "^0.17.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }

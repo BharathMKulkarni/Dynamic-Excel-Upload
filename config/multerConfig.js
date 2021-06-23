@@ -5,7 +5,7 @@ const excelFilter = (req, file, cb) => {
    if (file.originalname.endsWith(".xlsx") || file.originalname.endsWith(".csv")) {
      cb(null, true);
    } else {
-     cb("Please upload only csv file.", false);
+     cb("Please upload either .xlsx or .csv files", false);
    }
  };
 

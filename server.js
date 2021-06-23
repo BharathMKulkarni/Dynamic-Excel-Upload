@@ -1,38 +1,49 @@
+// REQUIRING NODE PACKAGES
 const express = require('express');
 const exphbs = require('express-handlebars');
 const dotenv = require('dotenv');
+
+// REQUIRING MODULES
 const db = require('./models')
 const employeeRouter = require('./routes/employeeRoute.js');
 
-const app = express();
-
-// setting the static folder (public), all css and frontend js go here
-app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/uploads'));
-app.use(express.json());
-
-// using the routes created
-app.use("/employee", employeeRouter);
-
+// LOAD ENVIRONMENT VARIABLES AND SAVE THEM
 dotenv.config();
 
-// Handlebars Setting
+// GLOBAL VARIABLES/CONSTANTS
+const app = express();
+const port = process.env.PORT || 4000;
+
+// SETTING THE STATIC FOLDER (public), ALL THE FRONTEND JS RESIDES HERE
+app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/uploads'));
+
+// EXPRESS MIDDLEWARES
+app.use(express.json());
+
+// USING THE ROUTES CREATED
+app.use("/employee", employeeRouter);
+
+// HANDLEBARS MIDDLEWARE
 app.set("view engine", "hbs");
 app.engine('hbs', exphbs({
     extname: 'hbs',
-    defaultLayout: 'index'
+    defaultLayout: 'main',
+    partialsDir: __dirname + "/views/components"
+
 }));
 
-// Listening to port
-const port = 4000;
-// Sync model changes to database before starting app
-db.sequelize.sync().then( req => {
-    app.listen(port, () => {
-        console.log(`App is running in port ${port}`);
-    });
+// LISTENING TO PORT AND SYNC MODEL CHANGES TO DATABASE BEFORE STARTING APP
+db
+.sequelize
+.sync()
+.then( req => {
+    app.listen( port, () => console.log(`App is running in port ${port}`) );
 });
 
-// Landing Page
+// LANDING PAGE
 app.get('/', (req, res) => {
-    res.send("Hello world");
+    res.render('homePage',{
+        documentTitle:"Dynamic-Excel-Upload/Home"
+    });
 });

@@ -5,6 +5,7 @@
     "database": "sampledb_dev",
     "host": "localhost",
     "dialect": "mysql"
+    
   },
   "test": {
     "username": "root",

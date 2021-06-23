@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false
         }
-    }, {
+    }, 
+    {
         sequelize, 
         modelName: 'employee'
     });
