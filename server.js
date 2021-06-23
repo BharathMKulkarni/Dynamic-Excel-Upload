@@ -2,7 +2,7 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const dotenv = require('dotenv');
 const db = require('./models')
-const employeeRouter = require('./routes/employeeRoute.js');
+const userDataRouter = require('./routes/userDataRoute.js');
 const viewRouter=require('./routes/viewRoute.js')
 const app = express();
 
@@ -12,7 +12,7 @@ app.use(express.static(__dirname + '/uploads'));
 app.use(express.json());
 
 // using the routes created
-app.use("/employee", employeeRouter);
+app.use("/userdata", userDataRouter);
 app.use("/view",viewRouter);
 dotenv.config();
 
@@ -26,7 +26,7 @@ app.engine('hbs', exphbs({
 // Listening to port
 const port = 4000;
 // Sync model changes to database before starting app
-db.sequelize.sync().then( req => {
+db.sequelize.sync({force: true}).then( req => {
     app.listen(port, () => {
         console.log(`App is running in port ${port}`);
         // createUsers(dummyUsers).then(result => {

@@ -2,33 +2,29 @@ const { Model, DataTypes, Deferrable } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
     
-    class User extends Model {}
+    class Uploader extends Model {}
 
-    User.init({
-        userId: {
+    Uploader.init({
+        uploaderId: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true
-        },
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        emailId: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true
         },
         phoneNo: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true
+        },
+        otp: {
+            type: DataTypes.STRING,
+            allowNull: true
         }
     }, {
         sequelize, 
         underscored: true,
-        modelName: 'user'
+        freezeTableName: true,
+        modelName: 'uploader'
     });
 
-    return User;
+    return Uploader;
 }
