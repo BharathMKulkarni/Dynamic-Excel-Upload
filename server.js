@@ -6,11 +6,8 @@ const dotenv = require('dotenv');
 // REQUIRING MODULES
 const db = require('./models')
 const employeeRouter = require('./routes/employeeRoute.js');
+const viewRouter=require('./routes/viewRoute.js');
 
-// LOAD ENVIRONMENT VARIABLES AND SAVE THEM
-dotenv.config();
-
-// GLOBAL VARIABLES/CONSTANTS
 const app = express();
 const port = process.env.PORT || 4000;
 
@@ -23,8 +20,10 @@ app.use(express.json());
 
 // USING THE ROUTES CREATED
 app.use("/employee", employeeRouter);
+app.use("/view",viewRouter);
+dotenv.config();
 
-// HANDLEBARS MIDDLEWARE
+// Handlebars Setting
 app.set("view engine", "hbs");
 app.engine('hbs', exphbs({
     extname: 'hbs',
@@ -47,3 +46,29 @@ app.get('/', (req, res) => {
         documentTitle:"Dynamic-Excel-Upload/Home"
     });
 });
+
+
+// Uncomment the lines below to add dummy users to your local db
+// // dummy users 
+// const dummyUsers = [
+//     {
+//         name: "max",
+//         emailId: "max@gmail.com",
+//         phoneNo: "123456"
+//     },
+//     {
+//         name: "sam",
+//         emailId: "sam@gmail.com",
+//         phoneNo: "123455"
+//     },
+//     {
+//         name: "joe",
+//         emailId: "joe@gmail.com",
+//         phoneNo: "123454"
+//     }
+// ]
+// // helper function to create dummy users 
+// const createUsers = async (users) => {
+//     const User = db['user'];
+//     await User.bulkCreate(users);
+// }

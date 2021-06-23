@@ -1,67 +1,28 @@
 //const readXlsxFile = require('read-excel-file/node');
 const db = require('../models');
 const Employee = require('../models/Employee.js')(db.sequelize, db.Sequelize);
+const User = require('../models/User.js')(db.sequelize, db.Sequelize);
 const path = require('path');
-const fs = require('fs');
-const csv = require('fast-csv');
-const XLSX = require('xlsx');
+const {parseExcel} = require('../lib/parseExcel');
 
 const UploadExcelToDb = async (req, res) => {
     let filePath = path.resolve('uploads/' + req.file.filename);
 
-    // Check if file is xls and convert to csv if true (using xlsx library)
-    if(filePath.endsWith(".xls") || filePath.endsWith(".xlsx")) {
-        let output_file_name = path.resolve('uploads/out.csv');
-        let workbook = XLSX.readFile(filePath);
-        let stream = XLSX.stream.to_csv(workbook.Sheets[workbook.SheetNames[0]]);
-        stream.pipe(fs.createWriteStream(output_file_name));
-        let xlsFilePath = filePath;
-        fs.unlink(xlsFilePath, err => {
-            if(err) {
-                console.log(err);
-            }
-            else {
-                console.log(xlsFilePath + " deleted");
-            }
-        });
-        // changing file path to the converted csv file
-        filePath = output_file_name;
-    }
-
-    // Map of Columns of database to excel file
-    let dbColMapping = req.body;
-    console.log(dbColMapping);
-    let records = [];
+    const userEmail = 'sam@gmail.com';
+    const user = await User.findOne({
+        where: { emailId: userEmail }
+    });
 
     try {
-        fs.createReadStream(filePath).pipe(csv.parse({headers: true, ignoreEmpty: true}))
-        .on("error", (error) => {
-            throw error;
-        })
-        .on("data", (row) => {
-            let entry = {};
-            for(const col in dbColMapping) {
-                entry[col] = row[dbColMapping[col]] || null;
-            }
-            records.push(entry);
-        })
-        .on("end", async () => {
-            let msg = await addRecords(records);
-            console.log(msg);
-            fs.unlink(filePath, err => {
-                if(err) {
-                    console.log(err);
-                }
-                else {
-                    console.log(filePath + " deleted");
-                }
-            });
-            res.status(200).json({message: msg});
+        let records = await parseExcel(filePath, req.body);
+        records.forEach( row => {
+            row.userId = user.userId;
         });
+        const msg = await addRecords(records);
+        res.status(200).json({message: msg});
     }
     catch(error) {
-        console.log("error while reading excel file: " + error);
-        return;
+        res.status(200).json({message: "Error reading the file!"});
     }
 }
 
@@ -69,10 +30,13 @@ const UploadExcelToDb = async (req, res) => {
 // When more tables are added to schema this function can be generalised for all tables
 const addRecords = async (records) => {
     const t = await db.sequelize.transaction();
+    let line;
     try {
+        line = 1;
         for(let entry of records) {
             console.log(entry);
             await Employee.create(entry, { transaction: t });
+            line++;
         }
         // If the execution reaches this line, the transaction has been committed successfully
         // `result` is whatever was returned from the transaction callback
@@ -84,6 +48,7 @@ const addRecords = async (records) => {
         await t.rollback();
         console.log("Transaction rolled back!");
         console.log(error);
+        error.line = line;
         return error;
     }
 }

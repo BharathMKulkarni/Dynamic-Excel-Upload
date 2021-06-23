@@ -1,0 +1,24 @@
+
+<p><h1>Schema</h1></p>
+<ul>
+    
+    {{#each show_tables}}
+
+      <div class="card w-75">
+        <div class="card-body">
+          <h2 class="card-title">{{this.name}}</h2>
+          <p class="card-text">{{#each this.columns}}
+                
+              
+              <li>{{this}}</li>
+              
+                  
+              {{/each}}</p>
+          <a href="#" class="btn btn-primary">View data</a>
+        </div>
+      </div>
+
+        {{!-- <li>{{this.name}}</li> --}}
+        
+    {{/each}}
+</ul>
