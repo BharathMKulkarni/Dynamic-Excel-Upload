@@ -2,22 +2,63 @@ console.log('in public now!!');
 // import readXlsxFile from 'read-excel-file';  
 let columns = [];
 let dataFromExcel = [];
+let inputFileName;
+let dbCols = ["teamID","Names","phoneNo","emailID","Title"];
+let dataToPost = new FormData();
+let mappedElements = {};
+
 const input = document.getElementById('input');
 input.addEventListener('change',()=>{
+    inputFileName = input.files[0];
+})
+
+const params = {
+    method : 'POST',
+    header : {
+        'Content-Type' : 'multipart/form-data'
+    },
+    body : dataToPost
+}
+const handleUpload = () => {
+
+    dataToPost.append("file",inputFileName);
+    Object.entries(mappedElements).forEach(pair => {
+        let [key,value] = pair;
+        dataToPost.append(key,value);
+    })
+
+    fetch('/employee/upload/',params)
+    .then(res => res.json)
+    .then(data => console.log(data))
+    .catch(err => console.log(`ERROR>>> ${err}`))
+    // console.log(dataToPost);
+}
+
+const doneButton = document.getElementById("doneButton");
+doneButton.onclick = () => {
+    console.log("pressed done button!")
     let count = 0;
-    readXlsxFile(input.files[0])
+    readXlsxFile(inputFileName)
     .then((rows)=>{
         // console.log(rows);
         rows.forEach(row => {
             dataFromExcel.push(row);
         });
-        dataFromExcel.forEach(eachRow =>{
 
+        const uploadButton = document.getElementById('uploadButton');
+        uploadButton.style.display = "inline";
+        uploadButton.addEventListener("click",handleUpload,false);
+        
+        dataFromExcel.forEach(eachRow =>{
+            
             if(count===0){
                 // do something
-                columns.push(eachRow);
+                console.log(eachRow)
+                if(columns.length===0){
+                    columns.push(eachRow);
+                }
                 
-                console.log(typeof(eachRow));
+                // console.log(typeof(eachRow));
                 eachRow.forEach(eachElement => {
                     // console.log(eachElement);
                     let eachColumnName = eachElement;
@@ -48,7 +89,37 @@ input.addEventListener('change',()=>{
                 
                 count=count+1;
             }
+            
         })
+        document.querySelectorAll(".dropDownMenus").forEach(menuButton => {
+            menuButton.setAttribute("style","display:inline;");
+        })
+        
+        let dropDownItems = document.querySelectorAll(".dropDownMenuItems");
+        dropDownItems.forEach(individualdropDown => {
+            // console.log(columns)
+            columns[0].forEach(col => {
+                individualdropDown.innerHTML += `<option>${col}</option>`;
+            })
+        })
+        
+        for(let i=0; i<dbCols.length; i++){
+            let selectedElement = document.getElementById(`selectedFor${dbCols[i]}`);
+            if(selectedElement.addEventListener){
+                selectedElement.addEventListener('change',()=>{
+                    mappedElements[dbCols[i]] = columns[0][parseInt(selectedElement.selectedIndex)-1];
+                    console.log(`${dbCols[i]} mapped to ${columns[0][parseInt(selectedElement.selectedIndex)-1]}`);
+                    console.log(mappedElements);
+                },false);
+            } else {
+                selectedElement.attachEvent('onChange',()=>{
+                    mappedElements[dbCols[i]] = columns[0][parseInt(selectedElement.selectedIndex)-1];
+                    console.log(`${dbCols[i]} mapped to ${columns[0][parseInt(selectedElement.selectedIndex)-1]}`);
+                    console.log(mappedElements);
+                },false);
+            }
+        }
     })
-})
+
+}
 

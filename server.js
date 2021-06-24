@@ -37,13 +37,15 @@ db
 .sequelize
 .sync()
 .then( req => {
-    app.listen( port, () => console.log(`App is running in port ${port}`) );
+    app.listen( port, () => console.log(`>>>App is running in port ${port}`) );
 });
 
-// LANDING PAGE
+// HOME PAGE
 app.get('/', (req, res) => {
     res.render('homePage',{
-        documentTitle:"Dynamic-Excel-Upload/Home"
+        documentTitle:"Dynamic-Excel-Upload/Home",
+        cssPage: "homePage",
+        dbCols: ["teamID","Names","phoneNo","emailID","Title"]
     });
 });
 
