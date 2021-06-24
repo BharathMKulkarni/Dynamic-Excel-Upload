@@ -22,7 +22,7 @@ if (config.use_env_variable) {
 //     return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
 //   })
 
-['User.js', 'Employee.js', 'Department.js'] // list of all the model files
+['Uploader.js','UserExcelData.js'] // list of all the model files
   .forEach(file => {
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
     db[model.name] = model;

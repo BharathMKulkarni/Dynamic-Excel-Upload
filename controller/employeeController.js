@@ -1,7 +1,7 @@
 //const readXlsxFile = require('read-excel-file/node');
 const db = require('../models');
 const Employee = require('../models/Employee.js')(db.sequelize, db.Sequelize);
-const User = require('../models/User.js')(db.sequelize, db.Sequelize);
+const User = require('../models/Uploader.js')(db.sequelize, db.Sequelize);
 const path = require('path');
 const {parseExcel} = require('../lib/parseExcel');
 
@@ -9,9 +9,15 @@ const UploadExcelToDb = async (req, res) => {
     let filePath = path.resolve('uploads/' + req.file.filename);
 
     const userEmail = 'sam@gmail.com';
-    const user = await User.findOne({
-        where: { emailId: userEmail }
-    });
+    let user;
+    try {
+        user = await User.findOne({
+            where: { emailId: userEmail }
+        });
+    }
+    catch(error) {
+        console.log("couldn't find user/ db error");
+    }
 
     try {
         let records = await parseExcel(filePath, req.body);
