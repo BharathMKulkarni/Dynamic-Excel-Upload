@@ -3,30 +3,32 @@ const db = require('../models');
 const UserData = require('../models/UserExcelData.js')(db.sequelize, db.Sequelize);
 const Uploader = require('../models/Uploader.js')(db.sequelize, db.Sequelize);
 const path = require('path');
+const {schema} = require('../models/schema/schema');
 const {parseExcel} = require('../lib/parseExcel');
 
 const UploadExcelToDb = async (req, res) => {
     let filePath = path.resolve('uploads/' + req.file.filename);
 
-    const uploaderPhone = '';
+    const uploaderPhone = '123454';
     let uploader;
-    // try {
-    //     uploader = await Uploader.findOne({
-    //         where: { phone: uploaderPhone }
-    //     });
-    //     if(uploader === null) {
-    //         res.status(200).json({message: "Invalid User"});
-    //     }
-    // }
-    // catch(error) {
-    //     console.log("couldn't find user/ db error");
-    // }
+    try {
+        uploader = await Uploader.findOne({
+            where: { phoneNo: uploaderPhone }
+        });
+        if(uploader === null) {
+            res.status(200).json({message: "Invalid User"});
+        }
+    }
+    catch(error) {
+        console.log("couldn't find user/ db error");
+        res.status(500).json({message: error});
+    }
 
     try {
         let records = await parseExcel(filePath, req.body);
         console.log(records);
         records.forEach( row => {
-            row.uploaderId = null;
+            row.uploaderId = uploader.uploaderId;
         });
         const msg = await addRecords(records);
         res.status(200).json({message: msg});
@@ -64,4 +66,39 @@ const addRecords = async (records) => {
     }
 }
 
-module.exports = { UploadExcelToDb };
+const getUserData = async (req, res) => {
+    const uploaderPhone = '123454';
+    let uploader;
+    try {
+        uploader = await Uploader.findOne({
+            where: { phoneNo: uploaderPhone }
+        });
+        if(uploader === null) {
+            res.status(200).json({message: "Invalid User"});
+        }
+    }
+    catch(error) {
+        console.log("couldn't find user/ db error");
+        res.status(500).json({message: error});
+    }
+
+    let userDataList;
+    try {
+        userDataList = await UserData.findAll({
+            raw: true,
+            where: {
+                uploaderId: uploader.uploaderId
+            }
+        });
+    }
+    catch(error) {
+        res.status(500).json({message: error});
+    }
+    console.log(userDataList);
+    res.render('viewSchema',{ 
+        rows: userDataList,
+        columns: schema[0].columns
+    });
+ }
+
+module.exports = { UploadExcelToDb, getUserData };

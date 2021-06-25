@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "users",
-    "password": "lancy",
-    "database": "testdb3",
+    "username": "exceldb_user",
+    "password": "dynamicexcelupload",
+    "database": "testdev_schema",
     "host": "localhost",
     "dialect": "mysql"
     

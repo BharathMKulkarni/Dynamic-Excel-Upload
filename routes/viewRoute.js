@@ -1,14 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const {schema}=require('../models/schema/schema.js')
-const userController=require('../controller/userController');
+const getUserData = require('../controller/userDataController').getUserData;
 
-
-
-router.get("/table",userController.view);
+router.get("/table", getUserData);
 router.get('/', (req, res) =>{
-    res.render('excelpage',{
-        show_tables:schema
+    res.render('viewSchema',{
+        show_tables: schema
     });
 });
-module.exports=router
+module.exports = router

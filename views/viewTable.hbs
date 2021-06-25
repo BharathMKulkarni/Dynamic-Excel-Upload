@@ -1,0 +1,29 @@
+{{>header}}
+<table class="table table-bordered">
+  <thead>
+    <tr line-height="50px">
+      {{#each columns}}
+        <th scope="col">{{this}}</th>
+      {{/each}}
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each rows}}
+      <tr>
+        {{!-- <th scope="row">{{this.id}}</th> --}}
+        <td>{{this.userType}}</td>
+        <td>{{this.phone}}</td>
+        <td>{{this.email}}</td>
+        <td>{{this.userPassword}}</td>
+        <td>{{this.userStatus}}</td>
+        <td>{{this.roleId}}</td>
+        <td>{{this.firstName}}</td>
+        <td>{{this.lastName}}</td>
+        <td>{{this.mobile}}</td>
+        <td>{{this.deptId}}</td>
+        <td>{{this.designationId}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
