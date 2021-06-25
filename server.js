@@ -10,7 +10,7 @@ const userDataRouter = require('./routes/userDataRoute.js');
 const viewRouter=require('./routes/viewRoute.js')
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4002;
 
 // SETTING THE STATIC FOLDER (public), ALL THE FRONTEND JS RESIDES HERE
 app.use(express.static(__dirname + '/public'));
@@ -39,7 +39,7 @@ db
 .sequelize
 .sync()
 .then( req => {
-    app.listen( port, () => console.log(`>>>App is running in port ${port}`) );
+    app.listen( port, () => console.log(`>>>App is running in port http://localhost:${port}`) );
 });
 
 // HOME PAGE
