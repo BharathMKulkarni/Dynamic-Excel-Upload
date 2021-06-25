@@ -8,6 +8,14 @@
   <thead class="table-dark">
 
     <tr>
+      {{#each dbCols as |value key|}}
+        <th class="columns">
+          {{value}}
+        </th>
+      {{/each}}
+    </tr>
+
+    <tr>
 
       {{#each dbCols as |value key|}}
 

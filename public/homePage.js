@@ -20,14 +20,13 @@ const params = {
     body : dataToPost
 }
 const handleUpload = () => {
-
     dataToPost.append("file",inputFileName);
     Object.entries(mappedElements).forEach(pair => {
         let [key,value] = pair;
         dataToPost.append(key,value);
     })
 
-    fetch('/employee/upload/',params)
+    fetch('/userdata/upload/',params)
     .then(res => res.json)
     .then(data => console.log(data))
     .catch(err => console.log(`ERROR>>> ${err}`))

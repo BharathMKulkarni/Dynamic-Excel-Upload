@@ -5,9 +5,9 @@ const dotenv = require('dotenv');
 
 // REQUIRING MODULES
 const db = require('./models')
-
 const userDataRouter = require('./routes/userDataRoute.js');
-const viewRouter=require('./routes/viewRoute.js')
+const viewRouter=require('./routes/viewRoute.js');
+const {schema} = require('./models/schema/schema.js')
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -47,7 +47,7 @@ app.get('/', (req, res) => {
     res.render('homePage',{
         documentTitle:"Dynamic-Excel-Upload/Home",
         cssPage: "homePage",
-        dbCols: ["teamID","Names","phoneNo","emailID","Title"]
+        dbCols: schema[0].columns
     });
 });
 
