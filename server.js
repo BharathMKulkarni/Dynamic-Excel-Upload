@@ -5,14 +5,8 @@ const dotenv = require('dotenv');
 
 // REQUIRING MODULES
 const db = require('./models')
-<<<<<<< HEAD
-const employeeRouter = require('./routes/employeeRoute.js');
-const viewRouter=require('./routes/viewRoute.js');
-
-=======
 const userDataRouter = require('./routes/userDataRoute.js');
 const viewRouter=require('./routes/viewRoute.js')
->>>>>>> 6643f1e78d03616db71c62fb8f65cf6722e36850
 const app = express();
 const port = process.env.PORT || 4000;
 
@@ -23,13 +17,8 @@ app.use(express.static(__dirname + '/uploads'));
 // EXPRESS MIDDLEWARES
 app.use(express.json());
 
-<<<<<<< HEAD
-// USING THE ROUTES CREATED
-app.use("/employee", employeeRouter);
-=======
 // using the routes created
 app.use("/userdata", userDataRouter);
->>>>>>> 6643f1e78d03616db71c62fb8f65cf6722e36850
 app.use("/view",viewRouter);
 dotenv.config();
 
@@ -42,25 +31,12 @@ app.engine('hbs', exphbs({
 
 }));
 
-<<<<<<< HEAD
 // LISTENING TO PORT AND SYNC MODEL CHANGES TO DATABASE BEFORE STARTING APP
 db
 .sequelize
 .sync()
 .then( req => {
     app.listen( port, () => console.log(`>>>App is running in port ${port}`) );
-=======
-// Listening to port
-const port = 4000;
-// Sync model changes to database before starting app
-db.sequelize.sync({force: true}).then( req => {
-    app.listen(port, () => {
-        console.log(`App is running in port ${port}`);
-        // createUsers(dummyUsers).then(result => {
-        //     console.log("dummy users created hopefully!");
-        // });
-    });
->>>>>>> 6643f1e78d03616db71c62fb8f65cf6722e36850
 });
 
 // HOME PAGE
