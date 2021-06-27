@@ -6,7 +6,9 @@ const dotenv = require('dotenv');
 // REQUIRING MODULES
 const db = require('./models')
 const userDataRouter = require('./routes/userDataRoute.js');
-const viewRouter=require('./routes/viewRoute.js')
+const viewRouter=require('./routes/viewRoute.js');
+const {schema} = require('./models/schema/schema.js')
+
 const app = express();
 const port = process.env.PORT || 4000;
 
@@ -17,9 +19,10 @@ app.use(express.static(__dirname + '/uploads'));
 // EXPRESS MIDDLEWARES
 app.use(express.json());
 
-// using the routes created
+// USING THE ROUTES CREATED
 app.use("/userdata", userDataRouter);
 app.use("/view",viewRouter);
+
 dotenv.config();
 
 // Handlebars Setting
@@ -36,7 +39,10 @@ db
 .sequelize
 .sync()
 .then( req => {
-    app.listen( port, () => console.log(`>>>App is running in port ${port}`) );
+    app.listen( port, () => { 
+        console.log(`>>>App is running in port http://localhost:${port}`);
+        //createUploaders(dummyUploaders).then(() => console.log("dummy uploaders created"));
+    });
 });
 
 // HOME PAGE
@@ -44,32 +50,26 @@ app.get('/', (req, res) => {
     res.render('homePage',{
         documentTitle:"Dynamic-Excel-Upload/Home",
         cssPage: "homePage",
-        dbCols: ["teamID","Names","phoneNo","emailID","Title"]
+        dbCols: schema[0].columns
     });
 });
 
 
 // Uncomment the lines below to add dummy users to your local db
-// // dummy users 
-// const dummyUsers = [
-//     {
-//         name: "max",
-//         emailId: "max@gmail.com",
-//         phoneNo: "123456"
-//     },
-//     {
-//         name: "sam",
-//         emailId: "sam@gmail.com",
-//         phoneNo: "123455"
-//     },
-//     {
-//         name: "joe",
-//         emailId: "joe@gmail.com",
-//         phoneNo: "123454"
-//     }
-// ]
-// // helper function to create dummy users 
-// const createUsers = async (users) => {
-//     const User = db['user'];
-//     await User.bulkCreate(users);
-// }
+// dummy users 
+const dummyUploaders = [
+    {
+        phoneNo: "123456"
+    },
+    {
+        phoneNo: "123455"
+    },
+    {
+        phoneNo: "123454"
+    }
+]
+// helper function to create dummy users 
+const createUploaders = async (uploaders) => {
+    const Uploader = db['uploader'];
+    await Uploader.bulkCreate(uploaders);
+}

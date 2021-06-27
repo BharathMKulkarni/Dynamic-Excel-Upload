@@ -2,7 +2,7 @@
   "development": {
     "username": "exceldb_user",
     "password": "dynamicexcelupload",
-    "database": "sampledb_dev",
+    "database": "testdev_schema",
     "host": "localhost",
     "dialect": "mysql"
     
