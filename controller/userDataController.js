@@ -7,34 +7,38 @@ const {schema} = require('../models/schema/schema');
 const {parseExcel} = require('../lib/parseExcel');
 
 const UploadExcelToDb = async (req, res) => {
+    console.log("EXECUTING uploadExcelToDb() from userDataController.js");
+    console.log(`\n\n\nBODY OF THE REQUEST:\n${req.file.filename}`);
     let filePath = path.resolve('uploads/' + req.file.filename);
 
     const uploaderPhone = '123454';
     let uploader;
     try {
+        console.log("TRYING TO CREATE AN UPLOADER OBJECT");
         uploader = await Uploader.findOne({
             where: { phoneNo: uploaderPhone }
         });
         if(uploader === null) {
             res.status(200).json({message: "Invalid User"});
         }
-    }
-    catch(error) {
+    } catch(error) {
         console.log("couldn't find user/ db error");
         res.status(500).json({message: error});
     }
 
     try {
+        console.log("TRYING TO RECEIVE THE RECORDS ARRAY FROM parseExcel()")
         let records = await parseExcel(filePath, req.body);
-        console.log(records);
+        console.log("RECORDS RECEIVED");
         records.forEach( row => {
             row.uploaderId = uploader.uploaderId;
         });
+        console.log("uploaderID ADDED TO EACH RECORD");
         const msg = await addRecords(records);
+        console.log("EXECUTED addRecords() SUCCESSFULLY");
         res.status(200).json({message: msg});
-    }
-    catch(error) {
-        res.status(200).json({message: "Error reading the file!"});
+    } catch(error) {
+        console.log({message: "Error reading the file!"});
     }
 }
 

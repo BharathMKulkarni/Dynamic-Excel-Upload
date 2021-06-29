@@ -3,7 +3,8 @@ const path = require('path');
 
 const excelFilter = (req, file, cb) => {
    if (file.originalname.endsWith(".xlsx") || file.originalname.endsWith(".csv")) {
-     cb(null, true);
+      console.log("FILE UPLOADED WAS EITHER .xlsx or .csv, OKAY!");
+      cb(null, true);
    } else {
      cb("Please upload either .xlsx or .csv files", false);
    }

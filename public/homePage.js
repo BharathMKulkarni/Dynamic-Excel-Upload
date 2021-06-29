@@ -1,5 +1,4 @@
-console.log('in public now!!');
-// import readXlsxFile from 'read-excel-file';  
+console.log('in public (homePage.js) now!!');
 let columns = [];
 let dataFromExcel = [];
 let inputFileName;
@@ -20,6 +19,7 @@ input.addEventListener('change',()=>{
 
 const handleUpload = () => {
     let dataToPost = new FormData();
+    console.log("PRESSED UPLOAD BUTTON!");
     dataToPost.append("file",inputFileName);
     Object.entries(mappedElements).forEach(pair => {
         let [key,value] = pair;
@@ -37,7 +37,7 @@ const handleUpload = () => {
     fetch('/userdata/upload/',params)
     .then(res => res.json())
     .then(data => {
-        console.log(data)
+        console.log(`THE DATA THAT WAS SENT:\n ${data}`);
 
         $('#exampleModalCenter').modal()
     })
@@ -47,7 +47,7 @@ const handleUpload = () => {
 
 const doneButton = document.getElementById("doneButton");
 doneButton.onclick = () => {
-    console.log("pressed done button!")
+    console.log("PRESSED DONE BUTTON!")
     let count = 0;
     readXlsxFile(inputFileName)
     .then((rows)=>{

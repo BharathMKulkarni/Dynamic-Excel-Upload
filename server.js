@@ -25,7 +25,7 @@ app.use("/view",viewRouter);
 
 dotenv.config();
 
-// Handlebars Setting
+// HANDLEBARS SETTINGS
 app.set("view engine", "hbs");
 app.engine('hbs', exphbs({
     extname: 'hbs',
@@ -40,7 +40,7 @@ db
 .sync()
 .then( req => {
     app.listen( port, () => { 
-        console.log(`>>>App is running in port http://localhost:${port}`);
+        console.log(`>>>App is running on port http://localhost:${port}`);
         //createUploaders(dummyUploaders).then(() => console.log("dummy uploaders created"));
     });
 });
@@ -68,6 +68,7 @@ const dummyUploaders = [
         phoneNo: "123454"
     }
 ]
+
 // helper function to create dummy users 
 const createUploaders = async (uploaders) => {
     const Uploader = db['uploader'];
