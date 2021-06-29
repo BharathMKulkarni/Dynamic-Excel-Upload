@@ -1,9 +1,11 @@
-console.log('in public now!!');
-// import readXlsxFile from 'read-excel-file';  
+console.log('in public (homePage.js) now!!');
 let columns = [];
 let dataFromExcel = [];
 let inputFileName;
-let dbCols = ["teamID","Names","phoneNo","emailID","Title"];
+let dbCols = [
+    "userType", "phone", "email", "userPassword", "userStatus", "roleId",
+    "firstName", "lastName", "mobile", "deptId", "designationId"
+];     
 let dataToPost = new FormData();
 let mappedElements = {};
 
@@ -20,6 +22,7 @@ const params = {
     body : dataToPost
 }
 const handleUpload = () => {
+    console.log("PRESSED UPLOAD BUTTON!");
     dataToPost.append("file",inputFileName);
     Object.entries(mappedElements).forEach(pair => {
         let [key,value] = pair;
@@ -28,14 +31,14 @@ const handleUpload = () => {
 
     fetch('/userdata/upload/',params)
     .then(res => res.json)
-    .then(data => console.log(data))
+    .then(data => console.log(`THE DATA THAT WAS SENT:\n ${data}`))
     .catch(err => console.log(`ERROR>>> ${err}`))
     // console.log(dataToPost);
 }
 
 const doneButton = document.getElementById("doneButton");
 doneButton.onclick = () => {
-    console.log("pressed done button!")
+    console.log("PRESSED DONE BUTTON!")
     let count = 0;
     readXlsxFile(inputFileName)
     .then((rows)=>{
