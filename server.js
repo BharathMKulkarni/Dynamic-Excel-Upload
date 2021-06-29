@@ -54,6 +54,10 @@ app.get('/', (req, res) => {
     });
 });
 
+app.get('/getcolumns', (req, res) => {
+    res.status(200).json({data: schema[0].columns});
+});
+
 
 // Uncomment the lines below to add dummy users to your local db
 // dummy users 

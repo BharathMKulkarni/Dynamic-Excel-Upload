@@ -37,7 +37,7 @@ const handleUpload = () => {
     fetch('/userdata/upload/',params)
     .then(res => res.json())
     .then(data => {
-        console.log(`THE DATA THAT WAS SENT:\n ${data}`);
+        console.log(data);
 
         $('#exampleModalCenter').modal()
     })

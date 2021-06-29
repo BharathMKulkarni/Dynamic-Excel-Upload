@@ -38,7 +38,7 @@ const UploadExcelToDb = async (req, res) => {
         console.log("EXECUTED addRecords() SUCCESSFULLY");
         res.status(200).json({message: msg});
     } catch(error) {
-        console.log({message: "Error reading the file!"});
+        res.status(200).json({message: "Error reading the file!"});
     }
 }
 
@@ -110,7 +110,7 @@ const getUserData = async (req, res) => {
         res.status(500).json({message: error});
     }
     console.log(userDataList);
-    res.render('viewSchema',{ 
+    res.render('viewTable',{ 
         rows: userDataList,
         columns: schema[0].columns
     });
