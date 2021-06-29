@@ -3,32 +3,44 @@ console.log('in public now!!');
 let columns = [];
 let dataFromExcel = [];
 let inputFileName;
-let dbCols = ["teamID","Names","phoneNo","emailID","Title"];
-let dataToPost = new FormData();
+let dbCols = [];
 let mappedElements = {};
+
+const cols = document.querySelectorAll(".columns");
+cols.forEach(col => {
+    dbCols.push(col.innerHTML.trim());
+})
+console.log(dbCols)
 
 const input = document.getElementById('input');
 input.addEventListener('change',()=>{
     inputFileName = input.files[0];
 })
 
-const params = {
-    method : 'POST',
-    header : {
-        'Content-Type' : 'multipart/form-data'
-    },
-    body : dataToPost
-}
+
 const handleUpload = () => {
+    let dataToPost = new FormData();
     dataToPost.append("file",inputFileName);
     Object.entries(mappedElements).forEach(pair => {
         let [key,value] = pair;
         dataToPost.append(key,value);
     })
 
+    const params = {
+        method : 'POST',
+        header : {
+            'Content-Type' : 'multipart/form-data'
+        },
+        body : dataToPost
+    }
+
     fetch('/userdata/upload/',params)
-    .then(res => res.json)
-    .then(data => console.log(data))
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+
+        $('#exampleModalCenter').modal()
+    })
     .catch(err => console.log(`ERROR>>> ${err}`))
     // console.log(dataToPost);
 }

@@ -60,9 +60,20 @@ const addRecords = async (records) => {
         // The transaction has already been rolled back automatically by Sequelize!
         await t.rollback();
         console.log("Transaction rolled back!");
-        console.log(error);
-        error.line = line;
-        return error;
+        const uiError = {}
+        switch(error.name) {
+            case 'SequelizeUniqueConstraintError': 
+                uiError.message = "Possible duplicate value has been detected";
+                break;
+            case 'SequelizeValidationError':
+                uiError.message = "Please check the type of data entered";
+                break;
+            default: 
+                uiError.message = "An error occured. Please check the data entered"
+        }
+        console.log(error.name);
+        uiError.line = line;
+        return uiError;
     }
 }
 
