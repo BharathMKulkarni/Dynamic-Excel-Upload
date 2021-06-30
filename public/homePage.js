@@ -16,7 +16,6 @@ input.addEventListener('change',()=>{
     inputFileName = input.files[0];
 })
 
-
 const handleUpload = () => {
     let dataToPost = new FormData();
     console.log("PRESSED UPLOAD BUTTON!");
@@ -38,8 +37,9 @@ const handleUpload = () => {
     .then(res => res.json())
     .then(data => {
         console.log(data);
-
-        $('#exampleModalCenter').modal()
+        $('#exampleModalCenter').modal('show')
+        let modalBody = document.getElementById("upload-status");
+        modalBody.innerHTML = `<p>At line ${data.message.line}: <br> ${data.message.message}`;
     })
     .catch(err => console.log(`ERROR>>> ${err}`))
     // console.log(dataToPost);
