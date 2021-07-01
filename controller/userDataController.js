@@ -20,10 +20,12 @@ const UploadExcelToDb = async (req, res) => {
         });
         if(uploader === null) {
             res.status(200).json({message: "Invalid User"});
+            return;
         }
     } catch(error) {
         console.log("couldn't find user/ db error");
         res.status(500).json({message: error});
+        return;
     }
 
     try {
@@ -37,8 +39,10 @@ const UploadExcelToDb = async (req, res) => {
         const msg = await addRecords(records);
         console.log("EXECUTED addRecords() SUCCESSFULLY");
         res.status(200).json({message: msg});
+        return;
     } catch(error) {
         res.status(200).json({message: "Error reading the file!"});
+        return;
     }
 }
 
@@ -90,11 +94,13 @@ const getUserData = async (req, res) => {
         });
         if(uploader === null) {
             res.status(200).json({message: "Invalid User"});
+            return;
         }
     }
     catch(error) {
         console.log("couldn't find user/ db error");
         res.status(500).json({message: error});
+        return;
     }
 
     let userDataList;
@@ -108,6 +114,7 @@ const getUserData = async (req, res) => {
     }
     catch(error) {
         res.status(500).json({message: error});
+        return;
     }
     console.log(userDataList);
     res.render('viewTable',{ 

@@ -47,7 +47,8 @@ const handleUpload = () => {
 
 const doneButton = document.getElementById("doneButton");
 doneButton.onclick = () => {
-    console.log("PRESSED DONE BUTTON!")
+    console.log("PRESSED DONE BUTTON!");
+    // document.getElementById("doneButton").disabled = true;
     let count = 0;
     readXlsxFile(inputFileName)
     .then((rows)=>{

@@ -18,7 +18,7 @@ exports.view = (req,res)=>
  pool.getConnection((err,connection)=>
 {
     if(err)
-    throw err;
+        throw err;
     console.log('Connected as ID '+connection.threadId);
    // console.log(connection)
 
