@@ -10,11 +10,12 @@ const viewRouter=require('./routes/viewRoute.js');
 const {schema} = require('./models/schema/schema.js')
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4001;
 
 // SETTING THE STATIC FOLDER (public), ALL THE FRONTEND JS RESIDES HERE
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/uploads'));
+app.use('/assets',express.static(__dirname + '/public/assets'))
 
 // EXPRESS MIDDLEWARES
 app.use(express.json());
