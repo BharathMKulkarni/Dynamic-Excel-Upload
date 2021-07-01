@@ -2,10 +2,10 @@
 <script src="https://unpkg.com/read-excel-file@5.x/bundle/read-excel-file.min.js"></script>
 <input class="fileInput" type="file" id="input" /> 
 <button class="btn btn-outline-primary" id="doneButton">Done</button>
-
+<div class="table-responsive">
 <table class="table table-hover">
 
-  <thead class="table-dark">
+  <thead class="table-dark " >
 
     <tr>
       {{#each dbCols as |value key|}}
@@ -68,7 +68,7 @@
   </tbody>
 
 </table>
-
+</div>
 <button class="btn btn-success" id="uploadButton">Upload</button>
 
 <!-- Modal -->
