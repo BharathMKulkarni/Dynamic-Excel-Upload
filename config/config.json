@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "root",
-    "password": "root",
-    "database": "dynamic_excel",
+    "username": "users",
+    "password": "lancy",
+    "database": "testdb44",
     "host": "localhost",
     "dialect": "mysql"
     
