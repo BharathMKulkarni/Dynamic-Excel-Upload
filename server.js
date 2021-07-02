@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars');
 const dotenv = require('dotenv');
 const session = require('express-session');
 var passport = require('passport');
+const cors = require('cors');
 
 // initalize sequelize with session store
 var SequelizeStore = require("connect-session-sequelize")(session.Store);
@@ -15,10 +16,9 @@ const viewRouter=require('./routes/viewRoute');
 const loginRouter = require('./routes/loginRoute');
 const {schema} = require('./models/schema/schema')
 const {isAuth} = require('./controller/authMiddleware')
-const cors = require('cors');
 
 const app = express();
-const port = process.env.PORT || 4001;
+const port = process.env.PORT || 4000;
 
 // SETTING THE STATIC FOLDER (public), ALL THE FRONTEND JS RESIDES HERE
 app.use(express.static(__dirname + '/public'));
