@@ -11,32 +11,34 @@ const UploadExcelToDb = async (req, res) => {
     console.log(`\n\n\nBODY OF THE REQUEST:\n${req.file.filename}`);
     let filePath = path.resolve('uploads/' + req.file.filename);
 
-    const uploaderPhone = '123454';
-    let uploader;
-    try {
-        console.log("TRYING TO CREATE AN UPLOADER OBJECT");
-        uploader = await Uploader.findOne({
-            where: { phoneNo: uploaderPhone }
-        });
-        if(uploader === null) {
-            res.status(200).json({message: "Invalid User"});
-        }
-    } catch(error) {
-        console.log("couldn't find user/ db error");
-        res.status(500).json({message: error});
-    }
+    // const uploaderId = req.user.uploaderId;
+    // let uploader;
+    // try {
+    //     console.log("TRYING TO CREATE AN UPLOADER OBJECT");
+    //     uploader = await Uploader.findOne({
+    //         where: { uploaderId: uploaderId }
+    //     });
+    //     if(uploader === null) {
+    //         res.status(200).json({message: "Invalid User"});
+    //         return;
+    //     }
+    // } catch(error) {
+    //     console.log("couldn't find user/ db error");
+    //     res.status(500).json({message: error});
+    //     return;
+    // }
 
     try {
         console.log("TRYING TO RECEIVE THE RECORDS ARRAY FROM parseExcel()")
         let records = await parseExcel(filePath, req.body);
         console.log("RECORDS RECEIVED");
         records.forEach( row => {
-            row.uploaderId = uploader.uploaderId;
+            row.uploaderId = req.user.uploaderId;
         });
         console.log("uploaderID ADDED TO EACH RECORD");
         const msg = await addRecords(records);
         console.log("EXECUTED addRecords() SUCCESSFULLY");
-        res.status(200).json({message: msg});
+        res.status(200).json(msg);
     } catch(error) {
         res.status(200).json({message: "Error reading the file!"});
     }
@@ -58,7 +60,7 @@ const addRecords = async (records) => {
         // If the execution reaches this line, the transaction has been committed successfully
         // `result` is whatever was returned from the transaction callback
         await t.commit();
-        return "Successfully Uploaded!";
+        return {message: "Successfully Uploaded!"};
     } catch (error) {
         // If the execution reaches this line, an error occurred.
         // The transaction has already been rolled back automatically by Sequelize!
@@ -82,27 +84,27 @@ const addRecords = async (records) => {
 }
 
 const getUserData = async (req, res) => {
-    const uploaderPhone = '123454';
-    let uploader;
-    try {
-        uploader = await Uploader.findOne({
-            where: { phoneNo: uploaderPhone }
-        });
-        if(uploader === null) {
-            res.status(200).json({message: "Invalid User"});
-        }
-    }
-    catch(error) {
-        console.log("couldn't find user/ db error");
-        res.status(500).json({message: error});
-    }
+    // const uploaderPhone = '123454';
+    // let uploader;
+    // try {
+    //     uploader = await Uploader.findOne({
+    //         where: { phoneNo: uploaderPhone }
+    //     });
+    //     if(uploader === null) {
+    //         res.status(200).json({message: "Invalid User"});
+    //     }
+    // }
+    // catch(error) {
+    //     console.log("couldn't find user/ db error");
+    //     res.status(500).json({message: error});
+    // }
 
     let userDataList;
     try {
         userDataList = await UserData.findAll({
             raw: true,
             where: {
-                uploaderId: uploader.uploaderId
+                uploaderId: req.user.uploaderId
             }
         });
     }

@@ -27,9 +27,6 @@ const handleUpload = () => {
 
     const params = {
         method : 'POST',
-        header : {
-            'Content-Type' : 'multipart/form-data'
-        },
         body : dataToPost
     }
 
@@ -39,7 +36,7 @@ const handleUpload = () => {
         console.log(data);
         $('#exampleModalCenter').modal('show')
         let modalBody = document.getElementById("upload-status");
-        modalBody.innerHTML = `<p>At line ${data.message.line}: <br> ${data.message.message}`;
+        modalBody.innerHTML = `<p>At line ${data.line}: <br> ${data.message}`;
     })
     .catch(err => console.log(`ERROR>>> ${err}`))
     // console.log(dataToPost);

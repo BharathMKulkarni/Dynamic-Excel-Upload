@@ -2,12 +2,20 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const dotenv = require('dotenv');
+const session = require('express-session');
+var passport = require('passport');
+
+// initalize sequelize with session store
+var SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 // REQUIRING MODULES
 const db = require('./models')
-const userDataRouter = require('./routes/userDataRoute.js');
-const viewRouter=require('./routes/viewRoute.js');
-const {schema} = require('./models/schema/schema.js')
+const userDataRouter = require('./routes/userDataRoute');
+const viewRouter=require('./routes/viewRoute');
+const loginRouter = require('./routes/loginRoute');
+const {schema} = require('./models/schema/schema')
+const {isAuth} = require('./controller/authMiddleware')
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -17,15 +25,12 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/uploads'));
 
 // EXPRESS MIDDLEWARES
+app.use(cors());
 app.use(express.json());
-
-// USING THE ROUTES CREATED
-app.use("/userdata", userDataRouter);
-app.use("/view",viewRouter);
 
 dotenv.config();
 
-// HANDLEBARS SETTINGS
+// ------------ HANDLEBARS SETTINGS ---------------
 app.set("view engine", "hbs");
 app.engine('hbs', exphbs({
     extname: 'hbs',
@@ -33,6 +38,66 @@ app.engine('hbs', exphbs({
     partialsDir: __dirname + "/views/components"
 
 }));
+
+
+// -------------- SESSION SETUP ----------------
+
+const sessionStore = new SequelizeStore({
+    db: db.sequelize
+});
+
+app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: sessionStore,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 // Equals 1 day (1 day * 24 hr/1 day * 60 min/1 hr * 60 sec/1 min * 1000 ms / 1 sec)
+    }
+}));
+
+// -------------- PASSPORT AUTHENTICATION --------------
+
+// Need to require the entire Passport config module so app.js knows about it
+require('./config/passport');
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
+    console.log(req.session);
+    console.log(req.user);
+    next();
+});
+
+// USING THE ROUTES CREATED
+app.use("/userdata", isAuth, userDataRouter);
+app.use("/view", isAuth, viewRouter);
+app.use("/login", loginRouter);
+app.use("/logout", (req, res) => {
+    req.logout();
+    res.redirect("/login");
+})
+
+// HOME PAGE
+app.get('/home', isAuth, (req, res) => {
+    res.render('homePage',{
+        documentTitle:"Dynamic-Excel-Upload/Home",
+        cssPage: "homePage",
+        dbCols: schema[0].columns
+    });
+});
+
+app.get('/', (req, res) => {
+    res.render('loginPage', {
+        documentTitle:"Login",
+        cssPage: "style"
+    });
+});
+
+app.get('/getcolumns', (req, res) => {
+    res.status(200).json({data: schema[0].columns});
+});
 
 // LISTENING TO PORT AND SYNC MODEL CHANGES TO DATABASE BEFORE STARTING APP
 db
@@ -43,19 +108,6 @@ db
         console.log(`>>>App is running on port http://localhost:${port}`);
         //createUploaders(dummyUploaders).then(() => console.log("dummy uploaders created"));
     });
-});
-
-// HOME PAGE
-app.get('/', (req, res) => {
-    res.render('homePage',{
-        documentTitle:"Dynamic-Excel-Upload/Home",
-        cssPage: "homePage",
-        dbCols: schema[0].columns
-    });
-});
-
-app.get('/getcolumns', (req, res) => {
-    res.status(200).json({data: schema[0].columns});
 });
 
 
