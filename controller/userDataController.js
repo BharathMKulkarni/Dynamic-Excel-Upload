@@ -11,23 +11,6 @@ const UploadExcelToDb = async (req, res) => {
     console.log(`\n\n\nBODY OF THE REQUEST:\n${req.file.filename}`);
     let filePath = path.resolve('uploads/' + req.file.filename);
 
-    // const uploaderId = req.user.uploaderId;
-    // let uploader;
-    // try {
-    //     console.log("TRYING TO CREATE AN UPLOADER OBJECT");
-    //     uploader = await Uploader.findOne({
-    //         where: { uploaderId: uploaderId }
-    //     });
-    //     if(uploader === null) {
-    //         res.status(200).json({message: "Invalid User"});
-    //         return;
-    //     }
-    // } catch(error) {
-    //     console.log("couldn't find user/ db error");
-    //     res.status(500).json({message: error});
-    //     return;
-    // }
-
     try {
         console.log("TRYING TO RECEIVE THE RECORDS ARRAY FROM parseExcel()")
         let records = await parseExcel(filePath, req.body);
@@ -41,6 +24,7 @@ const UploadExcelToDb = async (req, res) => {
         res.status(200).json(msg);
     } catch(error) {
         res.status(200).json({message: "Error reading the file!"});
+        return;
     }
 }
 
@@ -84,20 +68,6 @@ const addRecords = async (records) => {
 }
 
 const getUserData = async (req, res) => {
-    // const uploaderPhone = '123454';
-    // let uploader;
-    // try {
-    //     uploader = await Uploader.findOne({
-    //         where: { phoneNo: uploaderPhone }
-    //     });
-    //     if(uploader === null) {
-    //         res.status(200).json({message: "Invalid User"});
-    //     }
-    // }
-    // catch(error) {
-    //     console.log("couldn't find user/ db error");
-    //     res.status(500).json({message: error});
-    // }
 
     let userDataList;
     try {
@@ -110,6 +80,7 @@ const getUserData = async (req, res) => {
     }
     catch(error) {
         res.status(500).json({message: error});
+        return;
     }
     console.log(userDataList);
     res.render('viewTable',{ 

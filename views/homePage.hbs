@@ -1,74 +1,61 @@
 {{>header}}
 <script src="https://unpkg.com/read-excel-file@5.x/bundle/read-excel-file.min.js"></script>
-<input class="fileInput" type="file" id="input" /> 
+<script type="text/javascript" src="papaparse.min.js"></script>
+<input class="fileInput" type="file" id="input" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Choose a File to Upload" /> 
 <button class="btn btn-outline-primary" id="doneButton">Done</button>
 
-<table class="table table-hover">
+<div class="table-responsive" >
 
-  <thead class="table-dark">
+  <table class="table table-hover">
 
-    <tr>
-      {{#each dbCols as |value key|}}
-        <th class="columns">
-          {{value}}
+    <thead class="table-dark " >
+
+      <tr>
+        {{#each dbCols as |value key|}}
+          <th class="columns">
+            {{value}}
+          </th>
+        {{/each}}
+      </tr>
+
+      <tr>
+
+        {{#each dbCols as |value key|}}
+
+          <th>
+
+            <select class="custom-select btn btn-outline-primary dropDownMenus dropDownMenuItems" id="selectedFor{{value}}" >
+              <option selected>Choose a Column</option>
+
+            </select>
+
+            {{!-- <div class="dropdown dropDownMenus">
+              <button class="btn  btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButtonFor{{value}}" data-bs-toggle="dropdown" aria-expanded="false">
+                choose
+              </button>
+              <ul class="dropdown-menu dropDownMenuItems" aria-labelledby="dropdownMenuButtonFor{{value}}">
+                
+              </ul>
+            </div> --}}
+
         </th>
-      {{/each}}
-    </tr>
 
-    <tr>
+        {{/each}}
 
-      {{#each dbCols as |value key|}}
+      </tr>
 
-        <th>
+    </thead>
 
-          <select class="custom-select btn btn-outline-primary dropDownMenus dropDownMenuItems" id="selectedFor{{value}}" >
-            <option selected  >Choose a Column</option>
+    <tbody id="tableBody" >
 
-          </select>
+      <tr id="tableHead" >
 
-          {{!-- <div class="dropdown dropDownMenus">
-            <button class="btn  btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButtonFor{{value}}" data-bs-toggle="dropdown" aria-expanded="false">
-              choose
-            </button>
-            <ul class="dropdown-menu dropDownMenuItems" aria-labelledby="dropdownMenuButtonFor{{value}}">
-              
-            </ul>
-          </div> --}}
+      </tr>
 
-      </th>
+    </tbody>
 
-      {{/each}}
-
-    </tr>
-
-  </thead>
-
-  <tbody id="tableBody" >
-
-    <tr id="tableHead" >
-
-    </tr>
-
-    {{!-- <tr>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr> --}}
-  </tbody>
-
-</table>
-
+  </table>
+</div>
 <button class="btn btn-success" id="uploadButton">Upload</button>
 
 <!-- Modal -->

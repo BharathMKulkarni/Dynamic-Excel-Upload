@@ -18,11 +18,12 @@ const {isAuth} = require('./controller/authMiddleware')
 const cors = require('cors');
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4001;
 
 // SETTING THE STATIC FOLDER (public), ALL THE FRONTEND JS RESIDES HERE
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/uploads'));
+app.use('/assets',express.static(__dirname + '/public/assets'))
 
 // EXPRESS MIDDLEWARES
 app.use(cors());
@@ -106,27 +107,7 @@ db
 .then( req => {
     app.listen( port, () => { 
         console.log(`>>>App is running on port http://localhost:${port}`);
-        //createUploaders(dummyUploaders).then(() => console.log("dummy uploaders created"));
     });
 });
 
 
-// Uncomment the lines below to add dummy users to your local db
-// dummy users 
-const dummyUploaders = [
-    {
-        phoneNo: "123456"
-    },
-    {
-        phoneNo: "123455"
-    },
-    {
-        phoneNo: "123454"
-    }
-]
-
-// helper function to create dummy users 
-const createUploaders = async (uploaders) => {
-    const Uploader = db['uploader'];
-    await Uploader.bulkCreate(uploaders);
-}
