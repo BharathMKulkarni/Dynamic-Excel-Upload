@@ -1,22 +1,32 @@
 {{>header}}
-<p><h1>Schema</h1></p>
-<ul>
-    
-    {{#each show_tables}}
-
-      <div class="card w-75">
-        <div class="card-body">
-          <h2 class="card-title">{{this.name}}</h2>
-          <p class="card-text">{{#each this.columns}}
-
-            <li>{{this}}</li>
-                  
-              {{/each}}</p>
-          <a href="/view/table" class="btn btn-primary">View data</a>
-        </div>
+{{!-- </ul> --}} 
+<div class="container">
+  <h1>Schema</h1>
+  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="accordion accordion-flush" id="accordionFlushExample">
+        {{#each show_tables}}
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-heading{{this.id}}">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{this.id}}" aria-expanded="false" aria-controls="flush-collapse{{this.id}}">
+        {{this.name}}
+      </button>
+    </h2>
+    <div id="flush-collapse{{this.id}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{this.id}}" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">{{this.description}}
+        <p>{{this.format}}</p>
       </div>
+    </div>
+  </div>
+{{/each}}
+</div>
 
-        {{!-- <li>{{this.name}}</li> --}}
-        
-    {{/each}}
-</ul>
+
+
+</div>
+
+</div>
+ <a href="/view/table" class="btn btn-primary">View data</a>
+</div>
+

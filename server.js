@@ -43,6 +43,7 @@ app.engine('hbs', exphbs({
 
 // -------------- SESSION SETUP ----------------
 
+app.use(session({ secret: 'somevalue' }));
 const sessionStore = new SequelizeStore({
     db: db.sequelize
 });
@@ -85,7 +86,7 @@ app.get('/home', isAuth, (req, res) => {
     res.render('homePage',{
         documentTitle:"Dynamic-Excel-Upload/Home",
         cssPage: "homePage",
-        dbCols: schema[0].columns
+        dbCols: schema
     });
 });
 

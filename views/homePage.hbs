@@ -4,30 +4,30 @@
 <input class="fileInput" type="file" id="input" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Choose a File to Upload" /> 
 <button class="btn btn-outline-primary" id="doneButton">Done</button>
 
-<div class="table-responsive" >
+{{!-- <div class="table-responsive" >
 
   <table class="table table-hover">
 
     <thead class="table-dark " >
 
       <tr>
-        {{#each dbCols as |value key|}}
+        {{#each dbCols}}
           <th class="columns">
-            {{value}}
+            {{this.name}}
           </th>
         {{/each}}
       </tr>
 
       <tr>
 
-        {{#each dbCols as |value key|}}
+        {{#each dbCols}}
 
           <th>
 
-            <select class="custom-select btn btn-outline-primary dropDownMenus dropDownMenuItems" id="selectedFor{{value}}" >
+            <select class="custom-select btn btn-outline-primary dropDownMenus dropDownMenuItems" id="selectedFor{{this.name}}" >
               <option selected>Choose a Column</option>
 
-            </select>
+            </select> --}}
 
             {{!-- <div class="dropdown dropDownMenus">
               <button class="btn  btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButtonFor{{value}}" data-bs-toggle="dropdown" aria-expanded="false">
@@ -38,7 +38,7 @@
               </ul>
             </div> --}}
 
-        </th>
+        {{!-- </th>
 
         {{/each}}
 
@@ -55,8 +55,66 @@
     </tbody>
 
   </table>
+</div> --}}
+<div class="container">
+  
+
+  <div class="row">
+    {{#each dbCols}}
+    <div class="col-md-3">
+       <div class="card">
+       <div class="card-body">
+           {{this.name}}
+       </div>
+       <div class="card-body">
+         <select class="form-select" aria-label="Default select example">
+          
+  <option selected>Open this select menu</option>
+  <option value="1">One</option>
+  <option value="2">Two</option>
+  <option value="3">Three</option>
+</select>
 </div>
+       </div>
+</div>
+{{/each}}
+</div>
+</div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <button class="btn btn-success" id="uploadButton">Upload</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
