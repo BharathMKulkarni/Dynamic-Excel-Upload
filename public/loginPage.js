@@ -46,6 +46,8 @@ submitBtn.onclick = (event) => {
         textInput.pattern = "[0-9]{6}";
         let timer = 120; // 120 seconds time limit
         setInterval( () => {
+            if(timer === 0)
+                window.location.reload();
             document.getElementById("timer").innerHTML = timer;
             timer--;
         }, 1000);
