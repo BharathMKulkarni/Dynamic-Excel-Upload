@@ -48,7 +48,7 @@ submitBtn.onclick = (event) => {
         setInterval( () => {
             if(timer === 0)
                 window.location.reload();
-            document.getElementById("timer").innerHTML = timer;
+            document.getElementById("timer").innerHTML = `Time Remaining: ${timer}`;
             timer--;
         }, 1000);
     })
