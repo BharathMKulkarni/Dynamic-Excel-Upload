@@ -236,6 +236,10 @@ label {
   margin-bottom: 1.2rem;
 }
 
+/* #OtpTimeoutModal {
+  display: none;
+} */
+
 /* Tablets */
 @media (max-width: 800px) {
   .container {
@@ -311,3 +315,4 @@ label {
     width: 100%;
   }
 }
+

@@ -1,7 +1,13 @@
 
-var submitBtn = document.getElementById("submitBtn");
-var phone = '';
-var otp = '';
+const submitBtn = document.getElementById("submitBtn");
+let phone = '';
+let otp = '';
+
+const handleOTPTimeoutModalRetryButton = () => window.location.reload();
+
+
+const OTPTimeoutModalRetryButton = document.getElementById("OTPTimeoutModalRetryButton");
+OTPTimeoutModalRetryButton.addEventListener("click",handleOTPTimeoutModalRetryButton,false);
 
 function verifyOtp() {
     otp = document.getElementById("textField").value;
@@ -23,6 +29,9 @@ function verifyOtp() {
     })
     .catch(err => console.log(err));
 }
+
+
+
 
 submitBtn.onclick = (event) => {
     var textInput = document.getElementById("textField");
@@ -46,11 +55,15 @@ submitBtn.onclick = (event) => {
         textInput.pattern = "[0-9]{6}";
         let timer = 120; // 120 seconds time limit
         setInterval( () => {
-            if(timer === 0)
-                window.location.reload();
-            document.getElementById("timer").innerHTML = timer;
+            if(timer ===-1) {
+                $('#OTPModal').modal('show');
+                return;
+            }
+            document.getElementById("timer").innerHTML = `Time Remaining: ${timer}`;
             timer--;
         }, 1000);
     })
     .catch(err => console.log("Error" + err));
 }
+
+

@@ -92,7 +92,7 @@ app.get('/home', isAuth, (req, res) => {
 
 app.get('/', (req, res) => {
     res.render('loginPage', {
-        documentTitle:"Login",
+        documentTitle:"Dynamic-Excel-Upload/Login",
         cssPage: "style"
     });
 });

@@ -8,6 +8,7 @@ router.get("/table", isAuth, getUserData);
 
 router.get('/', isAuth, (req, res) =>{
     res.render('viewSchema',{
+        documentTitle:"Dynamic-Excel-Upload/ViewSchema",
         show_tables: schema
     });
 });

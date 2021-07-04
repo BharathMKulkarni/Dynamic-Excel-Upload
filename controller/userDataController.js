@@ -84,6 +84,7 @@ const getUserData = async (req, res) => {
     }
     console.log(userDataList);
     res.render('viewTable',{ 
+        documentTitle:"Dynamic-Excel-Upload/ViewUserTable",
         rows: userDataList,
         columns: schema[0].columns
     });
