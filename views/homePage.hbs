@@ -58,63 +58,29 @@
 </div> --}}
 <div class="container">
   
-
   <div class="row">
     {{#each dbCols}}
-    <div class="col-md-3">
-       <div class="card">
-       <div class="card-body">
-           {{this.name}}
-       </div>
-       <div class="card-body">
-         <select class="form-select" aria-label="Default select example">
+      <div class="col-md-3">
+        <div class="card">
+
+          <div class="card-body columns">
+            {{this.name}}
+          </div>
+
+          <div class="card-body">
+            <select class="form-select dropDownMenuItems" id="selectedFor{{this.name}}" aria-label="Default select example">
+              <option selected>Open this select menu</option>
+            </select>
+          </div>
           
-  <option selected>Open this select menu</option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
-</select>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+
 </div>
-       </div>
-</div>
-{{/each}}
-</div>
-</div>
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <button class="btn btn-success" id="uploadButton">Upload</button>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

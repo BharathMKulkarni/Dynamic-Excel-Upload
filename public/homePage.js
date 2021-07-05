@@ -94,34 +94,34 @@ const handleDoneButton = async () => {
         // console.log("inside dataFromExcel.forEach()")
         if(count===0){
             columns = eachRow;
-            console.log(columns);
-            console.log(eachRow);
-            eachRow.forEach(eachElement => {
-                let eachColumnName = eachElement;
-                let tableHeadElement = document.createElement("th");
-                tableHeadElement.setAttribute('scope','col');
-                tableHeadElement.innerHTML = eachColumnName;
-                document.getElementById('tableHead').appendChild(tableHeadElement);
-            })
+            // console.log(columns);
+            // console.log(eachRow);
+            // eachRow.forEach(eachElement => {
+            //     let eachColumnName = eachElement;
+            //     let tableHeadElement = document.createElement("th");
+            //     tableHeadElement.setAttribute('scope','col');
+            //     tableHeadElement.innerHTML = eachColumnName;
+            //     document.getElementById('tableHead').appendChild(tableHeadElement);
+            // })
             count=count+1;
         }
         else if(eachRow!==null && count<6 ){
 
-            let tableRow = document.createElement("tr");
-            tableRow.setAttribute('id',`tableRow${count}`);
-            document.getElementById("tableBody").appendChild(tableRow);
+            // let tableRow = document.createElement("tr");
+            // tableRow.setAttribute('id',`tableRow${count}`);
+            // document.getElementById("tableBody").appendChild(tableRow);
 
-            // let rowHeader = document.createElement("th");
-            // rowHeader.setAttribute('scope','row');
-            // document.getElementById(`tableRow${count}`).appendChild(rowHeader);
+            // // let rowHeader = document.createElement("th");
+            // // rowHeader.setAttribute('scope','row');
+            // // document.getElementById(`tableRow${count}`).appendChild(rowHeader);
 
-            eachRow.forEach(rowElement => {
+            // eachRow.forEach(rowElement => {
 
-                let listElement = document.createElement("td");
-                listElement.innerHTML = rowElement;
-                // listElement.setAttribute('colspan','2')
-                document.getElementById(`tableRow${count}`).appendChild(listElement);
-            })
+            //     let listElement = document.createElement("td");
+            //     listElement.innerHTML = rowElement;
+            //     // listElement.setAttribute('colspan','2')
+            //     document.getElementById(`tableRow${count}`).appendChild(listElement);
+            // })
             
             count=count+1;
         }

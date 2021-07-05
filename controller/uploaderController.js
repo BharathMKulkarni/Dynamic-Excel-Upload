@@ -5,7 +5,7 @@ const Uploader = require('../models/Uploader.js')(db.sequelize, db.Sequelize);
 const getOtp = async (req, res) => {
 
     // GENERATE RANDOM OTP WITH 6 DIGITS
-    const otp = generateOtp(6);
+    const otp = generateOtp();
     const phone = req.body.phone;
     console.log("ENTERING GETOTP!  ", req.body);
 
