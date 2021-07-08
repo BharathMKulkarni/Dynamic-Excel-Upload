@@ -1,8 +1,13 @@
 .container{
 
-
-padding-top: 30px;
+margin-top: 10px;
+padding-top: 20px;
 padding-bottom:60px;
+padding-right: 20px;
+border-width:thin;
+border-style: solid;
+border-color:black;
+
 
 }
 .col-md-3{
@@ -10,4 +15,44 @@ padding-bottom:60px;
 padding-bottom:10px;
 
 
+}
+#divActivites{
+
+
+border-width:thin;
+border-style: solid;
+border-color:#FFFF;
+
+
+}
+.mybtn-right{
+    float:right;
+    text-align: right;
+}
+.mybtn-left{
+    float:left;
+    text-align: left;
+}
+.myicon{
+
+}
+#x {
+    position: relative;
+    float: right;
+   
+	color:black;
+    top: -10px;
+    right: -10px;
+}
+
+.btn1{
+    box-sizing: border-box;
+    color:black;
+    background-color: white;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+.btn2:hover{
+    color:black;
+    background-color: #f44336;
 }
