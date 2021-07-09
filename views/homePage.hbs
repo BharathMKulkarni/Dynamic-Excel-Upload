@@ -56,8 +56,16 @@
 
   </table>
 </div> --}}
-<div class="container">
+<div id="divActivites">
   
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+  <button id = "x" class="btn1 btn2">
+            X
+        </button>
+  </div>
+  </div>
   <div class="row">
     {{#each dbCols}}
       <div class="col-md-3">
@@ -77,10 +85,16 @@
       </div>
     {{/each}}
   </div>
+  
 
+
+<div>
+<button class="btn btn-primary mybtn-left" id="uploadButton1">Preview</button>
+<button class="btn btn-success mybtn-right" id="uploadButton">Upload</button>
+</div>
+</div>
 </div>
 
-<button class="btn btn-success" id="uploadButton">Upload</button>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
