@@ -67,7 +67,6 @@ const handleCsvFiles = () => {
 const handleDoneButton = async () => {
 
     console.log("PRESSED DONE BUTTON!");
-    let count = 0;
     
     if(inputFileName.name.endsWith(".xlsx")==true){
         await readXlsxFile(inputFileName)
@@ -84,49 +83,12 @@ const handleDoneButton = async () => {
         })
         console.log(dataFromExcel);
     }
-   
     
     const uploadButton = document.getElementById('uploadButton');
     uploadButton.style.display = "inline";
     uploadButton.addEventListener("click",handleUpload,false);
-    
-     dataFromExcel.forEach(eachRow => {
-        // console.log("inside dataFromExcel.forEach()")
-        if(count===0){
-            columns = eachRow;
-            // console.log(columns);
-            // console.log(eachRow);
-            // eachRow.forEach(eachElement => {
-            //     let eachColumnName = eachElement;
-            //     let tableHeadElement = document.createElement("th");
-            //     tableHeadElement.setAttribute('scope','col');
-            //     tableHeadElement.innerHTML = eachColumnName;
-            //     document.getElementById('tableHead').appendChild(tableHeadElement);
-            // })
-            count=count+1;
-        }
-        else if(eachRow!==null && count<6 ){
 
-            // let tableRow = document.createElement("tr");
-            // tableRow.setAttribute('id',`tableRow${count}`);
-            // document.getElementById("tableBody").appendChild(tableRow);
-
-            // // let rowHeader = document.createElement("th");
-            // // rowHeader.setAttribute('scope','row');
-            // // document.getElementById(`tableRow${count}`).appendChild(rowHeader);
-
-            // eachRow.forEach(rowElement => {
-
-            //     let listElement = document.createElement("td");
-            //     listElement.innerHTML = rowElement;
-            //     // listElement.setAttribute('colspan','2')
-            //     document.getElementById(`tableRow${count}`).appendChild(listElement);
-            // })
-            
-            count=count+1;
-        }
-        
-    })
+    let columns = dataFromExcel[0];
 
     document.querySelectorAll(".dropDownMenus").forEach(menuButton => {
         menuButton.setAttribute("style","display:inline;");
@@ -156,9 +118,58 @@ const handleDoneButton = async () => {
             },false);
         }
     }
-
-
 }
 
 const doneButton = document.getElementById("doneButton");
 doneButton.onclick = handleDoneButton; 
+
+const showPreview = () => {
+    window.location.href = "#previewSection";
+    document.getElementById("previewSection").style.visibility = "visible";
+    document.getElementById("previewSection").style.height = "100vh";
+    document.getElementById("previewUploadBtn").addEventListener("click", handleUpload, false);
+
+    if(dataFromExcel == null)
+        return;
+    var columns = dataFromExcel[0];
+    var colPositions = {}; 
+    // Mapping excel column names to index number
+    for(let colIndex = 0; colIndex < columns.length; colIndex++) {
+        colPositions[columns[colIndex]] = colIndex;
+    }
+    // Creating table rows dynamically and adding table data in the chosen mapping order
+    for(let rowIndex = 0; rowIndex < Math.min(8, dataFromExcel.length); rowIndex++) {
+        let row = dataFromExcel[rowIndex];
+        let tableRow = document.createElement("tr");
+        tableRow.setAttribute('id',`tableRow${rowIndex}`);
+        document.getElementById("tableBody").appendChild(tableRow);
+        console.log("outside foreach: ", row);
+
+        // Ignoring empty rows
+        let isEmpty = true;
+        for(let i = 0; i < row.length; i++) {
+            if(row[i]) 
+                isEmpty = false;
+        }
+        if(isEmpty)
+            continue;
+
+        dbCols.forEach( colName => {
+            console.log("Inside: ", row);
+            let rowElement = row[colPositions[mappedElements[colName]]];
+            let tableCell = document.createElement( (rowIndex === 0? "th" : "td") );
+            tableCell.innerHTML = rowElement;
+            tableRow.appendChild(tableCell);
+        })
+    }
+}
+
+const mapColumnsByOrder = () => {
+
+    for(let i = 0; i < dbCols.length; i++) {
+        let dropDown = document.getElementById(`selectedFor${dbCols[i]}`);
+        dropDown.selectedIndex = i+1;
+        const event = new Event('change');
+        dropDown.dispatchEvent(event);
+    }
+}
