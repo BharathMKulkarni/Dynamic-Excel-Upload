@@ -56,43 +56,42 @@
 
   </table>
 </div> --}}
-<div id="divActivites">
-  
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-  <button id = "x" class="btn1 btn2">
-            X
-        </button>
-  </div>
-  </div>
-  <div class="row">
-    {{#each dbCols}}
-      <div class="col-md-3">
-        <div class="card">
-
-          <div class="card-body columns">
-            {{this.name}}
-          </div>
-
-          <div class="card-body">
-            <select class="form-select dropDownMenus dropDownMenuItems" id="selectedFor{{this.name}}" aria-label="Default select example">
-              <option selected>Choose Column</option>
-            </select>
-          </div>
-          
-        </div>
+<div class="container"> 
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <i id="cancelBtn" class="fas fa-window-close"></i>
       </div>
-    {{/each}}
+    </div>
+    <div class="row">
+      {{#each dbCols}}
+        <div class="col-md-3">
+          <div class="card">
+
+            <div class="card-body columns">
+              {{this.name}}
+            </div>
+
+            <div class="card-body">
+              <select class="form-select dropDownMenus dropDownMenuItems" id="selectedFor{{this.name}}" aria-label="Default select example">
+                <option selected>Choose Column</option>
+              </select>
+            </div>
+            
+          </div>
+        </div>
+      {{/each}}
+    </div>
+    
+    <div>
+    <button class="btn btn-primary mybtn-left" id="uploadButton1">
+      <i class="far fa-eye"></i> Preview
+    </button>
+    <button class="btn btn-success mybtn-right" id="uploadButton">
+      <i class="fas fa-cloud-upload-alt"></i> Upload
+    </button>
+    </div>
   </div>
-  
-
-
-<div>
-<button class="btn btn-primary mybtn-left" id="uploadButton1">Preview</button>
-<button class="btn btn-success mybtn-right" id="uploadButton">Upload</button>
-</div>
-</div>
 </div>
 
 
@@ -112,13 +111,15 @@
 
 <div id="previewSection" class="container center-align" style="visibility: hidden;">
   <h3>PREVIEW</h3>
-  <div class="table-responsive add-shadow" style="width: 80%">
-    <table class="preview-table add-shadow table table-striped table-borderless">
+  <div class="table-responsive" style="width: 80%">
+    <table class="preview-table table table-striped table-borderless">
       <tbody id="tableBody" class="noborder">
       </tbody>
     </table>
   </div>
-  <button class="btn btn-success btn-style add-shadow" id="previewUploadBtn">Upload</button>
+  <button class="btn btn-success btn-style add-shadow" id="previewUploadBtn">
+    <i class="fas fa-cloud-upload-alt"></i> Upload
+  </button>
 </div>
 
 <script src='homePage.js'></script>
