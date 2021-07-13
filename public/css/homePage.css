@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+
 .html{
 
     height:fit-content;
     width: fit-content;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 .dropDownMenus {
     display: none;
@@ -15,74 +17,193 @@
 }
 
 
+/* ----------------------------------------------FIRST VIEW OF HOMEPAGE------------------------------------------------------------------*/
 
-.filePickerDiv{
-    position: absolute;
-    margin: auto;
-    height: 50%;
-    width: 50%;
-    left: 25%;
-    top: 30%;
-    padding: 100px;
-    border: 2px solid #00EAD3;
-    border-radius: 1%;
-    color: #F9DFDC;
-    text-align: center;
+#view1{
+    display: flex;
+    flex-direction: column;
+    /* position: relative; */
+    /* height: 100vh; */
+    justify-content: space-around;
     align-items: center;
-    font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
-
+    flex-wrap: wrap;
 
 }
+
+
+.headTitle {
+    margin-top: 30px;
+    background-image: linear-gradient(45deg, #f3ec78, #af4261);
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.filePickerDiv{
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    width: 550px;
+    margin-top: 30px;
+    border: 1px solid #00EAD3;
+    justify-content: space-around;
+    align-items: center; 
+    flex-wrap: wrap;
+    box-shadow: 0px 0.5px 0px 0px #00EAD3;
+
+}
+
+.filePickerDivContent {
+    justify-content: center;
+    align-items: center; 
+}
+
+#choseFileInstruction {
+    font-style: italic;
+    color: #656464;
+    opacity: 0.5;
+}
+
+.cloudUploadIcon {
+    color: #656464;
+    font-size: 75px;
+    opacity: 0.5;
+}
+
+.inputComponent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#nameOfFileChosen {
+    font-style: italic;
+    color: #656464;
+}
+
+.inputButton :hover{
+    cursor: pointer;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+label[for="input"] {
+    display: flex;
+    color: #00ead3;
+    height: 40px;
+    width: 150px;
+    border: 1px solid #00ead3;
+    background-color: #00ead3;
+    color: #121212;
+    text-align: center;
+    align-items: center;
+    justify-content: space-evenly;
+    font-weight: 550;
+}
+
 
 .doneButton {
     border: 1px solid #00EAD3;
     background-color: #121212;
-    color: #F9DFDC;
+    margin-top: 20px;
+    color: #ffff;
     height: 40px;
     width: 100px;
     padding: 1px;
-    /* text-align: right; */
+    border-radius: 1.5%;
 
 }
 
 .doneButton:hover{
+    
     background-color: #00EAD3;
     color: #121212;
 }
 
-.maal {
+/* -------------------------------------------------------------------------------------------------------------------------- */
+
+
+body {
     background-color: #121212;
+    color: #f9dfdc;
 }
 
-.filePickerDivContent {
-    position: relative;
-    margin: auto;
-}
-.mainTitle {
-    background-image: linear-gradient(45deg, #f3ec78, #af4261);
-    -webkit-background-clip: text;
-     -webkit-text-fill-color: transparent; 
-  -moz-background-clip: text;
-  -moz-text-fill-color: transparent;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: bold;
-
+.color-accent {
+    color: #00ead3;
 }
 
-.headTitle {
-    position: absolute;
-    margin: auto;
-    top: 100px;
-    left: 50%;
-    transform: translate(-50%);
-    background-image: linear-gradient(45deg, #f3ec78, #af4261);
-    background-repeat: repeat;
-    -webkit-background-clip: text;
-     -webkit-text-fill-color: transparent; 
-  -moz-background-clip: text;
-  -moz-text-fill-color: transparent;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 100vh;
+.color-text {
+    color: #f9dfdc; 
+}
 
+.preview-table {
+    width: 100%;
+    border-spacing: 5px;
+    border-collapse: separate;
+    white-space: nowrap;
+    color: #121212;
+}
+
+.preview-table th {
+    padding-left: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 15px;
+    font-weight: bold;
+    color: #9c9c9c;
+    box-shadow: 0px 0px 1rem #000;
+}
+
+#tableRow0 {
+    background-color: #212529;
+    color: #f9dfdc;
+}
+
+.preview-table td {
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 15px;
+    min-width: 150px;
+    font-weight: bold;
+    color: #656464;
+    box-shadow: 0px 0px 1rem #000;
+}
+
+.preview-table tr {
+    /* border-bottom: 1px solid #c0c0c0; */
+}
+
+.noborder {
+    border: 0;
+}
+
+.center-align {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.btn-style {
+    background-color: #00ead3;
+    color: #121212;
+}
+
+.bg-primary {
+    background-color: #00ead3;
+}
+
+.add-shadow {
+    box-shadow: 0px 0px 1rem #000;
+}
+
+.columns {
+    
 }

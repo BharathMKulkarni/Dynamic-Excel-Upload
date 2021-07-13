@@ -1,3 +1,17 @@
-.title {
-    display: none;
+.NavigationBar{
+    display: block;
+    position: sticky;
+    flex-grow: 1;
+}
+
+.mainTitle {
+    background-image: linear-gradient(45deg, #f3ec78, #af4261);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: large;
+
 }
