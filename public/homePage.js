@@ -200,7 +200,7 @@ const showPreview = () => {
         colPositions[columns[colIndex]] = colIndex;
     }
     // Creating table rows dynamically and adding table data in the chosen mapping order
-    for(let rowIndex = 0; rowIndex < Math.min(8, dataFromExcel.length); rowIndex++) {
+    for(let rowIndex = 0; rowIndex < Math.min(6, dataFromExcel.length); rowIndex++) {
         let row = dataFromExcel[rowIndex];
         let tableRow = document.createElement("tr");
         tableRow.setAttribute('id',`tableRow${rowIndex}`);
@@ -219,7 +219,7 @@ const showPreview = () => {
         dbCols.forEach( colName => {
             console.log("Inside: ", row);
             if(mappedElements.hasOwnProperty(colName)) {
-                let rowElement = row[colPositions[mappedElements[colName]]];
+                let rowElement = row[colPositions[mappedElements[colName]]] || "";
                 let tableCell = document.createElement( (rowIndex === 0? "th" : "td") );
                 tableCell.innerHTML = rowElement;
                 tableRow.appendChild(tableCell);
