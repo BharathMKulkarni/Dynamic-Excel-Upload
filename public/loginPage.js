@@ -28,24 +28,18 @@ function verifyOtp() {
             window.location.href = '/home';
         }
     })
-    // .then(homePage => {
-    //     console.log(homePage)
-    //     document.open();
-    //     document.write(homePage);
-    //     document.close();
-    //     document.location.href = '/home'
-    // })
     .catch(err => console.log(err));
 }
 
 submitBtn.onclick = (event) => {
     var textInput = document.getElementById("textField");
     phone = textInput.value;
+    const phoneNoRegEx = new RegExp('[789][0-9]{9}', 'g');
     console.log("Inside on click", phone)
     var elem = document.getElementById("err")
-    if(phone<1)
+    if(!phoneNoRegEx.test(phone))
     {
-        document.getElementById("err").innerHTML = `Number field is empty`; 
+        document.getElementById("err").innerHTML = `Enter a valid phone number`; 
         elem.style.display='block'
     }
     else{
