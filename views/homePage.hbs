@@ -62,7 +62,7 @@
 <div id="view1">
 
   <div class="headTitle">
-    <h1 class="headTitle-title">Map and Upload Excel Files on the Go</h1>
+    <h1 id="headTitle-title">Map and Upload Excel Files on the Go</h1>
   </div>
   
   <div class="filePickerDiv">
@@ -73,6 +73,7 @@
     </span>
     <input 
     type="file" 
+    name="file"
     class="fileInput" 
     id="input" 
     data-bs-toggle="tooltip" 
@@ -90,7 +91,7 @@
         <span class="material-icons">
          addchart
         </span>
-          Choose File
+          <span id="chooseFileText">Choose File</span> 
         </label>
       </div>
     </div>
