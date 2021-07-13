@@ -8,20 +8,16 @@
 }
 
 body {
-    background-color: #121212;
-    color: #f9dfdc;
+    background-color: #000000;
+    color: #ffffff;
 }
+
 .dropDownMenus {
     display: none;
 }
 
 #uploadButton {
     display: none;
-}
-
-body {
-    background-color: #000000;
-    color: #ffffff;
 }
 
 .nav1 
@@ -44,8 +40,6 @@ body {
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
-    background-color: #121212;
-
 }
 
 
@@ -132,7 +126,7 @@ label[for="input"] {
     width: 150px;
     border: 1px solid #00ead3;
     background-color: #00ead3;
-    color: #121212;
+    color: #000000;
     text-align: center;
     align-items: center;
     justify-content: space-evenly;
@@ -142,7 +136,7 @@ label[for="input"] {
 
 .doneButton {
     border: 1px solid #00EAD3;
-    background-color: #121212;
+    background-color: #000000;
     margin-top: 20px;
     color: #ffff;
     height: 40px;
@@ -155,7 +149,7 @@ label[for="input"] {
 .doneButton:hover{
     
     background-color: #00EAD3;
-    color: #121212;
+    color: #000000;
 }
 
 /* -------------------------------------------------------------------------------------------------------------------------- */
@@ -233,6 +227,14 @@ label[for="input"] {
 
 .add-shadow {
     box-shadow: 0px 0px 1rem #000;
+}
+
+.add-border {
+    border: 5px solid #444444;
+}
+
+.column-card {
+    background-color: #444444;
 }
 
 .columns {
