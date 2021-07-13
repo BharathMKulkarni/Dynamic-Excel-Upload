@@ -36,7 +36,7 @@ body {
 
 /* ----------------------------------------------FIRST VIEW OF HOMEPAGE------------------------------------------------------------------*/
 
-#view1{
+#chooseFileView{
     display: flex;
     flex-direction: column;
     /* position: relative; */
