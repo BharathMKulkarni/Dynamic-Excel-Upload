@@ -10,6 +10,12 @@ border-color:black;
 
 
 } */
+
+body {
+    background-color: #121212;
+    color: #f9dfdc;
+}
+
 .col-md-3{
     padding-bottom:10px;
 }

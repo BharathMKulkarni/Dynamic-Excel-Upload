@@ -7,12 +7,24 @@
     width: fit-content;
 }
 
-
+body {
+    background-color: #121212;
+    color: #f9dfdc;
+}
 .dropDownMenus {
     display: none;
 }
 
 #uploadButton {
+    display: none;
+}
+
+.nav1 
+{
+    display: none;
+}
+.nav2
+{
     display: none;
 }
 
@@ -27,6 +39,7 @@
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
+    background-color: #121212;
 
 }
 
@@ -129,10 +142,7 @@ label[for="input"] {
 /* -------------------------------------------------------------------------------------------------------------------------- */
 
 
-body {
-    background-color: #121212;
-    color: #f9dfdc;
-}
+
 
 .color-accent {
     color: #00ead3;
