@@ -28,6 +28,8 @@ app.use('/assets',express.static(__dirname + '/public/assets'))
 // EXPRESS MIDDLEWARES
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({extended:false}))
+
 
 dotenv.config();
 
@@ -78,7 +80,7 @@ app.use("/view", isAuth, viewRouter);
 app.use("/login", loginRouter);
 app.use("/logout", (req, res) => {
     req.logout();
-    res.redirect("/login");
+    res.redirect("/");
 })
 
 // HOME PAGE
@@ -93,7 +95,7 @@ app.get('/home', isAuth, (req, res) => {
 app.get('/', (req, res) => {
     res.render('loginPage', {
         documentTitle:"Dynamic-Excel-Upload/Login",
-        cssPage: "style"
+        cssPage: "style3"
     });
 });
 
@@ -104,7 +106,7 @@ app.get('/getcolumns', (req, res) => {
 // LISTENING TO PORT AND SYNC MODEL CHANGES TO DATABASE BEFORE STARTING APP
 db
 .sequelize
-.sync()
+.sync({force:true})
 .then( req => {
     app.listen( port, () => { 
         console.log(`>>>App is running on port http://localhost:${port}`);

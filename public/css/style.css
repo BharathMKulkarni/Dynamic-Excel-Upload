@@ -318,4 +318,15 @@ label {
     width: 100%;
   }
 }
+.nav1
+{
+  display: block;
+}
+.nav2
+{
+  display: block;
+  margin-right: 10px;
+  height: 40px;
+}
+
 
