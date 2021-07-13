@@ -13,9 +13,66 @@ console.log(dbCols);
 const input = document.getElementById('input');
 input.addEventListener('change',()=>{
     inputFileName = input.files[0];
+    // console.log(inputFileName);
     const nameOfFileChosen = document.getElementById("nameOfFileChosen");
     nameOfFileChosen.innerText = inputFileName.name;
+    document.getElementById("choseFileInstruction").innerHTML = `<u>${inputFileName.name}</u> is selected`;
+    document.getElementById("chooseFileText").innerText = "Chose Again";
 })
+
+const dropZoneElement = document.getElementById('input').closest(".filePickerDiv");
+["dragover","dragleave","dragend","drop"].forEach(dragType => {
+    dropZoneElement.addEventListener(dragType, e => {
+        if(dragType==="dragover"){
+            e.preventDefault();
+            dropZoneElement.classList.add("filePickerDiv-over");
+            document.getElementById("choseFileInstruction").innerText = "drop here!";
+        }
+        if(dragType=="dragleave" || dragType==="dragend") {
+            dropZoneElement.classList.remove("filePickerDiv-over");
+            document.getElementById("choseFileInstruction").innerText = "choose a file or drag and drop a file here";
+        }
+        if(dragType=="drop"){
+            e.preventDefault();
+            inputFileName = e.dataTransfer.files[0];
+            const nameOfFileChosen = document.getElementById("nameOfFileChosen");
+            nameOfFileChosen.innerText = inputFileName.name;
+            document.getElementById("choseFileInstruction").innerHTML = `<u>${inputFileName.name}</u> is selected`;
+            document.getElementById("chooseFileText").innerText = "Chose Again";
+            
+        }
+    })
+})
+
+/* TEXT ANIMATION -----------------------------------------------------
+
+const headTitle = document.getElementById("headTitle-title");
+const headTitleText = headTitle.textContent;
+const splitText = headTitleText.split("");
+headTitle.textContent = "";
+for (let i = 0; i < splitText.length; i++) {
+    headTitle.innerHTML += "<span>"+splitText[i]+"</span>";
+    
+}
+
+let char = 0;
+let timer = setInterval(onTick,500);
+function onTick(){
+    const span = text.querySelectorAll("span")[char];
+    span.classList.add('fade');
+    char++;
+    if(char===splitText.length){
+        complete();
+        return;
+    }
+}
+
+function complete(){
+    clearInterval(timer);
+    timer=null;
+}
+
+----------------------------------------------------------*/
 
 
 // HANDLING UPLOAD BUTTON CLICK:
