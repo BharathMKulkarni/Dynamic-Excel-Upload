@@ -1,8 +1,8 @@
 {{>header}}
 <script src="https://unpkg.com/read-excel-file@5.x/bundle/read-excel-file.min.js"></script>
 <script type="text/javascript" src="papaparse.min.js"></script>
-<input class="fileInput" type="file" id="input" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Choose a File to Upload"/> 
-<button class="btn btn-outline-primary" id="doneButton">Done</button>
+
+
 
 {{!-- <div class="table-responsive" >
 
@@ -27,18 +27,18 @@
             <select class="custom-select btn btn-outline-primary dropDownMenus dropDownMenuItems" id="selectedFor{{this.name}}" >
               <option selected>Choose a Column</option>
 
-            </select> --}}
+            </select>
 
-            {{!-- <div class="dropdown dropDownMenus">
+            <div class="dropdown dropDownMenus">
               <button class="btn  btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButtonFor{{value}}" data-bs-toggle="dropdown" aria-expanded="false">
                 choose
               </button>
               <ul class="dropdown-menu dropDownMenuItems" aria-labelledby="dropdownMenuButtonFor{{value}}">
                 
               </ul>
-            </div> --}}
+            </div>
 
-        {{!-- </th>
+        </th>
 
         {{/each}}
 
@@ -56,7 +56,55 @@
 
   </table>
 </div> --}}
-<div class="container"> 
+
+
+
+<div id="view1">
+
+  <div class="headTitle">
+    <h1 class="headTitle-title">Map and Upload Excel Files on the Go</h1>
+  </div>
+  
+  <div class="filePickerDiv">
+
+    <h4 id="choseFileInstruction">choose a file or drag and drop a file here</h4>
+    <span class="material-icons cloudUploadIcon">
+    cloud_upload
+    </span>
+    <input 
+    type="file" 
+    class="fileInput" 
+    id="input" 
+    data-bs-toggle="tooltip" 
+    data-bs-placement="bottom" 
+    title="Choose a File to Upload"
+    accept=".xlsx,.csv,.xls"
+    placeholder="chose a .xlsx or .csv file"
+    required
+    />
+    <div class="inputComponent">
+
+      <p id="nameOfFileChosen">no file chosen</p>
+      <div class="inputButton">
+        <label for="input">
+        <span class="material-icons">
+         addchart
+        </span>
+          Choose File
+        </label>
+      </div>
+    </div>
+
+  </div>
+
+  <button class="doneButton" id="doneButton">
+    Done
+  </button>
+
+</div>
+
+
+{{!-- <div class="container"> 
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -107,10 +155,10 @@
       </div>
     </div>
   </div>
-</div>
+</div> 
 
 <div id="previewSection" class="container center-align" style="visibility: hidden;">
-  <h3>PREVIEW</h3>
+  <h2>Preview</h2>
   <div class="table-responsive" style="width: 80%">
     <table class="preview-table table table-striped table-borderless">
       <tbody id="tableBody" class="noborder">
@@ -120,6 +168,6 @@
   <button class="btn btn-success btn-style add-shadow" id="previewUploadBtn">
     <i class="fas fa-cloud-upload-alt" style="padding: 5px;"></i> Upload
   </button>
-</div>
+</div> --}}
 
 <script src='homePage.js'></script>

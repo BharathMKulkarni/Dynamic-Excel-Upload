@@ -5,6 +5,7 @@ const Uploader = require('../models/Uploader.js')(db.sequelize, db.Sequelize);
 const path = require('path');
 const {schema} = require('../models/schema/schema');
 const {parseExcel} = require('../lib/parseExcel');
+const {Op}=require('sequelize');
 
 const UploadExcelToDb = async (req, res) => {
     console.log("EXECUTING uploadExcelToDb() from userDataController.js");
@@ -86,8 +87,60 @@ const getUserData = async (req, res) => {
     res.render('viewTable',{ 
         documentTitle:"Dynamic-Excel-Upload/ViewUserTable",
         rows: userDataList,
-        columns: schema[0].columns
+        columns: schema
     });
  }
 
-module.exports = { UploadExcelToDb, getUserData };
+ const DeleteUserData = async (req, res) => {
+
+
+    try{
+        await UserData.destroy({
+            where: {
+              id: req.params['id']
+            }
+          });
+    }
+    catch(error)
+    {
+        console.log("sorry ji");
+        return
+    }
+    res.redirect('/view/table');
+ }
+
+ const FindUser = async (req, res) => {
+     var item=req.body.search;
+     console.log(item);
+
+    let userDataList;
+    try {
+        userDataList = await UserData.findAll({
+            raw:true,
+            where: {
+               [Op.or]:{
+                   firstName:item,
+                   lastName:item,
+                   userType:item
+
+
+               }
+                
+            }
+        });
+    }
+    catch(error) {
+        console.log("illa");
+        res.status(500).json({message: error});
+        return;
+    }
+    console.log(userDataList);
+    console.log("hello",schema.name)
+    res.render('viewTable',{ 
+        documentTitle:"Dynamic-Excel-Upload/ViewUserTable",
+        rows: userDataList,
+        columns: schema
+    });
+ }
+
+module.exports = { UploadExcelToDb, getUserData,DeleteUserData,FindUser};

@@ -1,9 +1,16 @@
-/* .html{
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+
+.html{
 
     height:fit-content;
     width: fit-content;
-} */
+}
 
+body {
+    background-color: #121212;
+    color: #f9dfdc;
+}
 .dropDownMenus {
     display: none;
 }
@@ -17,6 +24,131 @@ body {
     color: #ffffff;
 }
 
+.nav1 
+{
+    display: none;
+}
+.nav2
+{
+    display: none;
+}
+
+
+/* ----------------------------------------------FIRST VIEW OF HOMEPAGE------------------------------------------------------------------*/
+
+#view1{
+    display: flex;
+    flex-direction: column;
+    /* position: relative; */
+    /* height: 100vh; */
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: #121212;
+
+}
+
+
+.headTitle {
+    margin-top: 30px;
+    background-image: linear-gradient(45deg, #f3ec78, #af4261);
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.filePickerDiv{
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    width: 550px;
+    margin-top: 30px;
+    border: 1px solid #00EAD3;
+    justify-content: space-around;
+    align-items: center; 
+    flex-wrap: wrap;
+    box-shadow: 0px 0.5px 0px 0px #00EAD3;
+
+}
+
+.filePickerDivContent {
+    justify-content: center;
+    align-items: center; 
+}
+
+#choseFileInstruction {
+    font-style: italic;
+    color: #656464;
+    opacity: 0.5;
+}
+
+.cloudUploadIcon {
+    color: #656464;
+    font-size: 75px;
+    opacity: 0.5;
+}
+
+.inputComponent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#nameOfFileChosen {
+    font-style: italic;
+    color: #656464;
+}
+
+.inputButton :hover{
+    cursor: pointer;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+label[for="input"] {
+    display: flex;
+    color: #00ead3;
+    height: 40px;
+    width: 150px;
+    border: 1px solid #00ead3;
+    background-color: #00ead3;
+    color: #121212;
+    text-align: center;
+    align-items: center;
+    justify-content: space-evenly;
+    font-weight: 550;
+}
+
+
+.doneButton {
+    border: 1px solid #00EAD3;
+    background-color: #121212;
+    margin-top: 20px;
+    color: #ffff;
+    height: 40px;
+    width: 100px;
+    padding: 1px;
+    border-radius: 1.5%;
+
+}
+
+.doneButton:hover{
+    
+    background-color: #00EAD3;
+    color: #121212;
+}
+
+/* -------------------------------------------------------------------------------------------------------------------------- */
+
+
+
+
 .color-accent {
     color: #00ead3;
 }
@@ -29,7 +161,6 @@ body {
     width: 100%;
     border-spacing: 5px;
     border-collapse: separate;
-    /* background-color: #fff; */
     white-space: nowrap;
     color: #121212;
 }

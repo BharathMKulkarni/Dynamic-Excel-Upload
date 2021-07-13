@@ -9,13 +9,18 @@
 
 * {
   box-sizing: border-box;
+  font-family: 'Lato', sans-serif;
+  margin: 0;
+  color: #e4f1ff;
+  background: #121212;
 }
 
 body {
   font-family: 'Lato', sans-serif;
   margin: 0;
   color: #e4f1ff;
-  background: #f4f4f4;
+  background: #121212;
+  position: relative;
 }
 
 ul {
@@ -48,9 +53,7 @@ a:hover {
   border: 1px solid black;
   margin-top: 10px;
 }
-.maal{
-  background-image: url('/assets/download.jpg');
-    background-size: cover;
+.maal{  
     background-repeat:no-repeat;
 }
 
@@ -315,4 +318,15 @@ label {
     width: 100%;
   }
 }
+.nav1
+{
+  display: block;
+}
+.nav2
+{
+  display: block;
+  margin-right: 10px;
+  height: 40px;
+}
+
 

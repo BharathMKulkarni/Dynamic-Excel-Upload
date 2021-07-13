@@ -1,6 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+{{!-- <style src="header.css"></style> --}}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark NavigationBar">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/home">Dynamic Excel Upload</a>
+    <a class="navbar-brand mainTitle" href="/home">Dynamic Excel Upload</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -27,6 +28,10 @@
           <a class="nav-link" href="#" id="historyButton" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View History of Past Uploads">History</a>
         </li>
       </ul>
+      <form class="d-flex" method="POST" action="/view/table" novalidate>
+          <input class="form-control me-2 nav1" type="search" placeholder="Search" name="search" aria-label="Search">
+          <button class="btn btn-outline-success nav2" type="submit" aria-disabled="true">Search</button>
+        </form>
       <form class="d-flex" method="GET" action="/logout">
         <button class="btn btn-sm btn-outline-danger" type="submit">Logout</button>
       </form>

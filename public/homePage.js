@@ -13,6 +13,8 @@ console.log(dbCols);
 const input = document.getElementById('input');
 input.addEventListener('change',()=>{
     inputFileName = input.files[0];
+    const nameOfFileChosen = document.getElementById("nameOfFileChosen");
+    nameOfFileChosen.innerText = inputFileName.name;
 })
 
 
