@@ -128,6 +128,8 @@ const handleCsvFiles = () => {
 // HANDLE DONE BUTTON CLICK:
 const handleDoneButton = async () => {
 
+    document.getElementById("chooseFileView").style.display = "none";
+    document.getElementById("mapColumnView").style.display = "block";
     console.log("PRESSED DONE BUTTON!");
     
     if(inputFileName.name.endsWith(".xlsx")==true){
@@ -227,6 +229,9 @@ const showPreview = () => {
         })
     }
 }
+
+const previewBtn = document.getElementById("previewButton");
+previewBtn.onclick = showPreview; 
 
 const mapColumnsByOrder = () => {
 

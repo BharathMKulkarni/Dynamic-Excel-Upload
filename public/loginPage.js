@@ -19,28 +19,27 @@ function verifyOtp() {
         },
         body: JSON.stringify({phone, otp})
     })
-    .then(res => res.text())
-    .then(homePage => {
-        console.log(homePage)
-        document.open();
-        document.write(homePage);
-        document.close();
-        document.location.href = '/home'
+    .then(res => {
+        if(res.status === 403) {
+            document.getElementById("OTPModalTitle").innerText = "Invalid Credentials!";
+            $('#OTPModal').modal('show');
+        }
+        else if(res.status == 200) {
+            window.location.href = '/home';
+        }
     })
     .catch(err => console.log(err));
 }
 
-
-
-
 submitBtn.onclick = (event) => {
     var textInput = document.getElementById("textField");
     phone = textInput.value;
+    const phoneNoRegEx = new RegExp('[789][0-9]{9}', 'g');
     console.log("Inside on click", phone)
     var elem = document.getElementById("err")
-    if(phone<1)
+    if(!phoneNoRegEx.test(phone))
     {
-        document.getElementById("err").innerHTML = `Number field is empty`; 
+        document.getElementById("err").innerHTML = `Enter a valid phone number`; 
         elem.style.display='block'
     }
     else{
