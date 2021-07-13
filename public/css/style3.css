@@ -1,0 +1,327 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+*,
+*:after,
+*:before {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:active,
+:hover,
+:focus {
+  outline: 0 !important;
+  outline-offset: 0;
+}
+
+a,
+a:hover {
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--primary-color) !important;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+
+/*===== Variable Define =====*/
+:root {
+  --primary-color: #A82C48;
+  --secondry-color: #43121d;
+  --third-color: #f98169;
+  --white-color: #fff;
+  --text-color: #555;
+  --text-gray: #999;
+  --black-color: #000;
+  --primary-font: 'Roboto', sans-serif;
+  --secondry-font: 'Quicksand', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--primary-font);
+  font-size: 100%;
+  font-weight: 400;
+}
+
+/*
+=========================================
+    Custom Scrollbar
+=========================================
+*/ 
+
+::-webkit-scrollbar {
+  width: 0.625rem;
+} 
+::-webkit-scrollbar-track {
+  background: var(--white-color); 
+} 
+::-webkit-scrollbar-thumb {
+  background:var(--primary-color); 
+} 
+
+/*
+==========================================
+   Custom CSS Design
+==========================================
+*/
+body
+{
+    background-color:#121212;
+}
+h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+  color: #00ead3;
+}
+
+
+
+
+p {
+  font-size: 20px;
+  color: var(--text-color);
+  font-weight: 300;
+  line-height: 1.75rem;
+  letter-spacing: 1px;
+  color:#f9dfdc;
+}
+.newslatter .h12{
+    width:380px;
+    max-width: 100%;
+    position: relative;
+    margin-top: 20px;
+    padding-left: 50px;
+}
+
+
+
+
+/*
+==========================================
+   Header Design
+==========================================
+*/
+.navigation-wrap{
+  position:fixed;
+  width:100%;
+  left:0;
+  z-index:1000;
+  -webkit-transition:all 0.3s ease-out;
+  transition:all 0.3s ease-out;
+} 
+.navigation-wrap .nav-item{
+  padding:0 0.625rem;
+  transition:all 200ms linear;
+}
+.navigation-wrap .navbar-brand{
+    font-size:40px;
+    color:#f9dfdc;
+  }
+.navbar-toggler:focus{
+  outline:unset;
+  border:unset;
+  box-shadow: none;
+}
+.nav-link{
+  font-size:0.9375rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color:#00ead3;
+  letter-spacing: 1px;
+}
+
+
+/* Change navbar styling on scroll */
+
+.navigation-wrap.scroll-on{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  background:var(--white-color);
+  box-shadow: 0 0.125rem 1.75rem 0 rgb(0,0,0,0.09);
+  transition:all .15s ease-in-out 0s;
+}
+ 
+
+
+/*
+==========================================
+   top-banner Design
+==========================================
+*/
+#timer
+{
+  color:red;
+}
+.err-msg
+{
+  text-align: center;
+    margin-top: 10px;
+    color:red;
+}
+.top-banner{
+  width:100%;
+  padding-top: 180px;
+  padding-bottom: 40px;
+}
+#timer
+{
+    text-align: center;
+    margin-top: 10px;
+}
+.a2
+{
+    margin-top: 10px;
+}
+.a2
+{
+    border: 2px solid #121212;
+    outline: none;
+    border-radius: 30px;
+    background-color: #00ead3;
+    color:black;
+    height: 50px;
+}
+.a1
+{
+    background-color: #121212; 
+    border: 2px solid #00ead3;
+    outline: none;
+    border-radius: 30px;
+    height: 50px;
+}
+.how-img
+{
+  margin-right: 0px;
+}
+@media (max-width: 991px) {
+
+    /*custom classes  */
+    .text-content{
+        width:100%;
+    }
+     
+
+    /* navbar brand */
+    .navigation-wrap .navbar-brand img{
+        height:3.8125rem;
+    }
+    .navigation-wrap{
+        text-align: center;
+        background-color:#121212;
+    }
+    .navigation-wrap .navbar-brand{
+        font-size:20px;
+        color:#00ead3;
+      }
+    .navigation-wrap .nav-link{
+        line-height: 1.875rem;
+    }
+    /* Banner Design */
+    .top-banner{
+        padding:9.375rem 0 9.375rem;
+    }
+
+    input 
+    {
+        width:300px;
+    }
+    .a1 .a2{
+        width:100px;
+     }
+    
+     
+}
+
+@media (max-width: 767px) {
+
+    /* custom css */
+    h1{
+        font-size:2.8rem;
+    }
+    h2{
+        font-size:2rem;
+        line-height: 2.0625rem;
+    }
+     
+
+    /* top banner */
+    .top-banner{
+        padding:10.875rem 0 9.375rem;
+    }
+    
+
+    /* story section */
+    .story-section{
+        height:auto;
+        padding:3rem 0;
+    }
+    .a1 .a2{
+       width:100px;
+    }
+    
+
+   
+    
+     
+}
+
+@media (max-width:330px) {
+
+    /* carousel design */
+    .testimonial-section .carousel-item{
+        padding:13rem 3.125rem;
+    }
+     
+}
+@media (max-width: 500px) {
+    h1{
+        font-size:2.8rem;
+    }
+    h2{
+        font-size:2rem;
+        line-height: 2.0625rem;
+    }
+     
+
+    /* top banner */
+    .top-banner{
+        padding:10.875rem 0 9.375rem;
+    }
+    
+
+    /* story section */
+    .story-section{
+        height:auto;
+        padding:3rem 0;
+    }
+    .a1 .a2{
+        display: flex;
+        flex-direction: column;
+    }
+    
+    
+    }
+  
+        
+      
+ 
+
+ 
+
+
+

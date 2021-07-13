@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="/css/s2.css">
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="/home">Dynamic Excel Upload</a>
@@ -27,6 +29,10 @@
           <a class="nav-link" href="#" id="historyButton" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View History of Past Uploads">History</a>
         </li>
       </ul>
+      <form class="d-flex" method="POST" action="/view/table" novalidate>
+          <input class="form-control me-2 nav1" type="search" placeholder="Search" name="search" aria-label="Search">
+          <button class="btn btn-outline-light nav2" type="submit" aria-disabled="true">Search</button>
+        </form>
       <form class="d-flex" method="GET" action="/logout">
         <button class="btn btn-sm btn-outline-danger" type="submit">Logout</button>
       </form>
