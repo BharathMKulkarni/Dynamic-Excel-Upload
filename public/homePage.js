@@ -189,6 +189,7 @@ const showPreview = () => {
     document.getElementById("previewSection").style.visibility = "visible";
     document.getElementById("previewSection").style.height = "100vh";
     document.getElementById("previewUploadBtn").addEventListener("click", handleUpload, false);
+    document.getElementById("tableBody").innerHTML = "";
 
     if(dataFromExcel == null)
         return;
