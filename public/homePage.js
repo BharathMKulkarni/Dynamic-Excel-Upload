@@ -187,7 +187,7 @@ doneButton.onclick = handleDoneButton;
 const showPreview = () => {
     window.location.href = "#previewSection";
     document.getElementById("previewSection").style.visibility = "visible";
-    document.getElementById("previewSection").style.height = "80vh";
+    document.getElementById("previewSection").style.height = "90vh";
     document.getElementById("previewUploadBtn").addEventListener("click", handleUpload, false);
     document.getElementById("tableBody").innerHTML = "";
 

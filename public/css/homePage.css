@@ -10,6 +10,7 @@
 body {
     background-color: #000000;
     color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .dropDownMenus {
@@ -154,7 +155,13 @@ label[for="input"] {
 
 /* -------------------------------------------------------------------------------------------------------------------------- */
 
+/*********************************** PREVIEW SECTION **************************************/
 
+#previewSection {
+    border: 5px solid #444444;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
 
 .preview-table {
     width: 100%;
@@ -170,13 +177,12 @@ label[for="input"] {
     padding-bottom: 20px;
     padding-right: 15px;
     font-weight: bold;
-    color: #9c9c9c;
+    color: #bbbbbb;
     box-shadow: 0px 0px 1rem #000;
 }
 
 #tableRow0 {
     background-color: #212529;
-    color: #f9dfdc;
 }
 
 .preview-table td {
@@ -186,12 +192,12 @@ label[for="input"] {
     padding-right: 15px;
     min-width: 150px;
     font-weight: bold;
-    color: #656464;
+    color: #ffffff;
     box-shadow: 0px 0px 1rem #000;
 }
 
-.preview-table tr {
-    /* border-bottom: 1px solid #c0c0c0; */
+.add-border {
+    border: 5px solid #444444;
 }
 
 .noborder {
@@ -221,7 +227,7 @@ label[for="input"] {
 }
 
 
-/********** MAP COLUMN DIV **************/
+/*********************************** MAP COLUMN DIV **************************************/
 
 .column-card {
     background-color: #444444;
@@ -257,4 +263,10 @@ label[for="input"] {
 
 .columns {
     
+}
+
+/*********************************** MODAL STYLING **************************************/
+
+#uploadStatusModalContent {
+    background-color: #2b2a2a;
 }
