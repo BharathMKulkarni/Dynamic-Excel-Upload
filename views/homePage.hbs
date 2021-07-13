@@ -105,16 +105,17 @@
 </div>
 
 <div id="mapColumnView" style="display: none;">
-  <div class="container" style="padding: 50px">
+  <div id="mapColumnDiv" class="container add-border" style="padding: 50px">
     <div class="row">
       <div class="col-md-12">
         <i id="cancelBtn" class="fas fa-window-close"></i>
+        <i id="autoMapBtn" class="fas fa-magic"></i>
       </div>
     </div>
     <div class="row">
       {{#each dbCols}}
         <div class="col-md-3">
-          <div class="card">
+          <div class="card column-card">
 
             <div class="card-body columns">
               {{this.name}}

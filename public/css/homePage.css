@@ -156,15 +156,6 @@ label[for="input"] {
 
 
 
-
-.color-accent {
-    color: #00ead3;
-}
-
-.color-text {
-    color: #f9dfdc; 
-}
-
 .preview-table {
     width: 100%;
     border-spacing: 5px;
@@ -229,12 +220,39 @@ label[for="input"] {
     box-shadow: 0px 0px 1rem #000;
 }
 
-.add-border {
-    border: 5px solid #444444;
-}
+
+/********** MAP COLUMN DIV **************/
 
 .column-card {
     background-color: #444444;
+}
+
+#mapColumnDiv {
+    border: 5px solid #444444;
+    margin-top: 25px;
+}
+
+#cancelBtn{
+    position: relative;
+    float: right;
+    top: -10px;
+    right: -10px;
+    font-size: 25px;
+}
+#cancelBtn:hover {
+    color: rgb(143, 43, 43);
+}
+
+#autoMapBtn {
+    position: relative;
+    float: left;
+    top: -10px;
+    left: -10px;
+    font-size: 25px;
+}
+
+#autoMapBtn:hover {
+    color: rgb(172, 185, 49);
 }
 
 .columns {

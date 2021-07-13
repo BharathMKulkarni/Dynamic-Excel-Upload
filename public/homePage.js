@@ -240,3 +240,11 @@ const mapColumnsByOrder = () => {
         dropDown.dispatchEvent(event);
     }
 }
+
+const autoMapBtn = document.getElementById("autoMapBtn");
+autoMapBtn.onclick = mapColumnsByOrder;
+
+const cancelFileBtn = document.getElementById("cancelBtn");
+cancelFileBtn.onclick = () => {
+    window.location.reload();
+}
