@@ -19,19 +19,24 @@ function verifyOtp() {
         },
         body: JSON.stringify({phone, otp})
     })
-    .then(res => res.text())
-    .then(homePage => {
-        console.log(homePage)
-        document.open();
-        document.write(homePage);
-        document.close();
-        document.location.href = '/home'
+    .then(res => {
+        if(res.status === 403) {
+            document.getElementById("OTPModalTitle").innerText = "Invalid Credentials!";
+            $('#OTPModal').modal('show');
+        }
+        else if(res.status == 200) {
+            window.location.href = '/home';
+        }
     })
+    // .then(homePage => {
+    //     console.log(homePage)
+    //     document.open();
+    //     document.write(homePage);
+    //     document.close();
+    //     document.location.href = '/home'
+    // })
     .catch(err => console.log(err));
 }
-
-
-
 
 submitBtn.onclick = (event) => {
     var textInput = document.getElementById("textField");

@@ -13,8 +13,8 @@
 }
 
 body {
-    background-color: #121212;
-    color: #f9dfdc;
+    background-color: #000000;
+    color: #ffffff;
 }
 
 .color-accent {
@@ -78,6 +78,8 @@ body {
 .btn-style {
     background-color: #00ead3;
     color: #121212;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .bg-primary {
