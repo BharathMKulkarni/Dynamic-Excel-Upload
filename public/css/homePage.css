@@ -96,7 +96,7 @@ span.fade {
 
 .cloudUploadIcon {
     color: #656464;
-    font-size: 75px;
+    font-size: 110px;
     opacity: 0.5;
 }
 
@@ -138,7 +138,7 @@ label[for="input"] {
 .doneButton {
     border: 1px solid #00EAD3;
     background-color: #121212;
-    margin-top: 20px;
+    margin-top: 25px;
     color: #ffff;
     height: 40px;
     width: 100px;

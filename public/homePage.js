@@ -20,6 +20,7 @@ input.addEventListener('change',()=>{
     document.getElementById("chooseFileText").innerText = "Chose Again";
 })
 
+// -----------------------------------------DRAG AND DROP-------------------------------------------------------------------
 const dropZoneElement = document.getElementById('input').closest(".filePickerDiv");
 ["dragover","dragleave","dragend","drop"].forEach(dragType => {
     dropZoneElement.addEventListener(dragType, e => {
@@ -44,35 +45,37 @@ const dropZoneElement = document.getElementById('input').closest(".filePickerDiv
     })
 })
 
-/* TEXT ANIMATION -----------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------------
 
-const headTitle = document.getElementById("headTitle-title");
-const headTitleText = headTitle.textContent;
-const splitText = headTitleText.split("");
-headTitle.textContent = "";
-for (let i = 0; i < splitText.length; i++) {
-    headTitle.innerHTML += "<span>"+splitText[i]+"</span>";
+//  TEXT ANIMATION -----------------------------------------------------
+
+// const headTitle = document.querySelector(".headTitle-title");
+// const headTitleText = headTitle.textContent;
+// const splitText = headTitleText.split("");
+// headTitle.textContent = "";
+// for (let i = 0; i < splitText.length; i++) {
+//     headTitle.innerHTML += "<span>"+splitText[i]+"</span>";
     
-}
+// }
 
-let char = 0;
-let timer = setInterval(onTick,500);
-function onTick(){
-    const span = text.querySelectorAll("span")[char];
-    span.classList.add('fade');
-    char++;
-    if(char===splitText.length){
-        complete();
-        return;
-    }
-}
+// let char = 0;
+// let timer = setInterval(onTick,500);
+// function onTick(){
+//     const span = headTitle.querySelectorAll("span")[char];
+//     span.classList.add('fade');
+//     char++;
+//     if(char===splitText.length){
+//         complete();
+//         return;
+//     }
+// }
 
-function complete(){
-    clearInterval(timer);
-    timer=null;
-}
+// function complete(){
+//     clearInterval(timer);
+//     timer=null;
+// }
 
-----------------------------------------------------------*/
+// ----------------------------------------------------------
 
 
 // HANDLING UPLOAD BUTTON CLICK:
