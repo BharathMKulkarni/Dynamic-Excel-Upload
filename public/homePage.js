@@ -95,8 +95,8 @@ const handleUpload = () => {
     .then(res => res.json())
     .then(data => {
         console.log(data);
-        $('#exampleModalCenter').modal('show')
-        let modalBody = document.getElementById("upload-status");
+        $('#uploadStatusModal').modal('show')
+        let modalBody = document.getElementById("uploadStatusModalBody");
         if(!data.line)
             modalBody.innerHTML = `<p class="alert alert-success" role="alert">${data.message}</p>`
         else 
@@ -187,7 +187,7 @@ doneButton.onclick = handleDoneButton;
 const showPreview = () => {
     window.location.href = "#previewSection";
     document.getElementById("previewSection").style.visibility = "visible";
-    document.getElementById("previewSection").style.height = "100vh";
+    document.getElementById("previewSection").style.height = "80vh";
     document.getElementById("previewUploadBtn").addEventListener("click", handleUpload, false);
     document.getElementById("tableBody").innerHTML = "";
 
