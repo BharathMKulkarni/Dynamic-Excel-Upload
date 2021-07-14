@@ -10,7 +10,7 @@ border-color:black;
 
 
 } */
-
+@import url('https://fonts.googleapis.com/css2?family=Uchen&display=swap');
 .col-md-3{
     padding-bottom:10px;
 }
@@ -32,3 +32,52 @@ border-color:black;
 }
 
 
+body{
+    background-color: black;
+   
+}
+.accordion-body{
+    background-color: #444444;
+    color:white;
+    border-radius: 6px;
+}
+.accordion-button{
+background:hsl(310, 3%, 57%);
+font-family: 'Uchen', serif;
+font-weight: bold;
+
+}
+.accordion-button:not(.collapsed){
+    color:black;
+    background-color:hsl(310, 3%, 57%);
+    box-shadow: none;
+}
+
+
+
+.headTitle {
+    margin-top: 30px;
+    background-image: linear-gradient(359deg, #f3ec78, #af4261);
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    font-family: 'Montserrat', sans-serif;
+}
+.btn-view{
+   
+    border: 1px solid #00EAD3;
+    color:white;
+   
+}
+.btn-view:hover{
+    
+    background-color: #00EAD3;
+    color: #000000;
+}
+
+.viewbtn{
+    padding-top: 5px;
+    padding-bottom: 30px;
+}
