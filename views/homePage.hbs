@@ -105,12 +105,12 @@
 </div>
 
 <div id="mapColumnView" style="display: none;">
-  <h2 class="headTitle container">Map your excel columns to the table</h2>
+  <h2 class="headTitle-title container mapTableHeading">Map your excel columns to the table</h2>
   <div id="mapColumnDiv" class="container add-border" style="padding: 50px">
     <div class="row">
       <div class="col-md-12">
-        <i id="cancelBtn" class="fas fa-window-close"></i>
-        <i id="autoMapBtn" class="fas fa-magic"></i>
+        <i id="cancelBtn" class="fas fa-window-close" data-bs-toggle="tooltip" data-bs-placement="left" title="discard and choose new file"></i>
+        <i id="autoMapBtn" class="fas fa-magic" data-bs-toggle="tooltip" data-bs-placement="right" title="Automap Columns"></i>
       </div>
     </div>
     <div class="row">
@@ -144,8 +144,8 @@
   </div>
 
   <div id="previewSection" class="container center-align" style="visibility: hidden;">
-    <h2 class="headTitle">Preview</h2>
-    <div class="table-responsive add-border" style="width: 100%; max-height: 55vh;">
+    <h2 class="headTitle-title previewHeading">Preview</h2>
+    <div class="table-responsive add-border" style="width: 80%; max-height: 55vh;">
       <table class="preview-table table table-striped table-borderless">
         <tbody id="tableBody" class="noborder">
         </tbody>
