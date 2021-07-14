@@ -8,20 +8,17 @@
 }
 
 body {
-    background-color: #121212;
-    color: #f9dfdc;
+    background-color: #000000;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
 }
+
 .dropDownMenus {
     display: none;
 }
 
 #uploadButton {
     display: none;
-}
-
-body {
-    background-color: #000000;
-    color: #ffffff;
 }
 
 .nav1 
@@ -44,8 +41,6 @@ body {
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
-    background-color: #121212;
-
 }
 
 
@@ -132,7 +127,7 @@ label[for="input"] {
     width: 150px;
     border: 1px solid #00ead3;
     background-color: #00ead3;
-    color: #121212;
+    color: #000000;
     text-align: center;
     align-items: center;
     justify-content: space-evenly;
@@ -142,8 +137,8 @@ label[for="input"] {
 
 .doneButton {
     border: 1px solid #00EAD3;
-    background-color: #121212;
-    margin-top: 25px;
+    background-color: #000000;
+    margin-top: 20px;
     color: #ffff;
     height: 40px;
     width: 100px;
@@ -155,20 +150,17 @@ label[for="input"] {
 .doneButton:hover{
     
     background-color: #00EAD3;
-    color: #121212;
+    color: #000000;
 }
 
 /* -------------------------------------------------------------------------------------------------------------------------- */
 
+/*********************************** PREVIEW SECTION **************************************/
 
-
-
-.color-accent {
-    color: #00ead3;
-}
-
-.color-text {
-    color: #f9dfdc; 
+#previewSection {
+    border: 5px solid #444444;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
 }
 
 .preview-table {
@@ -185,13 +177,12 @@ label[for="input"] {
     padding-bottom: 20px;
     padding-right: 15px;
     font-weight: bold;
-    color: #9c9c9c;
+    color: #bbbbbb;
     box-shadow: 0px 0px 1rem #000;
 }
 
 #tableRow0 {
     background-color: #212529;
-    color: #f9dfdc;
 }
 
 .preview-table td {
@@ -201,12 +192,12 @@ label[for="input"] {
     padding-right: 15px;
     min-width: 150px;
     font-weight: bold;
-    color: #656464;
+    color: #ffffff;
     box-shadow: 0px 0px 1rem #000;
 }
 
-.preview-table tr {
-    /* border-bottom: 1px solid #c0c0c0; */
+.add-border {
+    border: 5px solid #444444;
 }
 
 .noborder {
@@ -235,6 +226,47 @@ label[for="input"] {
     box-shadow: 0px 0px 1rem #000;
 }
 
+
+/*********************************** MAP COLUMN DIV **************************************/
+
+.column-card {
+    background-color: #444444;
+}
+
+#mapColumnDiv {
+    border: 5px solid #444444;
+    margin-top: 25px;
+}
+
+#cancelBtn{
+    position: relative;
+    float: right;
+    top: -10px;
+    right: -10px;
+    font-size: 25px;
+}
+#cancelBtn:hover {
+    color: rgb(143, 43, 43);
+}
+
+#autoMapBtn {
+    position: relative;
+    float: left;
+    top: -10px;
+    left: -10px;
+    font-size: 25px;
+}
+
+#autoMapBtn:hover {
+    color: rgb(172, 185, 49);
+}
+
 .columns {
     
+}
+
+/*********************************** MODAL STYLING **************************************/
+
+#uploadStatusModalContent {
+    background-color: #2b2a2a;
 }

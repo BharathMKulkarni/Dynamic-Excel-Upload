@@ -120,8 +120,8 @@ const handleUpload = () => {
     .then(res => res.json())
     .then(data => {
         console.log(data);
-        $('#exampleModalCenter').modal('show')
-        let modalBody = document.getElementById("upload-status");
+        $('#uploadStatusModal').modal('show')
+        let modalBody = document.getElementById("uploadStatusModalBody");
         if(!data.line)
             modalBody.innerHTML = `<p class="alert alert-success" role="alert">${data.message}</p>`
         else 
@@ -217,8 +217,9 @@ doneButton.onclick = handleDoneButton;
 const showPreview = () => {
     window.location.href = "#previewSection";
     document.getElementById("previewSection").style.visibility = "visible";
-    document.getElementById("previewSection").style.height = "100vh";
+    document.getElementById("previewSection").style.height = "90vh";
     document.getElementById("previewUploadBtn").addEventListener("click", handleUpload, false);
+    document.getElementById("tableBody").innerHTML = "";
 
     if(dataFromExcel == null)
         return;
@@ -229,7 +230,7 @@ const showPreview = () => {
         colPositions[columns[colIndex]] = colIndex;
     }
     // Creating table rows dynamically and adding table data in the chosen mapping order
-    for(let rowIndex = 0; rowIndex < Math.min(8, dataFromExcel.length); rowIndex++) {
+    for(let rowIndex = 0; rowIndex < Math.min(6, dataFromExcel.length); rowIndex++) {
         let row = dataFromExcel[rowIndex];
         let tableRow = document.createElement("tr");
         tableRow.setAttribute('id',`tableRow${rowIndex}`);
@@ -248,7 +249,7 @@ const showPreview = () => {
         dbCols.forEach( colName => {
             console.log("Inside: ", row);
             if(mappedElements.hasOwnProperty(colName)) {
-                let rowElement = row[colPositions[mappedElements[colName]]];
+                let rowElement = row[colPositions[mappedElements[colName]]] || "";
                 let tableCell = document.createElement( (rowIndex === 0? "th" : "td") );
                 tableCell.innerHTML = rowElement;
                 tableRow.appendChild(tableCell);
@@ -268,4 +269,12 @@ const mapColumnsByOrder = () => {
         const event = new Event('change');
         dropDown.dispatchEvent(event);
     }
+}
+
+const autoMapBtn = document.getElementById("autoMapBtn");
+autoMapBtn.onclick = mapColumnsByOrder;
+
+const cancelFileBtn = document.getElementById("cancelBtn");
+cancelFileBtn.onclick = () => {
+    window.location.reload();
 }
