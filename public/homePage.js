@@ -8,7 +8,12 @@ const cols = document.querySelectorAll(".columns");
 cols.forEach(col => {
     dbCols.push(col.innerHTML.trim());
 })
-console.log(dbCols);    
+console.log(dbCols); 
+
+// if(!inputFileName){
+//     document.getElementById("choseFileInstruction").innerText = "choose a file or drag and drop a file here";
+//     document.getElementById("chooseFileText").innerText = "Chose Again";
+// }
 
 const input = document.getElementById('input');
 input.addEventListener('change',()=>{
@@ -18,7 +23,14 @@ input.addEventListener('change',()=>{
     nameOfFileChosen.innerText = inputFileName.name;
     document.getElementById("choseFileInstruction").innerHTML = `<u>${inputFileName.name}</u> is selected`;
     document.getElementById("chooseFileText").innerText = "Chose Again";
-})
+    $("#doneButton").attr("disabled",false);
+});
+
+// if(!inputFileName){
+//     document.getElementById("choseFileInstruction").innerText = "choose a file or drag and drop a file here";
+//     document.getElementById("chooseFileText").innerText = "Chose Again";
+// }
+
 
 // -----------------------------------------DRAG AND DROP-------------------------------------------------------------------
 const dropZoneElement = document.getElementById('input').closest(".filePickerDiv");
@@ -36,10 +48,20 @@ const dropZoneElement = document.getElementById('input').closest(".filePickerDiv
         if(dragType=="drop"){
             e.preventDefault();
             inputFileName = e.dataTransfer.files[0];
-            const nameOfFileChosen = document.getElementById("nameOfFileChosen");
-            nameOfFileChosen.innerText = inputFileName.name;
-            document.getElementById("choseFileInstruction").innerHTML = `<u>${inputFileName.name}</u> is selected`;
-            document.getElementById("chooseFileText").innerText = "Chose Again";
+            if(inputFileName.name.endsWith(".xlsx") || inputFileName.name.endsWith(".csv") || inputFileName.name.endsWith(".xls")){
+                const nameOfFileChosen = document.getElementById("nameOfFileChosen");
+                nameOfFileChosen.innerText = inputFileName.name;
+                document.getElementById("choseFileInstruction").innerHTML = `<u>${inputFileName.name}</u> is selected`;
+                document.getElementById("chooseFileText").innerText = "Chose Again";
+            } else {
+                alert("Only .xlsx, .xls and .csv files are accepted");
+                const nameOfFileChosen = document.getElementById("nameOfFileChosen");
+                nameOfFileChosen.innerText = "no file chosen";
+                document.getElementById("choseFileInstruction").innerHTML = `choose a file or drag and drop a file here`;
+                document.getElementById("chooseFileText").innerText = "Chose File";
+                dropZoneElement.classList.remove("filePickerDiv-over");
+
+            }
             
         }
     })
@@ -127,6 +149,11 @@ const handleCsvFiles = () => {
 
 // HANDLE DONE BUTTON CLICK:
 const handleDoneButton = async () => {
+
+    if(inputFileName.name === ""){
+        alert("Please select a file");
+    }
+
 
     document.getElementById("chooseFileView").style.display = "none";
     document.getElementById("mapColumnView").style.display = "block";
