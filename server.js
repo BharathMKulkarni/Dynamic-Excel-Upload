@@ -17,6 +17,9 @@ const loginRouter = require('./routes/loginRoute');
 const {schema} = require('./models/schema/schema')
 const {isAuth} = require('./controller/authMiddleware')
 
+// USING ENV FILE 
+dotenv.config();
+
 const app = express();
 const port = process.env.PORT || 4003;
 
@@ -29,9 +32,6 @@ app.use('/assets',express.static(__dirname + '/public/assets'))
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:false}))
-
-
-dotenv.config();
 
 // ------------ HANDLEBARS SETTINGS ---------------
 app.set("view engine", "hbs");
