@@ -1,5 +1,6 @@
 let columns;
 let dataFromExcel = [];
+let prevInputFileName;
 let inputFileName;
 let dbCols = [];
 let mappedElements = {};
@@ -10,43 +11,57 @@ cols.forEach(col => {
 })
 console.log(dbCols); 
 
-
+// ----------------------------------------------HANDLING FILE INPUT EVENTS-----------------------------------------------------------------------------------
 const input = document.getElementById('input');
-['change','click'].forEach(inputEvent => {
-    input.addEventListener(inputEvent, ()=> {
-        if(inputEvent === 'change'){
-            inputFileName = input.files[0];
-            // console.log(inputFileName);
-            const nameOfFileChosen = document.getElementById("nameOfFileChosen");
-            nameOfFileChosen.innerText = inputFileName.name;
-            document.getElementById("choseFileInstruction").innerHTML = `<u>${inputFileName.name}</u> is selected`;
-            document.getElementById("chooseFileText").innerText = "Chose Again";
-            $("#doneButton").attr("disabled",false);
-            document.getElementById("doneButton").style = "cursor: pointer";
-        }
-        if(inputEvent==='click'){
-            nameOfFileChosen.innerText = 'no file chosen';
-            document.getElementById("choseFileInstruction").innerHTML = `choose a file or drag and drop a file here`;
-            document.getElementById("chooseFileText").innerText = "Choose File";
-            document.getElementById("doneButton").style = "cursor: auto";
-        }
-    })
+
+input.addEventListener('click',() => {
+
+    if(inputFileName === undefined){
+        nameOfFileChosen.innerText = 'no file chosen';
+        document.getElementById("choseFileInstruction").innerHTML = `choose a file or drag and drop a file here`;
+        document.getElementById("chooseFileText").innerText = "Choose File";
+        document.getElementById("doneButton").style = "cursor: auto";
+        $("#doneButton").attr("disabled",true);
+    }
+})
+
+input.addEventListener('change', ()=> {
+
+    if(prevInputFileName == undefined){
+        inputFileName = input.files[0];
+        prevInputFileName = inputFileName;
+    } else inputFileName = prevInputFileName;
+    const nameOfFileChosen = document.getElementById("nameOfFileChosen");
+    nameOfFileChosen.innerText = inputFileName.name;
+    document.getElementById("choseFileInstruction").innerHTML = `<u>${inputFileName.name}</u> is selected`;
+    document.getElementById("chooseFileText").innerText = "Chose Again";
+    document.getElementById("doneButton").style = "cursor: pointer";
+    $("#doneButton").attr("disabled",false);
+    document.getElementById("fileNameForMappingView").innerHTML = `<i>you are now mapping <span id="fileNameForMappingView-withFileName">${inputFileName.name}</span></i>`;
 })
 
 
 
-// -----------------------------------------DRAG AND DROP-------------------------------------------------------------------
+// --------------------------------------------------HANDLING DRAG AND DROP EVENTS-------------------------------------------------------------------
 const dropZoneElement = document.getElementById('input').closest(".filePickerDiv");
+
 ["dragover","dragleave","dragend","drop"].forEach(dragType => {
     dropZoneElement.addEventListener(dragType, e => {
         if(dragType==="dragover"){
             e.preventDefault();
             dropZoneElement.classList.add("filePickerDiv-over");
-            document.getElementById("choseFileInstruction").innerText = "drop here!";
+            if(inputFileName === undefined)
+                document.getElementById("choseFileInstruction").innerText = "drop here!";
         }
         if(dragType=="dragleave" || dragType==="dragend") {
-            dropZoneElement.classList.remove("filePickerDiv-over");
-            document.getElementById("choseFileInstruction").innerText = "choose a file or drag and drop a file here";
+            if(inputFileName === undefined){
+                document.getElementById("choseFileInstruction").innerText = "choose a file or drag and drop a file here";
+                dropZoneElement.classList.remove("filePickerDiv-over");
+                const nameOfFileChosen = document.getElementById("nameOfFileChosen");
+                nameOfFileChosen.innerText = "no file chosen";
+            }
+            if(inputFileName !== undefined) 
+                document.getElementById("choseFileInstruction").innerHTML = `<u>${inputFileName.name}</u> is selected`;
         }
         if(dragType=="drop"){
             e.preventDefault();
@@ -57,6 +72,7 @@ const dropZoneElement = document.getElementById('input').closest(".filePickerDiv
                 document.getElementById("choseFileInstruction").innerHTML = `<u>${inputFileName.name}</u> is selected`;
                 document.getElementById("chooseFileText").innerText = "Chose Again";
                 $("#doneButton").attr("disabled",false);
+                document.getElementById("fileNameForMappingView").innerHTML = `<i>you are now mapping <span id="fileNameForMappingView-withFileName">${inputFileName.name}</span></i>`;
             } else {
                 alert("Only .xlsx, .xls and .csv files are accepted");
                 const nameOfFileChosen = document.getElementById("nameOfFileChosen");
@@ -64,16 +80,13 @@ const dropZoneElement = document.getElementById('input').closest(".filePickerDiv
                 document.getElementById("choseFileInstruction").innerHTML = `choose a file or drag and drop a file here`;
                 document.getElementById("chooseFileText").innerText = "Chose File";
                 dropZoneElement.classList.remove("filePickerDiv-over");
-
-            }
-            
+            }  
         }
     })
 })
 
-// ---------------------------------------------------------------------------------------------------------------------------
 
-//  TEXT ANIMATION -----------------------------------------------------
+//  ------------------------------------------------------TEXT ANIMATION -----------------------------------------------------
 
 // const headTitle = document.querySelector(".headTitle-title");
 // const headTitleText = headTitle.textContent;
@@ -101,10 +114,9 @@ const dropZoneElement = document.getElementById('input').closest(".filePickerDiv
 //     timer=null;
 // }
 
-// ----------------------------------------------------------
 
 
-// HANDLING UPLOAD BUTTON CLICK:
+// ------------------------------------------------------------HANDLING UPLOAD BUTTON CLICK---------------------------------------------------------
 const handleUpload = () => {
 
     console.log("PRESSED UPLOAD BUTTON!");
@@ -134,9 +146,10 @@ const handleUpload = () => {
     .catch(err => console.log(`ERROR>>> ${err}`))
 }
 
-// HANDLING .CSV FILES:
-const handleCsvFiles = () => {
 
+
+// --------------------------------------------------------HANDLING CSV FILES-----------------------------------------------------------------------
+const handleCsvFiles = () => {
     return new Promise((resolve,reject)=>{
         console.log("inside HandleCSV")
         Papa.parse(inputFileName, {
@@ -148,16 +161,11 @@ const handleCsvFiles = () => {
             complete: results => resolve(results.data)
         })
     })
-
 }
 
-// HANDLE DONE BUTTON CLICK:
+
+// -----------------------------------------------------------HANDLING CLICK OF DONE BUTTON---------------------------------------------------------
 const handleDoneButton = async () => {
-
-    if(inputFileName.name === ""){
-        alert("Please select a file");
-    }
-
 
     document.getElementById("chooseFileView").style.display = "none";
     document.getElementById("mapColumnView").style.display = "block";
@@ -202,12 +210,28 @@ const handleDoneButton = async () => {
             selectedElement.addEventListener('change',()=>{
                 mappedElements[dbCols[i]] = columns[parseInt(selectedElement.selectedIndex)-1];
                 console.log(`${dbCols[i]} mapped to ${columns[parseInt(selectedElement.selectedIndex)-1]}`);
+                if(columns[parseInt(selectedElement.selectedIndex)-1]!=undefined){
+                    document.getElementById(`linkIconFor${dbCols[i]}`).style.color = "#00EAD3";
+                    document.getElementById(`linkIconFor${dbCols[i]}`).style.opacity = "1";
+                }
+                else{
+                    document.getElementById(`linkIconFor${dbCols[i]}`).style.color = "#656464";
+                    document.getElementById(`linkIconFor${dbCols[i]}`).style.opacity = "0.4";
+                }
                 console.log(mappedElements);
             },false);
         } else {
             selectedElement.attachEvent('onChange',()=>{
                 mappedElements[dbCols[i]] = columns[parseInt(selectedElement.selectedIndex)-1];
                 console.log(`${dbCols[i]} mapped to ${columns[parseInt(selectedElement.selectedIndex)-1]}`);
+                if(columns[parseInt(selectedElement.selectedIndex)-1]){
+                    document.getElementById(`linkIconFor${dbCols[i]}`).style.color = "#00EAD3";
+                    document.getElementById(`linkIconFor${dbCols[i]}`).style.opacity = "1";
+                }
+                else{
+                    document.getElementById(`linkIconFor${dbCols[i]}`).style.color = "#656464";
+                    document.getElementById(`linkIconFor${dbCols[i]}`).style.opacity = "0.4";
+                }
                 console.log(mappedElements);
             },false);
         }
@@ -217,6 +241,9 @@ const handleDoneButton = async () => {
 const doneButton = document.getElementById("doneButton");
 doneButton.onclick = handleDoneButton; 
 
+
+
+// ----------------------------------------------HANDLING CLICK OF PREVIEW BUTTON------------------------------------------------------------------------
 const showPreview = () => {
     window.location.href = "#previewSection";
     document.getElementById("previewSection").style.visibility = "visible";
@@ -264,6 +291,9 @@ const showPreview = () => {
 const previewBtn = document.getElementById("previewButton");
 previewBtn.onclick = showPreview; 
 
+
+
+// ---------------------------------------------------HANDLING AUTO MAP--------------------------------------------------------
 const mapColumnsByOrder = () => {
 
     for(let i = 0; i < dbCols.length; i++) {
@@ -277,6 +307,8 @@ const mapColumnsByOrder = () => {
 const autoMapBtn = document.getElementById("autoMapBtn");
 autoMapBtn.onclick = mapColumnsByOrder;
 
+
+// -----------------------------------------------------HANDLING CANCEL BUTTON--------------------------------------------------
 const cancelFileBtn = document.getElementById("cancelBtn");
 cancelFileBtn.onclick = () => {
     window.location.reload();

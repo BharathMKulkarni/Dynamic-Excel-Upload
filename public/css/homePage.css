@@ -15,6 +15,18 @@ body {
 
 .dropDownMenus {
     display: none;
+    color: #ffffff;
+    background-color: #212529;
+    border-color: #00EAD3;
+}
+
+.dropDownMenuItems {
+    color:#ffffff;
+    background-color: #212529;
+}
+
+.dropDownMenus, .dropDownMenuItems :hover {
+    cursor: pointer;
 }
 
 #uploadButton {
@@ -244,6 +256,17 @@ label[for="input"] {
 
 /*********************************** MAP COLUMN DIV **************************************/
 
+#fileNameForMappingView {
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    opacity: 0.8;
+}
+
+#fileNameForMappingView-withFileName {
+    color: #00EAD3;
+    opacity: 1;
+}
+
 .column-card {
     background-color: #1d1d1d;
 }
@@ -266,9 +289,11 @@ label[for="input"] {
     top: -10px;
     right: -10px;
     font-size: 25px;
+    font-weight: 600;
 }
 #cancelBtn:hover {
-    color: #DA0037;
+    color: #dc3545;
+    cursor: pointer;
 }
 
 #autoMapBtn {
@@ -283,7 +308,14 @@ label[for="input"] {
     color: #00ead3;
     cursor: pointer;
 }
-
+.linkIcon {
+    font-size: 20px;
+    margin-left: 15px;
+    margin-bottom: 0;
+    opacity: 0.4;
+    color: #656464;
+    transform: rotate(-45deg);
+}
 .columns {
     
 }
