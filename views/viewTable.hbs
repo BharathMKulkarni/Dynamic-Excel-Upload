@@ -1,6 +1,4 @@
 {{>header}}
-<link rel="stylesheet" href="/css/viewtable.css">
-
 <div id="viewSection" class="container center-align table-responsive " >
  
 <table class="table view_table table-bordered table-borderless">
@@ -17,9 +15,8 @@
   <tbody>
     {{#each rows}}
       <tr>
-        {{!-- <th scope="row">{{this.id}}</th> --}}
         <td>{{this.userType}}</td>
-        <td>{{this.phone}}</td>
+        <td id="phone{{@index}}">{{this.phone}}</td>
         <td>{{this.email}}</td>
         <td>{{this.userPassword}}</td>
         <td>{{this.userStatus}}</td>
@@ -30,9 +27,11 @@
         <td>{{this.deptId}}</td>
         <td>{{this.designationId}}</td>
         <td>{{this.createdAt}}</td>
-        <td class="text-end fixed-column" style="background-color: black"><a href="/view/table/{{this.id}}" type="button" class="btn btn-info btn-small"><i class="bi bi-person-x"></i> Delete</a></td>
+        <td class="text-end fixed-column" style="background-color: black"><a id="del{{@index}}" type="button" class="delete-btn btn btn-info btn-small"><i class="bi bi-person-x"></i> Delete</a></td>
       </tr>
     {{/each}}
   </tbody>
 </table>
 </div>
+
+<script src='/viewTable.js'></script>

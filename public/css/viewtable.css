@@ -106,3 +106,7 @@ tbody, td, tfoot, th, thead, tr {
 input[type='search'] {
   flex-basis: 600px;
 }
+
+.delete-btn {
+  
+}
