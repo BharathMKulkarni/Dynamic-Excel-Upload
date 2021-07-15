@@ -105,11 +105,13 @@
 </div>
 
 <div id="mapColumnView" style="display: none;">
-  <h2 class="headTitle-title container mapTableHeading">Map your excel columns to the table</h2>
+  <h2 class="headTitle-title container mapTableHeading">Map your excel columns to our database columns</h2>
+  <br>
+  <h4 class="container" id="fileNameForMappingView" ></h4>
   <div id="mapColumnDiv" class="container add-border" style="padding: 50px">
     <div class="row">
       <div class="col-md-12">
-        <i id="cancelBtn" class="fas fa-window-close" data-bs-toggle="tooltip" data-bs-placement="left" title="discard and choose new file"></i>
+        <span id="cancelBtn" data-bs-toggle="tooltip" data-bs-placement="left" title="discard and choose new file">X</span>
         <i id="autoMapBtn" class="fas fa-magic" data-bs-toggle="tooltip" data-bs-placement="right" title="Automap Columns"></i>
       </div>
     </div>
@@ -121,10 +123,12 @@
             <div class="card-body columns">
               {{this.name}}
             </div>
-
+            <div>
+              <i class="fas fa-link linkIcon " id="linkIconFor{{this.name}}"></i>
+            </div>
             <div class="card-body">
               <select class="form-select dropDownMenus dropDownMenuItems" id="selectedFor{{this.name}}" aria-label="Default select example">
-                <option selected>Choose Column</option>
+                <option selected>None</option>
               </select>
             </div>
             

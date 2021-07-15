@@ -18,7 +18,7 @@ const {schema} = require('./models/schema/schema')
 const {isAuth} = require('./controller/authMiddleware')
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4003;
 
 // SETTING THE STATIC FOLDER (public), ALL THE FRONTEND JS RESIDES HERE
 app.use(express.static(__dirname + '/public'));
@@ -80,7 +80,7 @@ app.use("/view", isAuth, viewRouter);
 app.use("/login", loginRouter);
 app.use("/logout", (req, res) => {
     req.logout();
-    res.redirect("/");
+    res.redirect("/login");
 })
 
 // HOME PAGE

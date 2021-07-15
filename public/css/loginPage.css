@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 *,
 *:after,
@@ -9,21 +9,6 @@
   padding: 0;
 }
 
-:active,
-:hover,
-:focus {
-  outline: 0 !important;
-  outline-offset: 0;
-}
-
-a,
-a:hover {
-  text-decoration: none;
-}
-
-a:hover {
-  color: var(--primary-color) !important;
-}
 
 ul,
 ol {
@@ -33,24 +18,14 @@ ol {
 
 
 /*===== Variable Define =====*/
-:root {
-  --primary-color: #A82C48;
-  --secondry-color: #43121d;
-  --third-color: #f98169;
-  --white-color: #fff;
-  --text-color: #555;
-  --text-gray: #999;
-  --black-color: #000;
-  --primary-font: 'Roboto', sans-serif;
-  --secondry-font: 'Quicksand', sans-serif;
-}
+
 
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  font-family: var(--primary-font);
+  font-family: 'Montserrat', sans-serif;
   font-size: 100%;
   font-weight: 400;
 }
@@ -78,9 +53,10 @@ body {
 */
 body
 {
-    background-color:#121212;
+    background-color:#000000;
 }
 h1 {
+  font-family:'Montserrat', sans-serif;
   font-size: 3rem;
   font-weight: 900;
   margin-bottom: 1rem;
@@ -90,13 +66,21 @@ h1 {
 
 
 
-p {
-  font-size: 20px;
+.p3 {
+  background-image: linear-gradient( 45deg, #f3ec78, #af4261);
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+  font-family:'Montserrat', sans-serif;
+  font-size: 15px;
   color: var(--text-color);
   font-weight: 300;
   line-height: 1.75rem;
   letter-spacing: 1px;
   color:#f9dfdc;
+  padding-left: 40px;
 }
 .newslatter .h12{
     width:380px;
@@ -114,6 +98,14 @@ p {
    Header Design
 ==========================================
 */
+nav{
+  background-image: linear-gradient( 45deg, #f3ec78, #af4261);
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
 .navigation-wrap{
   position:fixed;
   width:100%;
@@ -155,7 +147,14 @@ p {
   box-shadow: 0 0.125rem 1.75rem 0 rgb(0,0,0,0.09);
   transition:all .15s ease-in-out 0s;
 }
- 
+.navbar-brand{
+  background-image: linear-gradient( 45deg, #f3ec78, #af4261);
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
 
 
 /*
@@ -163,42 +162,33 @@ p {
    top-banner Design
 ==========================================
 */
-#timer
-{
-  color:red;
-}
-.err-msg
-{
-  text-align: center;
-    margin-top: 10px;
-    color:red;
-}
+
+
 .top-banner{
   width:100%;
-  padding-top: 180px;
+  padding-top: 150px;
   padding-bottom: 40px;
 }
 #timer
 {
     text-align: center;
     margin-top: 10px;
+    color:red;
 }
+
 .a2
 {
-    margin-top: 10px;
-}
-.a2
-{
-    border: 2px solid #121212;
+    border: 2px solid #000000;
     outline: none;
     border-radius: 30px;
     background-color: #00ead3;
-    color:black;
+    color:#000000;
     height: 50px;
+    margin-top: 10px;
 }
 .a1
 {
-    background-color: #121212; 
+    background-color: #000000; 
     border: 2px solid #00ead3;
     outline: none;
     border-radius: 30px;
@@ -207,6 +197,24 @@ p {
 .how-img
 {
   margin-right: 0px;
+  border-style: solid;
+  border-color: coral;
+ 
+  
+}
+img {
+  opacity: 0.7;
+}
+
+img:hover {
+  opacity: 1.0;
+}
+.err-msg
+{
+    text-align: center;
+    margin-top: 10px;
+    color:red;
+    padding-left: 5px;
 }
 @media (max-width: 991px) {
 
@@ -222,7 +230,7 @@ p {
     }
     .navigation-wrap{
         text-align: center;
-        background-color:#121212;
+        background-color:#000000;
     }
     .navigation-wrap .navbar-brand{
         font-size:20px;

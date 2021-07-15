@@ -14,7 +14,10 @@
   /* border-top-width: 1px;
   margin-top: -1px; */
 }
-
+.searchbar
+{
+  width:900px !important;
+}
 .view_table th{
 
     padding-left: 15px;
