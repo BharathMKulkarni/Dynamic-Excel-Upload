@@ -86,6 +86,7 @@ const getUserData = async (req, res) => {
     console.log(userDataList);
     res.render('viewTable',{ 
         documentTitle:"Dynamic-Excel-Upload/ViewUserTable",
+        cssPage: "viewtable",
         rows: userDataList,
         columns: schema
     });
@@ -93,20 +94,19 @@ const getUserData = async (req, res) => {
 
  const DeleteUserData = async (req, res) => {
 
-
     try{
         await UserData.destroy({
             where: {
-              id: req.params['id']
+              phone: req.body.phone || null
             }
-          });
+        });
     }
     catch(error)
     {
-        console.log("sorry ji");
-        return
+        res.status(403).json({message: "Error while deleting"});
+        return;
     }
-    res.redirect('/view/table');
+    res.status(200).json({message: "Deleted successfully"});
  }
 
  const FindUser = async (req, res) => {
@@ -122,8 +122,6 @@ const getUserData = async (req, res) => {
                    firstName:item,
                    lastName:item,
                    userType:item
-
-
                }
                 
             }
@@ -143,4 +141,4 @@ const getUserData = async (req, res) => {
     });
  }
 
-module.exports = { UploadExcelToDb, getUserData,DeleteUserData,FindUser};
+module.exports = {UploadExcelToDb, getUserData,DeleteUserData,FindUser};

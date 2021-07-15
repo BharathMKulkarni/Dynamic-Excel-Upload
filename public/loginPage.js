@@ -24,7 +24,7 @@ function verifyOtp() {
             document.getElementById("OTPModalTitle").innerText = "Invalid Credentials!";
             $('#OTPModal').modal('show');
         }
-        else if(res.status == 200) {
+        else if(res.status === 200) {
             window.location.href = '/home';
         }
     })
@@ -45,34 +45,34 @@ submitBtn.onclick = (event) => {
     else{
         elem.style.display='none'
     
-    fetch('/login/get-otp', {
-        method: 'POST',
-        headers: {
-            'Content-Type' : 'application/json'
-        },
-        body: JSON.stringify({ phone })
-    })
-    .then(res => res.json())
-    .then(data => {
-        console.log(data);
-        submitBtn.innerHTML = "Enter OTP";
-        submitBtn.onclick = verifyOtp;
-        textInput.value = "";
-        textInput.placeholder = "Enter the otp";
-        submitBtn.value = "Verify";
-        textInput.pattern = "[0-9]{6}";
-        let timer = 120; // 120 seconds time limit
-        setInterval( () => {
-            if(timer ===-1) {
-                $('#OTPModal').modal('show');
-                return;
-            }
-            document.getElementById("timer").innerHTML = `${timer}`;
-            timer--;
-        }, 1000);
-    })
-    .catch(err => console.log("Error" + err));
-}
+        fetch('/login/get-otp', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({ phone })
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            submitBtn.innerHTML = "Enter OTP";
+            submitBtn.onclick = verifyOtp;
+            textInput.value = "";
+            textInput.placeholder = "Enter the otp";
+            submitBtn.value = "Verify";
+            textInput.pattern = "[0-9]{6}";
+            let timer = 120; // 120 seconds time limit
+            setInterval( () => {
+                if(timer ===-1) {
+                    $('#OTPModal').modal('show');
+                    return;
+                }
+                document.getElementById("timer").innerHTML = `${timer}`;
+                timer--;
+            }, 1000);
+        })
+        .catch(err => console.log("Error" + err));
+    }
 }
 
 

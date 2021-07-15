@@ -5,10 +5,7 @@ const isAuth = (req, res, next) => {
         next();
     }
     else {
-        res.render('loginPage', {
-            documentTitle:"Login",
-            cssPage: "style"
-        });
+        res.redirect('/login');
     }
 }
 
