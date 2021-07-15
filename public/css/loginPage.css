@@ -119,7 +119,7 @@ nav{
   transition:all 200ms linear;
 }
 .navigation-wrap .navbar-brand{
-    font-size:40px;
+    font-size:30px;
     color:#f9dfdc;
   }
 .navbar-toggler:focus{
