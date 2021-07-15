@@ -39,8 +39,8 @@ submitBtn.onclick = (event) => {
     var elem = document.getElementById("err")
     if(!phoneNoRegEx.test(phone))
     {
-        document.getElementById("err").innerHTML = `Enter a valid phone number`; 
-        elem.style.display='block'
+        document.getElementById("OTPModalTitle").innerText = "Enter a valid Phone Number";
+        $('#OTPModal').modal('show');
     }
     else{
         elem.style.display='none'

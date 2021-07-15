@@ -7,6 +7,10 @@
 
 
 }
+.searchbar
+{
+  width:900px !important;
+}
 .view_table th{
 
     padding-left: 15px;

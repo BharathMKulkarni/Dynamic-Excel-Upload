@@ -8,7 +8,7 @@ const FindUser = require('../controller/userDataController').FindUser;
 
 router.get("/table", isAuth, getUserData);
 router.get('/table/:id',isAuth,DeleteUserData);
-router.post('/table',isAuth,FindUser);
+router.post('/find/table',isAuth,FindUser);
 
 router.get('/', isAuth, (req, res) =>{
     res.render('viewSchema',{
