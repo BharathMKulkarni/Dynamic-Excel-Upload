@@ -10,7 +10,8 @@ border-color:black;
 
 
 } */
-@import url('https://fonts.googleapis.com/css2?family=Uchen&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 .col-md-3{
     padding-bottom:10px;
 }
@@ -29,28 +30,29 @@ border-color:black;
 }
 .myicon{
 
-}
+} 
 
 
 body{
     background-color: black;
-   
 }
 .accordion-body{
     background-color: #444444;
     color:white;
-    border-radius: 6px;
 }
 .accordion-button{
-background:hsl(310, 3%, 57%);
-font-family: 'Uchen', serif;
-font-weight: bold;
-
+    background: #212529;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
 }
 .accordion-button:not(.collapsed){
-    color:black;
-    background-color:hsl(310, 3%, 57%);
+    color:white;
+    background-color:#212529;
     box-shadow: none;
+}
+.add-border {
+    border: 1px solid white;
 }
 
 
