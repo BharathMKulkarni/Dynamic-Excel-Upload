@@ -26,6 +26,7 @@ input.addEventListener('click',() => {
 })
 
 input.addEventListener('change', ()=> {
+    const fileInputDiv = document.getElementById('input').closest(".filePickerDiv");
 
     if(prevInputFileName == undefined){
         inputFileName = input.files[0];
@@ -37,6 +38,7 @@ input.addEventListener('change', ()=> {
     document.getElementById("chooseFileText").innerText = "Chose Again";
     document.getElementById("doneButton").style = "cursor: pointer";
     $("#doneButton").attr("disabled",false);
+    fileInputDiv.classList.add("filePickerDiv-over");
     document.getElementById("fileNameForMappingView").innerHTML = `<i>you are now mapping <span id="fileNameForMappingView-withFileName">${inputFileName.name}</span></i>`;
 })
 
