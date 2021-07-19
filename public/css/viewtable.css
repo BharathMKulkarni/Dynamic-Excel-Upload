@@ -14,12 +14,25 @@
   /* border-top-width: 1px;
   margin-top: -1px; */
 }
-.searchbar
-{
-  width:900px !important;
-}
-.view_table th{
 
+.searchbar {
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 25px;
+  color: white;
+  padding: 5px;
+  padding-left: 20px;
+}
+
+.searchbar:focus, .searchbar:active {
+  background: transparent; 
+  border: 2px solid white;
+  border-radius: 25px;
+  color: white;
+  outline: none;
+}
+
+.view_table th {
     padding-left: 15px;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -49,7 +62,7 @@
 }
 tbody, td, tfoot, th, thead, tr {
   border-color: inherit;
-   border-style:none;
+  border-style:none;
   border-width: 0;
 }
 .search-wrap {

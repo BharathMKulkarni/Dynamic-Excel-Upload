@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
         mobile: DataTypes.STRING,
         deptId: DataTypes.INTEGER,
         designationId: DataTypes.INTEGER,
-        createdAt:DataTypes.DATEONLY,
+        createdAt: DataTypes.DATEONLY,
         uploaderId: {
             type: DataTypes.UUID,
             references: {

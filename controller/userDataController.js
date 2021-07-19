@@ -84,6 +84,7 @@ const getUserData = async (req, res) => {
         return;
     }
     console.log(userDataList);
+    //res.status(200).json({data: userDataList});
     res.render('viewTable',{ 
         documentTitle:"Dynamic-Excel-Upload/ViewUserTable",
         cssPage: "viewtable",
@@ -110,36 +111,44 @@ const getUserData = async (req, res) => {
  }
 
  const FindUser = async (req, res) => {
-     var item=req.body.search;
-     console.log(item);
+    var pattern = req.body.search;
 
     let userDataList;
     try {
         userDataList = await UserData.findAll({
             raw:true,
             where: {
-               [Op.or]:{
-                   firstName:item,
-                   lastName:item,
-                   userType:item
-               }
-                
+                [Op.or]:{
+                    firstName: {
+                        [Op.like]: `%${pattern}%`
+                    },
+                    lastName: {
+                        [Op.like]: `%${pattern}%`
+                    },
+                    userType: {
+                        [Op.like]: `%${pattern}%`
+                    }
+                }  
             }
         });
     }
     catch(error) {
-        console.log("illa");
         res.status(500).json({message: error});
         return;
     }
-    console.log(userDataList);
-    console.log("hello",schema.name)
-    res.render('viewTable',{ 
-        documentTitle:"Dynamic-Excel-Upload/ViewUserTable",
-        cssPage: "viewtable",
-        rows: userDataList,
-        columns: schema
-    });
+    let columns = []
+    schema.forEach(col => {
+        columns.push(col.name);
+    })
+    columns.push("createdAt");
+
+    res.status(200).json({data: userDataList, columns: columns});
+    // res.render('viewTable',{ 
+    //     documentTitle:"Dynamic-Excel-Upload/ViewUserTable",
+    //     cssPage: "viewtable",
+    //     rows: userDataList,
+    //     columns: schema
+    // });
  }
 
 module.exports = {UploadExcelToDb, getUserData,DeleteUserData,FindUser};

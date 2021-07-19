@@ -1,38 +1,43 @@
 {{>header}}
-<div id="viewSection" class="container center-align table-responsive " >
+<div class="container center-align" style="margin-top: 2rem;">
+  <input id="searchText" type="search" placeholder="Search" class="searchbar container center-align">
 
+  {{!-- <button id="searchButton" type="button" class="btn btn-outline-secondary">Search</button> --}}
+</div>
  
-<table class="table view_table table-bordered table-borderless">
-  <thead class="table-dark">
-    <tr line-height="50px">
-      {{#each columns}}
-        <th scope="col">{{this.name}}</th>
-      {{/each}}
-      <th scope="col">Uploaded On</th>
-      <th class="fixed-column" scope="col">Options</th>
-    </tr>
-  </thead>
+<div id="viewSection" class="container center-align table-responsive" >
 
-  <tbody>
-    {{#each rows}}
-      <tr>
-        <td>{{this.userType}}</td>
-        <td id="phone{{@index}}">{{this.phone}}</td>
-        <td>{{this.email}}</td>
-        <td>{{this.userPassword}}</td>
-        <td>{{this.userStatus}}</td>
-        <td>{{this.roleId}}</td>
-        <td>{{this.firstName}}</td>
-        <td>{{this.lastName}}</td>
-        <td>{{this.mobile}}</td>
-        <td>{{this.deptId}}</td>
-        <td>{{this.designationId}}</td>
-        <td>{{this.createdAt}}</td>
-        <td class="text-end fixed-column" style="background-color: black"><a id="del{{@index}}" type="button" class="delete-btn btn btn-info btn-small"><i class="bi bi-person-x"></i> Delete</a></td>
+  <table class="table view_table table-bordered table-borderless">
+    <thead class="table-dark">
+      <tr line-height="50px">
+        {{#each columns}}
+          <th scope="col">{{this.name}}</th>
+        {{/each}}
+        <th scope="col">Uploaded On</th>
+        <th class="fixed-column" scope="col">Options</th>
       </tr>
-    {{/each}}
-  </tbody>
-</table>
+    </thead>
+
+    <tbody id="tableBody">
+      {{#each rows}}
+        <tr>
+          <td>{{this.userType}}</td>
+          <td id="phone{{@index}}">{{this.phone}}</td>
+          <td>{{this.email}}</td>
+          <td>{{this.userPassword}}</td>
+          <td>{{this.userStatus}}</td>
+          <td>{{this.roleId}}</td>
+          <td>{{this.firstName}}</td>
+          <td>{{this.lastName}}</td>
+          <td>{{this.mobile}}</td>
+          <td>{{this.deptId}}</td>
+          <td>{{this.designationId}}</td>
+          <td>{{this.createdAt}}</td>
+          <td class="text-end fixed-column" style="background-color: black"><a id="del{{@index}}" type="button" class="delete-btn btn btn-info btn-small"><i class="bi bi-person-x"></i> Delete</a></td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </div>
 
 <script src='/viewTable.js'></script>

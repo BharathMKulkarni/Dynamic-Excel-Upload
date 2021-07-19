@@ -102,12 +102,7 @@ const schema = [
     name:"designationId",
     description:"Designation identification number",
     format: "4 digit number",
-
-
-
 },
-
-
 
 ]
 

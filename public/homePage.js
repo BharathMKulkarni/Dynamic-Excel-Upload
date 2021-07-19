@@ -272,8 +272,10 @@ const showPreview = () => {
         // Ignoring empty rows
         let isEmpty = true;
         for(let i = 0; i < row.length; i++) {
-            if(row[i]) 
+            if(row[i]) {
                 isEmpty = false;
+                break;
+            }
         }
         if(isEmpty)
             continue;
@@ -286,7 +288,7 @@ const showPreview = () => {
                 tableCell.innerHTML = rowElement;
                 tableRow.appendChild(tableCell);
             }
-        })
+        });
     }
 }
 
