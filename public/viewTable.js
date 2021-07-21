@@ -2,31 +2,37 @@
 //------------------------------- HANDLING DELETE REQUEST FOR EACH ROW IN TABLE --------------------------
 
 const allDeleteButtons = document.querySelectorAll(".delete-btn");
-console.table(allDeleteButtons);
+document.getElementById("deleteModalNoBtn").addEventListener('click', () => {
+    $('#deleteConfirmationModal').modal('hide');
+}, false);
 
 const handleDeleteClick = (event) => {
     const btnId = event.target.id;
     const rowIndex = btnId.substring(3);
-    const phone = document.getElementById("phone"+rowIndex).innerText.trim();
+    const phone = document.getElementById("key"+rowIndex).innerText.trim();
 
-    console.log(phone);
-
-    fetch('/userdata/delete', {
-        method: 'POST',
-        headers: {
-            'Content-Type' : 'application/json'
-        },
-        body: JSON.stringify({ phone })
-    })
-    .then(res => {
-        window.location.reload();
-    })
-    .catch(err => {
-    });
+    // Show confirmation modal
+    $('#deleteConfirmationModal').modal('show');
+    
+    // HANDLING THE 'YES' BUTTON IN CONFIRMATION MODAL
+    document.getElementById("deleteModalYesBtn").onclick = () => {
+        fetch('/userdata/delete', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({ phone })
+        })
+        .then(res => {
+            window.location.reload();
+        })
+        .catch(err => {
+        });
+    };
 }
 
 allDeleteButtons.forEach(delBtn => {
-    delBtn.onclick = handleDeleteClick;
+    delBtn.addEventListener('click', handleDeleteClick, false);
 })
 
 
@@ -58,6 +64,8 @@ searchBar.addEventListener('input', filterTableOnSearchText);
 
 const deleteColumnHtml = '<td class="text-end fixed-column" style="background-color: black"><a id="del{{@index}}" type="button" class="delete-btn btn btn-info btn-small"><i class="bi bi-person-x"></i> Delete</a></td>'
 
+const keyColumn = 'phone'; // not good, make a seperate api to return key from schema
+
 const renderTable = (tableData, tableHead) => {
     
     if(tableData === null)
@@ -82,11 +90,20 @@ const renderTable = (tableData, tableHead) => {
         tableHead.forEach(colHead => {
             if(rowData.hasOwnProperty(colHead)) {
                 let tableCell = document.createElement("td");
+                if(keyColumn === colHead) {
+                    tableCell.id = `key${rowIndex}`;
+                }
                 tableCell.innerText = rowData[colHead];
                 tableRow.appendChild(tableCell);
             }
         });
-
+        const deleteColumnHtml = `<td class="text-end fixed-column" style="background-color: black"><a id="del${rowIndex}" type="button" class="delete-btn btn btn-info btn-small"><i class="bi bi-person-x"></i> Delete</a></td>`
         tableRow.innerHTML += deleteColumnHtml;
+    });
+
+    // Adding event listeners for delete buttons of all rows rendered
+    const allDeleteButtons = document.querySelectorAll(".delete-btn");
+    allDeleteButtons.forEach(delBtn => {
+        delBtn.addEventListener('click', handleDeleteClick, false);
     })
 }

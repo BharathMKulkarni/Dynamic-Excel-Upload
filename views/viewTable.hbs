@@ -22,7 +22,7 @@
       {{#each rows}}
         <tr>
           <td>{{this.userType}}</td>
-          <td id="phone{{@index}}">{{this.phone}}</td>
+          <td id="key{{@index}}">{{this.phone}}</td>
           <td>{{this.email}}</td>
           <td>{{this.userPassword}}</td>
           <td>{{this.userStatus}}</td>
@@ -38,6 +38,27 @@
       {{/each}}
     </tbody>
   </table>
+</div>
+
+{{!--------- DELETE CONFIRMATION MODAL --------}}
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" id="deleteModalContent">
+      <div class="modal-header">
+        <h5 class="modal-title" id="">Warning!</h5>
+        {{!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> --}}
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this record?
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="deleteModalNoBtn" class="btn btn-danger" data-dismiss="modal">No</button>
+        <button type="button" id="deleteModalYesBtn" class="btn btn-success">Yes</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src='/viewTable.js'></script>

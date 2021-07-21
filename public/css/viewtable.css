@@ -65,7 +65,7 @@ tbody, td, tfoot, th, thead, tr {
   border-style:none;
   border-width: 0;
 }
-.search-wrap {
+/* .search-wrap {
   background: url('../img/showcase.jpg') no-repeat center center fixed;
   background-size: cover;
   height: 100vh;
@@ -109,7 +109,6 @@ tbody, td, tfoot, th, thead, tr {
   color: #333;
 }
 
-/* Everything in the search form */
 .search-form > * {
   border: 0;
   padding: 0 0 0 10px;
@@ -121,7 +120,7 @@ tbody, td, tfoot, th, thead, tr {
 }
 input[type='search'] {
   flex-basis: 600px;
-}
+} */
 
 .delete-btn {
   
