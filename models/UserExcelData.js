@@ -11,7 +11,10 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true
         },
         userType: DataTypes.STRING,
-        phone: DataTypes.STRING,
+        phone: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         email: {
             type: DataTypes.STRING,
             allowNull: false
@@ -24,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
         mobile: DataTypes.STRING,
         deptId: DataTypes.INTEGER,
         designationId: DataTypes.INTEGER,
-        createdAt:DataTypes.DATEONLY,
+        createdAt: DataTypes.DATEONLY,
         uploaderId: {
             type: DataTypes.UUID,
             references: {
