@@ -53,7 +53,8 @@
             <div class="mt-4 col-lg-7">
               <input class="form-control a1" id="textField" placeholder="Enter your phone number" autocomplete="off">
               <input class="form-control a2" type="submit" id="submitBtn" value="Get OTP">
-               <p id="timer"></p>
+               <span id="resendBtn" style="display: none">Resend OTP</span>
+               <p id="timer" style="display: block"></p>
                <p id="err" class="err-msg" style="color:red"></p>
               </div>
             </div>
@@ -78,18 +79,19 @@
 <!-- OTP SESSION TIMEOUT MODAL -->
 <div class="modal fade" id="OTPModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
+    <div class="modal-content" id="OTPModalContent">
       <div class="modal-header">
         <h4 class="modal-title" id="OTPModalTitle" style="color: brown;">OTP Session Timeout</h4>
         {{!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="OTPTimeoutModalCloseButton">
           <span aria-hidden="true">&times;</span>
         </button> --}}
       </div>
-      <div class="modal-body" style="color:black;">
+      <div class="modal-body">
         <h6>Re-enter your Phone Number and Try Again!</h6>
       </div>
        <div class="modal-footer">
         <button type="button" class="btn btn-success btn-sm" id="OTPTimeoutModalRetryButton">Retry</button>
+        <button type="button" class="btn btn-success btn-sm" id="OTPTimeoutModalResendButton">Resend OTP</button>
       </div>
     </div>
   </div>

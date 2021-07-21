@@ -169,11 +169,23 @@ nav{
   padding-top: 150px;
   padding-bottom: 40px;
 }
-#timer
+
+#timer {
+  text-align: center;
+  margin-top: 10px;
+  color: red;
+}
+
+#resendBtn
 {
-    text-align: center;
-    margin-top: 10px;
-    color:red;
+  text-align: center;
+  margin-top: 10px;
+  color: #00ead3;
+}
+
+#resendBtn:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .a2
@@ -325,7 +337,19 @@ img:hover {
     }
   
         
-      
+/*
+------------------------------------ OTP MODAL CSS ------------------------------------------
+*/
+
+#OTPModalContent {
+  background-color: #2b2a2a;
+  color: white;
+}
+
+#OTPModalContent button {
+  /* background-color: #00ead3; */
+  /* color: #000000; */
+}
  
 
  

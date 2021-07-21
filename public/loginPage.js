@@ -2,10 +2,11 @@
 const submitBtn = document.getElementById("submitBtn");
 let phone = '';
 let otp = '';
+let otpTimer = null;
 
 const handleOTPTimeoutModalRetryButton = () => window.location.reload();
 
-
+const OtpModalResendBtn = document.getElementById("OTPTimeoutModalResendButton");
 const OTPTimeoutModalRetryButton = document.getElementById("OTPTimeoutModalRetryButton");
 OTPTimeoutModalRetryButton.addEventListener("click",handleOTPTimeoutModalRetryButton,false);
 
@@ -31,9 +32,10 @@ function verifyOtp() {
     .catch(err => console.log(err));
 }
 
-submitBtn.onclick = (event) => {
+const requestForOtp = (event) => {
     var textInput = document.getElementById("textField");
-    phone = textInput.value;
+    if(event.target === submitBtn)
+        phone = textInput.value;
     const phoneNoRegEx = new RegExp('[789][0-9]{9}', 'g');
     console.log("Inside on click", phone)
     var elem = document.getElementById("err")
@@ -54,25 +56,42 @@ submitBtn.onclick = (event) => {
         })
         .then(res => res.json())
         .then(data => {
+            // temporarily logging otp to frontend for testing/dev
             console.log(data);
+
+            // Changing button functionality and text field placeholders
             submitBtn.innerHTML = "Enter OTP";
             submitBtn.onclick = verifyOtp;
             textInput.value = "";
             textInput.placeholder = "Enter the otp";
             submitBtn.value = "Verify";
             textInput.pattern = "[0-9]{6}";
-            let timer = 120; // 120 seconds time limit
-            setInterval( () => {
-                if(timer ===-1) {
+
+            // Hide modal if showing
+            $('#OTPModal').modal('hide');
+
+            // Setting OTP timer
+            let timer = 10; // seconds to wait
+            if(otpTimer)
+                clearInterval(otpTimer);
+            otpTimer = setInterval( () => {
+                if(timer === -1) {
                     $('#OTPModal').modal('show');
                     return;
                 }
                 document.getElementById("timer").innerHTML = `${timer}`;
                 timer--;
             }, 1000);
+
+            document.getElementById("resendBtn").style.display = "block";
         })
         .catch(err => console.log("Error" + err));
     }
 }
+
+submitBtn.onclick = requestForOtp;
+document.getElementById("resendBtn").onclick = requestForOtp;
+OtpModalResendBtn.addEventListener('click', requestForOtp, false);
+
 
 
