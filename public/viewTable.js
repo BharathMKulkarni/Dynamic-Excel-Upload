@@ -1,3 +1,16 @@
+let keyColumn = null;
+fetch('/view/table/key', {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+})
+.then( res => res.json())
+.then( json => {
+    keyColumn = json.data;
+})
+.catch(err => console.log(err));
+
 
 //------------------------------- HANDLING DELETE REQUEST FOR EACH ROW IN TABLE --------------------------
 
@@ -9,7 +22,7 @@ document.getElementById("deleteModalNoBtn").addEventListener('click', () => {
 const handleDeleteClick = (event) => {
     const btnId = event.target.id;
     const rowIndex = btnId.substring(3);
-    const phone = document.getElementById("key"+rowIndex).innerText.trim();
+    const phone = document.getElementById(keyColumn+rowIndex).innerText.trim();
 
     // Show confirmation modal
     $('#deleteConfirmationModal').modal('show');
@@ -58,13 +71,13 @@ const filterTableOnSearchText = () => {
     .catch( err => console.error(err));
 }
 
+// MAKE EXCPLICIT CALL INITIALLY TO RENDER ALL DATA AFTER LOADING PAGE
+filterTableOnSearchText();
 searchBar.addEventListener('input', filterTableOnSearchText);
 
 //--------------------------------------- RENDERING THE TABLE ------------------------------------
 
 const deleteColumnHtml = '<td class="text-end fixed-column" style="background-color: black"><a id="del{{@index}}" type="button" class="delete-btn btn btn-info btn-small"><i class="bi bi-person-x"></i> Delete</a></td>'
-
-const keyColumn = 'phone'; // not good, make a seperate api to return key from schema
 
 const renderTable = (tableData, tableHead) => {
     
@@ -90,9 +103,7 @@ const renderTable = (tableData, tableHead) => {
         tableHead.forEach(colHead => {
             if(rowData.hasOwnProperty(colHead)) {
                 let tableCell = document.createElement("td");
-                if(keyColumn === colHead) {
-                    tableCell.id = `key${rowIndex}`;
-                }
+                tableCell.id = `${colHead}${rowIndex}`;
                 tableCell.innerText = rowData[colHead];
                 tableRow.appendChild(tableCell);
             }

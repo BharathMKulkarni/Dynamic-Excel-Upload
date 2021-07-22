@@ -13,7 +13,7 @@ const onClickHistoryButton = () => {
 const viewSchemaButton = document.getElementById("viewSchemaButton");
 viewSchemaButton.addEventListener("click",onClickViewSchemaButton,false);
 
-const historyButton = document.getElementById("historyButton");
-historyButton.addEventListener("click",onClickHistoryButton,false);
+// const historyButton = document.getElementById("historyButton");
+// historyButton.addEventListener("click",onClickHistoryButton,false);
 
 

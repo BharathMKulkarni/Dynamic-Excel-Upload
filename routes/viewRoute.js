@@ -7,6 +7,9 @@ const FindUser = require('../controller/userDataController').FindUser;
 
 router.get("/table", isAuth, getUserData);
 router.post('/table/search',isAuth, FindUser);
+router.get("/table/key", isAuth, (req, res) => {
+    res.status(200).json({data: keys["userData"]})
+})
 
 router.get('/', isAuth, (req, res) =>{
     res.render('viewSchema',{
