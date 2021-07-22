@@ -4,6 +4,12 @@ let prevInputFileName;
 let inputFileName;
 let dbCols = [];
 let mappedElements = {};
+let sheetNo = 1;
+let noOfSheets = 0;
+let sheetsRemaining = true;
+
+const sheetSelector = document.getElementById("sheetNo");
+let dropDownItems = document.querySelectorAll(".dropDownMenuItems");
 
 const cols = document.querySelectorAll(".columns");
 cols.forEach(col => {
@@ -26,12 +32,19 @@ input.addEventListener('click',() => {
 })
 
 input.addEventListener('change', ()=> {
-    const fileInputDiv = document.getElementById('input').closest(".filePickerDiv");
 
+    inputFileName = input.files[0];
     if(prevInputFileName == undefined){
-        inputFileName = input.files[0];
         prevInputFileName = inputFileName;
-    } else inputFileName = prevInputFileName;
+    } else {
+        if(inputFileName == undefined){
+            inputFileName = prevInputFileName;
+        } else {
+            prevInputFileName = inputFileName;
+        } 
+    }
+
+    const fileInputDiv = document.getElementById('input').closest(".filePickerDiv");
     const nameOfFileChosen = document.getElementById("nameOfFileChosen");
     nameOfFileChosen.innerText = inputFileName.name;
     document.getElementById("choseFileInstruction").innerHTML = `<u>${inputFileName.name}</u> is selected`;
@@ -39,9 +52,45 @@ input.addEventListener('change', ()=> {
     document.getElementById("doneButton").style = "cursor: pointer";
     $("#doneButton").attr("disabled",false);
     fileInputDiv.classList.add("filePickerDiv-over");
-    document.getElementById("fileNameForMappingView").innerHTML = `<i>you are now mapping <span id="fileNameForMappingView-withFileName">${inputFileName.name}</span></i>`;
+    
+    document.getElementById("fileNameForMappingView")
+    .innerHTML = `<i>you are now mapping <span id="fileNameForMappingView-withFileName">${inputFileName.name}</span></i>`;
+
 })
 
+
+// --------------------------------------------------HANDLING SHEET NO SELECTION---------------------------------------------------------------------
+const getSelectedSheetNo = async () => {
+
+    // GETTING THE SHEET NO. SELECTED FROM THE DROPDOWN
+    sheetNo = parseInt(sheetSelector.options[sheetSelector.selectedIndex].value);
+    console.log(`you have selected sheetNo ${sheetNo}`);
+
+    // READING THE DATA FROM THE NEW SHEET
+    await readXlsxFile(inputFileName, {sheet: sheetNo} )
+        .then( rows => {
+            dataFromExcel = [];
+            rows.forEach( row => dataFromExcel.push(row) );
+        })
+
+    console.log(dataFromExcel);
+    
+    // CLEARING THE LINKICON COLORS WHEN A NEW SHEET IS SELECTED
+    for (let i = 0; i < dbCols.length; i++) {
+        document.getElementById(`linkIconFor${dbCols[i]}`).style.color = "#656464";
+        document.getElementById(`linkIconFor${dbCols[i]}`).style.opacity = "0.4";
+    }
+
+    // CLEARING THE DROPDOWNS WHEN A NEW SHEET IS SELECTED AND REPOPULATING THEM WITH THE COLUMN NAMES OF THE NEW SHEET
+    columns = dataFromExcel[0];
+    dropDownItems.forEach(individualdropDown => {
+        individualdropDown.innerHTML ="";
+        individualdropDown.innerHTML = "<option selected>None</option>";
+        columns.forEach(col => {
+            individualdropDown.innerHTML += `<option>${col}</option>`;
+        })
+    })
+}
 
 
 // --------------------------------------------------HANDLING DRAG AND DROP EVENTS-------------------------------------------------------------------
@@ -128,8 +177,12 @@ const handleUpload = () => {
         let [key,value] = pair;
         dataToPost.append(key,value);
     })
-
-    const params = {
+    dataToPost.append("sheetNo",sheetNo);
+    // console.log(`Data To Post:`); 
+    // for (let pair of dataToPost.entries()) {
+    //     console.log(pair[0]+ ', ' + pair[1]); 
+    // }
+    const params = {    
         method : 'POST',
         body : dataToPost
     }
@@ -172,9 +225,18 @@ const handleDoneButton = async () => {
     document.getElementById("chooseFileView").style.display = "none";
     document.getElementById("mapColumnView").style.display = "block";
     console.log("PRESSED DONE BUTTON!");
+
     
     if(inputFileName.name.endsWith(".xlsx")==true){
-        await readXlsxFile(inputFileName)
+        await readXlsxFile(inputFileName, { getSheets: true }).then((sheets) => {
+            sheetSelector.onchange = getSelectedSheetNo;
+            console.log(sheets.length);
+            noOfSheets = sheets.length;
+            for (let index = 1; index < noOfSheets; index++) {
+                sheetSelector.innerHTML += `<option value="${index+1}">sheet ${index+1}</option>`;  
+            }
+        })
+        await readXlsxFile(inputFileName, {sheet: sheetNo} )
         .then( rows => { 
             rows.forEach( row => dataFromExcel.push(row) );
         })
@@ -192,13 +254,12 @@ const handleDoneButton = async () => {
     uploadButton.style.display = "inline";
     uploadButton.addEventListener("click",handleUpload,false);
 
-    let columns = dataFromExcel[0];
+    columns = dataFromExcel[0];
 
     document.querySelectorAll(".dropDownMenus").forEach(menuButton => {
         menuButton.setAttribute("style","display:inline;");
     })
     
-    let dropDownItems = document.querySelectorAll(".dropDownMenuItems");
     dropDownItems.forEach(individualdropDown => {
         // console.log(columns)
         columns.forEach(col => {
@@ -250,12 +311,17 @@ const showPreview = () => {
     window.location.href = "#previewSection";
     document.getElementById("previewSection").style.visibility = "visible";
     document.getElementById("previewSection").style.height = "90vh";
+
+    if(dataFromExcel === []){
+        document.querySelector(".tableBody").innerHTML = "";
+        document.querySelector(".tableBody").innerHTML = "<h3 style='color: #ffffff'><i>No data to show. Your File must be empty !</i></h3>"
+    }
     document.getElementById("previewUploadBtn").addEventListener("click", handleUpload, false);
     document.getElementById("tableBody").innerHTML = "";
 
     if(dataFromExcel == null)
         return;
-    var columns = dataFromExcel[0];
+    columns = dataFromExcel[0];
     var colPositions = {}; 
     // Mapping excel column names to index number
     for(let colIndex = 0; colIndex < columns.length; colIndex++) {
