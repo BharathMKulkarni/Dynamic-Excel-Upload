@@ -28,6 +28,34 @@ body {
     cursor: pointer;
 }
 
+.fileNameandSheetSelectionDropDown {
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+
+}
+
+.dropDownMenuForSheetNoSelection {
+    display: block;
+    margin-top:0;
+    margin-left: 10px;
+    padding: 0;
+    flex: 1 1 auto;
+
+}
+
+.dropDownMenuForSheetNoSelection #sheetNo {
+    height: 35px ;
+    width: 120px;
+    color: #ffffff;
+    background-color: #212529;
+    border-color: #00EAD3;
+}
+
+.dropDownMenuForSheetNoSelection  :hover {
+    cursor: pointer;
+}
+
 #uploadButton {
     display: none;
 }
@@ -88,8 +116,8 @@ span.fade {
 .filePickerDiv{
     display: flex;
     flex-direction: column;
-    height: 300px;
-    width: 500px;
+    height: 350px;
+    width: 600px;
     margin-top: 30px;
     border: 3px dashed #656464;
     border-radius: 13px;
@@ -159,7 +187,7 @@ label[for="input"] {
 .doneButton {
     border: 1px solid #00EAD3;
     background-color: #000000;
-    margin-top: 20px;
+    margin-top: 30px;
     color: #ffff;
     height: 40px;
     width: 100px;

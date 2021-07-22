@@ -107,7 +107,21 @@
 <div id="mapColumnView" style="display: none;">
   <h2 class="headTitle-title container mapTableHeading">Map your excel columns to our database columns</h2>
   <br>
-  <h4 class="container" id="fileNameForMappingView" ></h4>
+  <div class="container fileNameandSheetSelectionDropDown">
+    <h4 id="fileNameForMappingView" ></h4>
+
+    {{!-- SHEET NO. SELECTION --}}
+    <div class="card-body dropDownMenuForSheetNoSelection">
+      <select class="form-select" id="sheetNo" aria-label="Default select example">
+        <option selected value="1">sheet 1</option>
+      </select>
+    </div>
+
+  </div>
+
+  
+
+
   <div id="mapColumnDiv" class="container add-border" style="padding: 50px">
     <div class="row">
       <div class="col-md-12">
@@ -149,7 +163,7 @@
 
   <div id="previewSection" class="container center-align" style="visibility: hidden;">
     <h2 class="headTitle-title previewHeading">Preview</h2>
-    <div class="table-responsive add-border" style="width: 100%; max-height: 55vh;">
+    <div class="table-responsive add-border tableBody" style="width: 100%; max-height: 55vh;">
       <table class="preview-table table table-striped table-borderless">
         <tbody id="tableBody" class="noborder">
         </tbody>

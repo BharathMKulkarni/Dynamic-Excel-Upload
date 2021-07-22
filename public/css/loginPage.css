@@ -208,6 +208,7 @@ nav{
 }
 /* .how-img
 {
+  margin-top: 0px;
   margin-right: 0px;
   border-style: solid;
   border-color: coral;
@@ -349,6 +350,11 @@ img:hover {
 #OTPModalContent button {
   /* background-color: #00ead3; */
   /* color: #000000; */
+}
+
+.loginPageIllustration {
+  height: 500px;
+  width: 600px;
 }
  
 
