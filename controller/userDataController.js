@@ -56,13 +56,13 @@ const addRecords = async (records) => {
         const uiError = {}
         switch(error.name) {
             case 'SequelizeUniqueConstraintError': 
-                uiError.message = "Possible duplicate value has been detected";
+                uiError.message = "Data in the file has possible duplicate values which might have been uploaded from another file.";
                 break;
             case 'SequelizeValidationError':
-                uiError.message = "Please check the type of data entered";
+                uiError.message = "An error occured while validating file data. This error can occur if a mandatory column is not mapped.";
                 break;
             default: 
-                uiError.message = "An error occured. Please check the data entered"
+                uiError.message = "An error occured. Please make sure if the file data is valid."
         }
         console.log(error.name);
         uiError.line = line;
@@ -70,49 +70,22 @@ const addRecords = async (records) => {
     }
 }
 
-const getUserData = async (req, res) => {
-
-    let userDataList;
+const DeleteUserData = async (req, res) => {
     try {
-        userDataList = await UserData.findAll({
-            raw: true,
+        await UserData.destroy({
             where: {
-                uploaderId: req.user.uploaderId
+                phone: req.body.phone || null
             }
         });
     }
     catch(error) {
-        res.status(500).json({message: error});
-        return;
-    }
-    console.log(userDataList);
-    //res.status(200).json({data: userDataList});
-    res.render('viewTable',{ 
-        documentTitle:"Dynamic-Excel-Upload/ViewUserTable",
-        cssPage: "viewtable",
-        rows: userDataList,
-        columns: schema
-    });
- }
-
- const DeleteUserData = async (req, res) => {
-
-    try{
-        await UserData.destroy({
-            where: {
-              phone: req.body.phone || null
-            }
-        });
-    }
-    catch(error)
-    {
         res.status(403).json({message: "Error while deleting"});
         return;
     }
     res.status(200).json({message: "Deleted successfully"});
- }
+}
 
- const FindUser = async (req, res) => {
+ const GetUserData = async (req, res) => {
     var pattern = req.body.search;
 
     let userDataList;
@@ -121,15 +94,14 @@ const getUserData = async (req, res) => {
             raw:true,
             where: {
                 [Op.or]:{
-                    firstName: {
-                        [Op.like]: `%${pattern}%`
-                    },
-                    lastName: {
-                        [Op.like]: `%${pattern}%`
-                    },
-                    userType: {
-                        [Op.like]: `%${pattern}%`
-                    }
+                    firstName: { [Op.like]: `%${pattern}%` },
+                    lastName: { [Op.like]: `%${pattern}%` },
+                    userType: { [Op.like]: `%${pattern}%` },
+                    phone: { [Op.like]: `%${pattern}%` },
+                    email: { [Op.like]: `%${pattern}%` },
+                    userPassword: { [Op.like]: `%${pattern}%` },
+                    userStatus: { [Op.like]: `%${pattern}%` },
+                    mobile: { [Op.like]: `%${pattern}%` },
                 }  
             }
         });
@@ -147,4 +119,4 @@ const getUserData = async (req, res) => {
     res.status(200).json({data: userDataList, columns: columns});
  }
 
-module.exports = {UploadExcelToDb, getUserData,DeleteUserData,FindUser};
+module.exports = {UploadExcelToDb, DeleteUserData, GetUserData};
