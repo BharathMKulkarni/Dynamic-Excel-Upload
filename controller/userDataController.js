@@ -14,7 +14,9 @@ const UploadExcelToDb = async (req, res) => {
 
     try {
         console.log("TRYING TO RECEIVE THE RECORDS ARRAY FROM parseExcel()")
-        let records = await parseExcel(filePath, req.body);
+        let sheetNo = req.body.sheetNo;
+        delete req.body.sheetNo;
+        let records = await parseExcel(filePath, req.body, sheetNo);
         console.log("RECORDS RECEIVED");
         records.forEach( row => {
             row.uploaderId = req.user.uploaderId;
@@ -143,12 +145,6 @@ const getUserData = async (req, res) => {
     columns.push("createdAt");
 
     res.status(200).json({data: userDataList, columns: columns});
-    // res.render('viewTable',{ 
-    //     documentTitle:"Dynamic-Excel-Upload/ViewUserTable",
-    //     cssPage: "viewtable",
-    //     rows: userDataList,
-    //     columns: schema
-    // });
  }
 
 module.exports = {UploadExcelToDb, getUserData,DeleteUserData,FindUser};

@@ -13,7 +13,7 @@ let dropDownItems = document.querySelectorAll(".dropDownMenuItems");
 
 const cols = document.querySelectorAll(".columns");
 cols.forEach(col => {
-    dbCols.push(col.innerHTML.trim());
+    dbCols.push(col.innerText.trim());
 })
 console.log(dbCols); 
 
@@ -256,6 +256,7 @@ const handleDoneButton = async () => {
     uploadButton.addEventListener("click",handleUpload,false);
 
     columns = dataFromExcel[0];
+    console.log("EXCEL COLUMNS: ", columns);
 
     document.querySelectorAll(".dropDownMenus").forEach(menuButton => {
         menuButton.setAttribute("style","display:inline;");
