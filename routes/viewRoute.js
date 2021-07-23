@@ -1,15 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const {schema}=require('../models/schema/schema.js')
-const getUserData = require('../controller/userDataController').getUserData;
+const {schema}=require('../models/schema/schema.js');
 const {isAuth} = require('../controller/authMiddleware');
-const FindUser = require('../controller/userDataController').FindUser;
+const GetUserData = require('../controller/userDataController').GetUserData;
 
-router.get("/table", isAuth, getUserData);
-router.post('/table/search',isAuth, FindUser);
-router.get("/table/key", isAuth, (req, res) => {
-    res.status(200).json({data: keys["userData"]})
-})
+router.get("/table", isAuth, (req, res) => {
+    res.render('viewTable',{ 
+        documentTitle:"Dynamic-Excel-Upload/ViewUserTable",
+        cssPage: "viewtable",
+        columns: schema
+    });
+});
+router.post('/table/search',isAuth, GetUserData);
 
 router.get('/', isAuth, (req, res) =>{
     res.render('viewSchema',{

@@ -1,5 +1,5 @@
 let keyColumn = null;
-fetch('/view/table/key', {
+fetch('/userdata/key', {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json'
