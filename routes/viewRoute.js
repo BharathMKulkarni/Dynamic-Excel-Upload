@@ -16,6 +16,7 @@ router.post('/table/search',isAuth, GetUserData);
 router.get('/', isAuth, (req, res) =>{
     res.render('viewSchema',{
         documentTitle:"Dynamic-Excel-Upload/ViewSchema",
+        cssPage: "schemapage",
         show_tables: schema
     });
 });
