@@ -9,7 +9,7 @@ fetch('/userdata/key', {
 .then( json => {
     keyColumn = json.data;
 })
-.catch(err => console.log(err));
+.catch(err => console.log("Error in /userdata/key api call"));
 
 
 //------------------------------- HANDLING DELETE REQUEST FOR EACH ROW IN TABLE --------------------------
@@ -40,6 +40,7 @@ const handleDeleteClick = (event) => {
             window.location.reload();
         })
         .catch(err => {
+            console.error("Error /userdata/delete")
         });
     };
 }
@@ -68,7 +69,7 @@ const filterTableOnSearchText = () => {
         document.getElementById("tableBody").innerHTML = "";
         renderTable(resData.data, resData.columns);
     })
-    .catch( err => console.error(err));
+    .catch( err => console.error("error in /view/table/search"));
 }
 
 // MAKE EXCPLICIT CALL INITIALLY TO RENDER ALL DATA AFTER LOADING PAGE

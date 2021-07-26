@@ -110,7 +110,6 @@ nav{
   position:fixed;
   width:100%;
   left:0;
-  z-index:1000;
   -webkit-transition:all 0.3s ease-out;
   transition:all 0.3s ease-out;
 } 

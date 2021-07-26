@@ -25,7 +25,7 @@ const port = process.env.PORT || 4003;
 
 // SETTING THE STATIC FOLDER (public), ALL THE FRONTEND JS RESIDES HERE
 app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/uploads'));
+app.use('/uploads', express.static(__dirname + '/uploads'));
 app.use('/assets',express.static(__dirname + '/public/assets'))
 
 // EXPRESS MIDDLEWARES
@@ -39,13 +39,11 @@ app.engine('hbs', exphbs({
     extname: 'hbs',
     defaultLayout: 'main',
     partialsDir: __dirname + "/views/components"
-
 }));
 
 
 // -------------- SESSION SETUP ----------------
 
-app.use(session({ secret: 'somevalue' }));
 const sessionStore = new SequelizeStore({
     db: db.sequelize
 });
