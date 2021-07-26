@@ -81,7 +81,7 @@ const requestForOtp = (event) => {
             $('#OTPModal').modal('hide');
 
             // Setting OTP timer
-            let timer = 10; // seconds to wait
+            let timer = 120; // seconds to wait
             if(otpTimer)
                 clearInterval(otpTimer);
             otpTimer = setInterval( () => {
@@ -89,18 +89,22 @@ const requestForOtp = (event) => {
                     $('#OTPModal').modal('show');
                     return;
                 }
+                else if(timer === 100) {
+                    document.getElementById("resendBtn").onclick = requestForOtp;
+                    document.getElementById("resendBtn").style.opacity = "1";
+                }
                 document.getElementById("timer").innerHTML = `${timer}`;
                 timer--;
             }, 1000);
 
             document.getElementById("resendBtn").style.display = "block";
+            document.getElementById("resendBtn").style.opacity = "0.5";
         })
         .catch(err => console.log("Error" + err));
     }
 }
 
 submitBtn.onclick = requestForOtp;
-document.getElementById("resendBtn").onclick = requestForOtp;
 OtpModalResendBtn.addEventListener('click', requestForOtp, false);
 
 
