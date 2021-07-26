@@ -20,5 +20,11 @@ router.get('/', isAuth, (req, res) =>{
         show_tables: schema
     });
 });
-
+router.get("/about", isAuth, (req, res) => {
+    res.render('about',{ 
+        documentTitle:"Dynamic-Excel-Upload/aboutPage",
+        cssPage: "about",
+        
+    });
+});
 module.exports = router

@@ -71,7 +71,7 @@ const requestForOtp = (event) => {
             $('#OTPModal').modal('hide');
 
             // Setting OTP timer
-            let timer = 10; // seconds to wait
+            let timer = 30; // seconds to wait
             if(otpTimer)
                 clearInterval(otpTimer);
             otpTimer = setInterval( () => {
