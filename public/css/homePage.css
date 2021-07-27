@@ -281,6 +281,13 @@ label[for="input"] {
     background-color: #00ead3;
 }
 
+.show {
+    display: inline;
+}
+.hide {
+    display: none;
+}
+
 .add-shadow {
     box-shadow: 0px 0px 1rem #000;
 }
@@ -324,7 +331,6 @@ label[for="input"] {
     top: -10px;
     right: -10px;
     font-size: 25px;
-    font-weight: 600;
 }
 #cancelBtn:hover {
     color: #dc3545;

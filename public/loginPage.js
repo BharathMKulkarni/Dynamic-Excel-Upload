@@ -96,7 +96,7 @@ const requestForOtp = (event) => {
                 document.getElementById("timer").innerHTML = `${timer}`;
                 timer--;
             }, 1000);
-
+                        
             document.getElementById("resendBtn").style.display = "block";
             document.getElementById("resendBtn").style.opacity = "0.5";
         })

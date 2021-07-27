@@ -62,6 +62,9 @@ input.addEventListener('change', ()=> {
 
 // --------------------------------------------------HANDLING SHEET NO SELECTION---------------------------------------------------------------------
 const getSelectedSheetNo = async () => {
+    // Start the loading spinner animation
+    var spinner = document.querySelector(".loader");
+    spinner.classList.remove("hidden");
 
     // GETTING THE SHEET NO. SELECTED FROM THE DROPDOWN
     sheetNo = parseInt(sheetSelector.options[sheetSelector.selectedIndex].value);
@@ -91,6 +94,9 @@ const getSelectedSheetNo = async () => {
             individualdropDown.innerHTML += `<option>${col}</option>`;
         })
     })
+
+    //remove the loading spinner
+    spinner.classList.add("hidden");
 }
 
 
@@ -168,8 +174,15 @@ const dropZoneElement = document.getElementById('input').closest(".filePickerDiv
 
 
 
-// ------------------------------------------------------------HANDLING UPLOAD BUTTON CLICK---------------------------------------------------------
-const handleUpload = () => {
+// ------------------------------------------HANDLING UPLOAD BUTTON CLICK--------------------------------------------------
+const handleUpload = (event) => {
+    // add loading spinner to button
+    var normalMode = event.currentTarget.querySelector(".show");
+    var loadingMode = event.currentTarget.querySelector(".hide");
+    normalMode.classList.remove("show");
+    normalMode.classList.add("hide");
+    loadingMode.classList.remove("hide");
+    loadingMode.classList.add("show");
 
     console.log("PRESSED UPLOAD BUTTON!");
     let dataToPost = new FormData();
@@ -198,6 +211,11 @@ const handleUpload = () => {
             modalBody.innerHTML = `<p class="alert alert-success" role="alert">${data.message}</p>`
         else 
             modalBody.innerHTML = `<p class="alert alert-danger" role="alert">At line ${data.line}: <br> ${data.message}`;
+
+        normalMode.classList.remove("hide");
+        normalMode.classList.add("show");
+        loadingMode.classList.remove("show");
+        loadingMode.classList.add("hide");
     })
     .catch(err => console.log(`ERROR>>> ${err}`))
 }
@@ -222,12 +240,14 @@ const handleCsvFiles = () => {
 
 // -----------------------------------------------------------HANDLING CLICK OF DONE BUTTON---------------------------------------------------------
 const handleDoneButton = async () => {
+    // Start the loading spinner animation
+    var spinner = document.querySelector(".loader");
+    spinner.classList.remove("hidden");
 
     document.getElementById("chooseFileView").style.display = "none";
     document.getElementById("mapColumnView").style.display = "block";
     console.log("PRESSED DONE BUTTON!");
 
-    
     if(inputFileName.name.endsWith(".xlsx")==true){
         await readXlsxFile(inputFileName, { getSheets: true }).then((sheets) => {
             sheetSelector.onchange = getSelectedSheetNo;
@@ -301,6 +321,9 @@ const handleDoneButton = async () => {
             },false);
         }
     }
+
+    //remove the loading spinner
+    spinner.classList.add("hidden");
 }
 
 const doneButton = document.getElementById("doneButton");
