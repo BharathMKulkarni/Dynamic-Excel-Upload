@@ -53,6 +53,7 @@ allDeleteButtons.forEach(delBtn => {
 //------------------------------------ HANDLING SEARCH BAR QUERIES DYNAMICALLY -----------------------
 
 const searchBar = document.getElementById("searchText");
+let debounceTimer = null;
 
 const filterTableOnSearchText = () => {
     const queryText = searchBar.value;
@@ -72,9 +73,20 @@ const filterTableOnSearchText = () => {
     .catch( err => console.error("error in /view/table/search"));
 }
 
+const debounce = function(fn, delay) {
+    let timer;
+    return function() {
+        let context = this, args = arguments;
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            fn.apply(context, args);
+        }, delay);
+    }
+}
+
 // MAKE EXCPLICIT CALL INITIALLY TO RENDER ALL DATA AFTER LOADING PAGE
 filterTableOnSearchText();
-searchBar.addEventListener('input', filterTableOnSearchText);
+searchBar.addEventListener('input', debounce(filterTableOnSearchText, 500), false);
 
 //--------------------------------------- RENDERING THE TABLE ------------------------------------
 
