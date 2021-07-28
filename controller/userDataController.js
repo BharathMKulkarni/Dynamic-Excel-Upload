@@ -36,9 +36,9 @@ const UploadExcelToDb = async (req, res) => {
 const addRecords = async (records) => {
     console.log("adding records")
     const t = await db.sequelize.transaction();
-    let line;
+    
     try {
-        line = 1;
+        var line = 1;
         for(let entry of records) {
             console.log(entry);
             await UserData.create(entry, { transaction: t });
@@ -74,7 +74,8 @@ const DeleteUserData = async (req, res) => {
     try {
         await UserData.destroy({
             where: {
-                phone: req.body.phone || null
+                phone: req.body.phone || null,
+                uploaderId: req.user.uploaderId
             }
         });
     }
@@ -85,12 +86,27 @@ const DeleteUserData = async (req, res) => {
     res.status(200).json({message: "Deleted successfully"});
 }
 
- const GetUserData = async (req, res) => {
+const GetUserData = async (req, res) => {
+    const pageAsNumber = Number.parseInt(req.query.page);
+    const sizeAsNumber = Number.parseInt(req.query.size);
+
+    let page = 0;
+    if(!Number.isNaN(pageAsNumber) && pageAsNumber > 0){
+        page = pageAsNumber;
+    }
+
+    let size = 10;
+    if(!Number.isNaN(sizeAsNumber) && !(sizeAsNumber > 10) && !(sizeAsNumber < 1)){
+        size = sizeAsNumber;
+    }
+
     var pattern = req.body.search;
 
     let userDataList;
     try {
-        userDataList = await UserData.findAll({
+        userDataList = await UserData.findAndCountAll({
+            limit: size,
+            offset: page * size,
             raw:true,
             where: {
                 [Op.or]:{
@@ -102,7 +118,8 @@ const DeleteUserData = async (req, res) => {
                     userPassword: { [Op.like]: `%${pattern}%` },
                     userStatus: { [Op.like]: `%${pattern}%` },
                     mobile: { [Op.like]: `%${pattern}%` },
-                }  
+                },
+                uploaderId: req.user.uploaderId
             }
         });
     }
@@ -116,7 +133,11 @@ const DeleteUserData = async (req, res) => {
     })
     columns.push("createdAt");
 
-    res.status(200).json({data: userDataList, columns: columns});
- }
+    res.status(200).json({
+        data: userDataList.rows, 
+        columns: columns, 
+        totalPages: Math.ceil(userDataList.count / Number.parseInt(size))
+    });
+}
 
 module.exports = {UploadExcelToDb, DeleteUserData, GetUserData};

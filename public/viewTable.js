@@ -55,10 +55,11 @@ allDeleteButtons.forEach(delBtn => {
 const searchBar = document.getElementById("searchText");
 let debounceTimer = null;
 
-const filterTableOnSearchText = () => {
+const filterTableOnSearchText = (event = null, pageNumber = 1) => {
     const queryText = searchBar.value;
+    const url = `/view/table/search?page=${pageNumber-1}&size=10`;
 
-    fetch('/view/table/search', {
+    fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -68,7 +69,17 @@ const filterTableOnSearchText = () => {
     .then( res => res.json() )
     .then( resData => {
         document.getElementById("tableBody").innerHTML = "";
+        let totalPages = resData.totalPages;
         renderTable(resData.data, resData.columns);
+        document.getElementById("pageNumber").innerText = pageNumber;
+        if(pageNumber === 1)
+            document.getElementById("prevPage").classList.add("disable");
+        else if(pageNumber === totalPages) 
+            document.getElementById("nextPage").classList.add("disable");
+        else {
+            document.getElementById("prevPage").classList.remove("disable");
+            document.getElementById("nextPage").classList.remove("disable");
+        }
     })
     .catch( err => console.error("error in /view/table/search"));
 }
@@ -87,6 +98,23 @@ const debounce = function(fn, delay) {
 // MAKE EXCPLICIT CALL INITIALLY TO RENDER ALL DATA AFTER LOADING PAGE
 filterTableOnSearchText();
 searchBar.addEventListener('input', debounce(filterTableOnSearchText, 500), false);
+
+//------------------------------------- PAGINATION -------------------------------------
+
+const prevButton = document.getElementById("prevPage");
+const nextButton = document.getElementById("nextPage");
+
+const loadPreviousPage = () => {
+    const pageNumber = Number.parseInt(document.getElementById("pageNumber").innerText.trim());
+    filterTableOnSearchText(null, pageNumber-1);
+}
+const loadNextPage = () => {
+    const pageNumber = Number.parseInt(document.getElementById("pageNumber").innerText.trim());
+    filterTableOnSearchText(null, pageNumber+1);
+}
+
+prevButton.addEventListener('click', loadPreviousPage, false);
+nextButton.addEventListener('click', loadNextPage, false);
 
 //--------------------------------------- RENDERING THE TABLE ------------------------------------
 

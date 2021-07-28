@@ -126,5 +126,21 @@ input[type='search'] {
 } */
 
 .delete-btn {
-  
 }
+
+/**************** PAGINATION CSS *****************/
+.page-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 3rem;
+}
+
+.pg-link {
+  margin: 5px;
+  font-weight: bold;
+  font-size: large;
+  background-color: white;
+  padding: 5px 10px 5px 10px;
+}
+

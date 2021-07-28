@@ -4,14 +4,14 @@ const {schema}=require('../models/schema/schema.js');
 const {isAuth} = require('../controller/authMiddleware');
 const GetUserData = require('../controller/userDataController').GetUserData;
 
-router.get("/table", isAuth, (req, res) => {
+router.get("/table", (req, res) => {
     res.render('viewTable',{ 
         documentTitle:"Dynamic-Excel-Upload/ViewUserTable",
         cssPage: "viewtable",
         columns: schema
     });
 });
-router.post('/table/search',isAuth, GetUserData);
+router.post('/table/search', GetUserData);
 
 router.get('/', isAuth, (req, res) =>{
     res.render('viewSchema',{
@@ -20,7 +20,7 @@ router.get('/', isAuth, (req, res) =>{
         show_tables: schema
     });
 });
-router.get("/about", isAuth, (req, res) => {
+router.get("/about", (req, res) => {
     res.render('about',{ 
         documentTitle:"Dynamic-Excel-Upload/aboutPage",
         cssPage: "about",
