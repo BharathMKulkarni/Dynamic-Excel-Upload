@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 body {
   background-color: black;
+  font-family: 'Montserrat', sans-serif;
 }
 .view_table{
     width:100%;
@@ -137,10 +140,33 @@ input[type='search'] {
 }
 
 .pg-link {
-  margin: 5px;
-  font-weight: bold;
-  font-size: large;
-  background-color: white;
-  padding: 5px 10px 5px 10px;
+  background-color: black;
+  color: #00ead3;
+  border: #00ead3 solid 1px;
 }
 
+.pg-link, #pageNumber {
+  margin: 5px;
+  font-weight: lighter;
+  font-size: large;
+  padding: 5px 10px 5px 10px;
+  box-shadow: black;
+  border-radius: 3px;
+}
+
+#pageNumber {
+  background-color: #00ead3;
+  color: black;
+}
+
+.pg-link:hover {
+  background-color: #00ead3;
+  color: black;
+  cursor: pointer;
+}
+
+.pg-link.disable, .pg-link.disable:hover {
+  background-color: black;
+  color: #444444;
+  border-color: #444444;
+}

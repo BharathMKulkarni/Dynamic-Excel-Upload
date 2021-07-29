@@ -72,14 +72,13 @@ const filterTableOnSearchText = (event = null, pageNumber = 1) => {
         let totalPages = resData.totalPages;
         renderTable(resData.data, resData.columns);
         document.getElementById("pageNumber").innerText = pageNumber;
-        if(pageNumber === 1)
+
+        document.getElementById("prevPage").classList.remove("disable");
+        document.getElementById("nextPage").classList.remove("disable");
+        if(pageNumber === 1) 
             document.getElementById("prevPage").classList.add("disable");
-        else if(pageNumber === totalPages) 
+        if(pageNumber === totalPages) 
             document.getElementById("nextPage").classList.add("disable");
-        else {
-            document.getElementById("prevPage").classList.remove("disable");
-            document.getElementById("nextPage").classList.remove("disable");
-        }
     })
     .catch( err => console.error("error in /view/table/search"));
 }
@@ -106,11 +105,13 @@ const nextButton = document.getElementById("nextPage");
 
 const loadPreviousPage = () => {
     const pageNumber = Number.parseInt(document.getElementById("pageNumber").innerText.trim());
-    filterTableOnSearchText(null, pageNumber-1);
+    if(!prevButton.classList.contains("disable"))
+        filterTableOnSearchText(null, pageNumber-1);
 }
 const loadNextPage = () => {
     const pageNumber = Number.parseInt(document.getElementById("pageNumber").innerText.trim());
-    filterTableOnSearchText(null, pageNumber+1);
+    if(!nextButton.classList.contains("disable"))
+        filterTableOnSearchText(null, pageNumber+1);
 }
 
 prevButton.addEventListener('click', loadPreviousPage, false);
