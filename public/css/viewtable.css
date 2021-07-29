@@ -60,12 +60,20 @@ body {
 }
 
 #viewSection {
-    border: 5px solid #444444;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
-    padding-right: 0px;
-    padding-left: 0px;
+  position: relative;
+  border: 5px solid #444444;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  padding-right: 0px;
+  padding-left: 0px;
 }
+/* 
+#tableBody {
+  position: relative;
+  top: 0;
+  right: 0;
+} */
+
 tbody, td, tfoot, th, thead, tr {
   border-color: inherit;
   border-style:none;

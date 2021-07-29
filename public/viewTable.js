@@ -56,6 +56,11 @@ const searchBar = document.getElementById("searchText");
 let debounceTimer = null;
 
 const filterTableOnSearchText = (event = null, pageNumber = 1) => {
+    var tableDiv = document.querySelector("#viewSection > table");
+    tableDiv.style.display = "none";
+    var spinner = document.querySelector(".div-loader");
+    spinner.style.display = "flex";
+
     const queryText = searchBar.value;
     const url = `/view/table/search?page=${pageNumber-1}&size=10`;
 
@@ -79,6 +84,9 @@ const filterTableOnSearchText = (event = null, pageNumber = 1) => {
             document.getElementById("prevPage").classList.add("disable");
         if(pageNumber === totalPages) 
             document.getElementById("nextPage").classList.add("disable");
+
+        spinner.style.display = "none";
+        tableDiv.style.display = "block";
     })
     .catch( err => console.error("error in /view/table/search"));
 }
