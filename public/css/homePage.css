@@ -230,7 +230,7 @@ label[for="input"] {
 
 .preview-table th {
     padding-left: 15px;
-    padding-top: 20px;
+    padding-top: 15px;
     padding-bottom: 20px;
     padding-right: 15px;
     font-weight: bold;
@@ -240,6 +240,18 @@ label[for="input"] {
 
 #tableRow0 {
     background-color: #212529;
+}
+
+#tableRow0 > th {
+    position: relative;
+}
+
+th > .col-head {
+    display: block;
+    padding-bottom: 5px;
+    font-style: italic;
+    font-size: 12px;
+    color: #00ead3;
 }
 
 .preview-table td {

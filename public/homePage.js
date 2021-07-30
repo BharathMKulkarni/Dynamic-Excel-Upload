@@ -376,7 +376,11 @@ const showPreview = () => {
             if(mappedElements.hasOwnProperty(colName)) {
                 let rowElement = row[colPositions[mappedElements[colName]]] || "";
                 let tableCell = document.createElement( (rowIndex === 0? "th" : "td") );
-                tableCell.innerHTML = rowElement;
+                if(rowIndex === 0) {
+                    tableCell.innerHTML = `<span class="col-head">${colName}</span>${rowElement}`;
+                }
+                else
+                    tableCell.innerHTML = rowElement;
                 tableRow.appendChild(tableCell);
             }
         });
