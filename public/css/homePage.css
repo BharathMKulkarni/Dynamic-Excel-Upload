@@ -358,7 +358,9 @@ label[for="input"] {
     transform: rotate(-45deg);
 }
 .columns {
-    
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 /*********************************** MODAL STYLING **************************************/

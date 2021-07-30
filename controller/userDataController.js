@@ -72,9 +72,11 @@ const addRecords = async (records) => {
 
 const DeleteUserData = async (req, res) => {
     try {
-        await UserData.destroy({
+        await UserData.update({ deletedFlag: 'inactive' },
+        {
             where: {
                 phone: req.body.phone || null,
+                deletedFlag: 'active',
                 uploaderId: req.user.uploaderId
             }
         });
@@ -119,7 +121,8 @@ const GetUserData = async (req, res) => {
                     userStatus: { [Op.like]: `%${pattern}%` },
                     mobile: { [Op.like]: `%${pattern}%` },
                 },
-                uploaderId: req.user.uploaderId
+                uploaderId: req.user.uploaderId,
+                deletedFlag: 'active'
             }
         });
     }
