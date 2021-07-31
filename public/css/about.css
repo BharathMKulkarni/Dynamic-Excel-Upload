@@ -40,7 +40,7 @@ body{
     top: 12px;
 }
 .about-section{
-    background: url("../assets/pic3.jpg") no-repeat left;
+    /* background: url("../assets/pic3.jpg") no-repeat left; */
     background-size: 55%;
     background-color: #000000;
     overflow: hidden;
