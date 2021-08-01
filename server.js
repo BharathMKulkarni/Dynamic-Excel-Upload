@@ -6,6 +6,9 @@ const session = require('express-session');
 var passport = require('passport');
 const cors = require('cors');
 
+// USING ENV FILE 
+dotenv.config();
+
 // initalize sequelize with session store
 var SequelizeStore = require("connect-session-sequelize")(session.Store);
 
@@ -16,9 +19,6 @@ const viewRouter=require('./routes/viewRoute');
 const loginRouter = require('./routes/loginRoute');
 const {schema} = require('./models/schema/schema')
 const {isAuth} = require('./controller/authMiddleware')
-
-// USING ENV FILE 
-dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 4003;
