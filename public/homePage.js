@@ -177,12 +177,11 @@ const dropZoneElement = document.getElementById('input').closest(".filePickerDiv
 // ------------------------------------------HANDLING UPLOAD BUTTON CLICK--------------------------------------------------
 const handleUpload = (event) => {
     // add loading spinner to button
-    var normalMode = event.currentTarget.querySelector(".show");
-    var loadingMode = event.currentTarget.querySelector(".hide");
-    normalMode.classList.remove("show");
-    normalMode.classList.add("hide");
-    loadingMode.classList.remove("hide");
-    loadingMode.classList.add("show");
+    event.target.classList.add('loading');
+    document.getElementById("upBtnNormal").style.display = "none";
+    document.getElementById("upBtnLoad").style.display = "inline";
+    document.getElementById("preUpNormal").style.display = "none";
+    document.getElementById("preUpLoad").style.display = "inline";
 
     console.log("PRESSED UPLOAD BUTTON!");
     let dataToPost = new FormData();
@@ -212,10 +211,11 @@ const handleUpload = (event) => {
         else 
             modalBody.innerHTML = `<p class="alert alert-danger" role="alert">At line ${data.line}: <br> ${data.message}`;
 
-        normalMode.classList.remove("hide");
-        normalMode.classList.add("show");
-        loadingMode.classList.remove("show");
-        loadingMode.classList.add("hide");
+        document.getElementById("upBtnNormal").style.display = "inline";
+        document.getElementById("upBtnLoad").style.display = "none";
+        document.getElementById("preUpNormal").style.display = "inline";
+        document.getElementById("preUpLoad").style.display = "none";
+        event.target.classList.remove('loading');
     })
     .catch(err => console.log(`ERROR>>> ${err}`))
 }

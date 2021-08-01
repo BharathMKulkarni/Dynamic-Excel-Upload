@@ -293,13 +293,6 @@ th > .col-head {
     background-color: #00ead3;
 }
 
-.show {
-    display: inline;
-}
-.hide {
-    display: none;
-}
-
 .add-shadow {
     box-shadow: 0px 0px 1rem #000;
 }

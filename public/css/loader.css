@@ -46,3 +46,12 @@
     width: 3rem;
     height: 3rem;
 }
+
+.loading {
+    cursor: wait; /* busy cursor feedback */
+}
+
+.loading * {
+    /* disable all mouse events on subElements */
+    pointer-events: none; 
+}
