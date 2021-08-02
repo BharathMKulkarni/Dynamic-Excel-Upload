@@ -2,12 +2,18 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const dotenv = require('dotenv');
+const fs = require('fs');
 const session = require('express-session');
 var passport = require('passport');
 const cors = require('cors');
 
 // USING ENV FILE 
 dotenv.config();
+
+// Creating uploads directory to store all uploaded files temporarily
+if(!fs.existsSync('./uploads')) {
+    fs.mkdirSync('./uploads');
+}
 
 // initalize sequelize with session store
 var SequelizeStore = require("connect-session-sequelize")(session.Store);
