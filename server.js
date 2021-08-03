@@ -60,6 +60,7 @@ app.use(session({
     }
 }));
 
+
 // -------------- PASSPORT AUTHENTICATION --------------
 
 // Need to require the entire Passport config module so app.js knows about it
