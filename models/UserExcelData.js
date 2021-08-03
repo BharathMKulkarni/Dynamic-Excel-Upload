@@ -28,6 +28,13 @@ module.exports = (sequelize, DataTypes) => {
         deptId: DataTypes.INTEGER,
         designationId: DataTypes.INTEGER,
         createdAt: DataTypes.DATEONLY,
+        EId: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'image',
+                key: 'e_id'
+            }
+        },
         uploaderId: {
             type: DataTypes.UUID,
             references: {

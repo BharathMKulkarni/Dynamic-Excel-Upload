@@ -1,10 +1,23 @@
 const multer = require('multer');
 const path = require('path');
+const db = require("../models");
+const Image= require('../models/history.js')(db.sequelize, db.Sequelize);
 
-const excelFilter = (req, file, cb) => {
+const excelFilter = async (req, file, cb) => {
    if (file.originalname.endsWith(".xlsx") || file.originalname.endsWith(".csv")) {
       console.log("FILE UPLOADED WAS EITHER .xlsx or .csv, OKAY!");
       cb(null, true);
+      //inserting file names 
+      await Image.create({
+         Dtype: file.mimetype,
+         name: file.originalname,
+         uploaderId:req.user.uploaderId
+       }).then((image) => {
+      return res.send(`File has been uploaded.`);
+    }).catch(()=>
+    {
+       console.log("samosa");
+    })
    } else {
      cb("Please upload either .xlsx or .csv files", false);
    }

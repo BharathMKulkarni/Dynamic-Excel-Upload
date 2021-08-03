@@ -110,7 +110,7 @@ app.get('/getcolumns', (req, res) => {
 // LISTENING TO PORT AND SYNC MODEL CHANGES TO DATABASE BEFORE STARTING APP
 db
 .sequelize
-.sync()
+.sync({force:true})
 .then( req => {
     app.listen( port, () => { 
         console.log(`>>>App is running on port http://localhost:${port}`);

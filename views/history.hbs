@@ -1,0 +1,29 @@
+{{>header}}
+<div id="viewSection" class="container center-align table-responsive " >
+
+ 
+<table class="table view_table table-bordered table-borderless">
+  <thead class="table-dark">
+    <tr line-height="50px">
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">UploaderId</th>
+      <th scope="col">CreatedAt</th>
+      <th class="fixed-column" scope="col">Options</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each rows}}
+      <tr>
+        <td>{{this.EId}}</td>
+        <td>{{this.name}}</td>
+        <td>{{this.uploaderId}}</td>
+        <td>{{this.createdAt}}</td>
+        <td class="text-end"><a href="/userdata/history/{{this.EId}}" type="button" class="btn btn-info btn-small"><i class="bi bi-person-x"></i> Delete</a></td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+
