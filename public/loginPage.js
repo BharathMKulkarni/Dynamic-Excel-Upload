@@ -11,7 +11,25 @@ const OTPTimeoutModalRetryButton = document.getElementById("OTPTimeoutModalRetry
 OTPTimeoutModalRetryButton.addEventListener("click",handleOTPTimeoutModalRetryButton,false);
 
 function verifyOtp() {
+    event.target.classList.add('loading');
+
     otp = document.getElementById("textField").value;
+    const otpRegEx = new RegExp('[0-9]{6}', 'g');
+
+    if(!otpRegEx.test(otp)) {
+        document.getElementById("OTPModalTitle").innerText = "Invalid Credentials!";
+        document.getElementById("OTPModalMessage").innerText = "The OTP you've entered is incorrect";
+        document.getElementById("OTPTimeoutModalResendButton").style.display = "inline";
+        $('#OTPModal').modal('show');
+
+        event.target.classList.remove('loading');
+        return;
+    }
+
+    // START THE LOADING SPINNER
+    var spinner = document.querySelector(".loader");
+    spinner.classList.remove("hidden");
+    spinner.classList.add("translucent");
 
     fetch('/login/verify', {
         method: 'POST',
@@ -22,7 +40,13 @@ function verifyOtp() {
     })
     .then(res => {
         if(res.status === 403) {
+            // remove the loading spinner
+            spinner.classList.add("hidden");
+            // enable otp submit button
+            event.target.classList.remove('loading');
+
             document.getElementById("OTPModalTitle").innerText = "Invalid Credentials!";
+            document.getElementById("OTPModalMessage").innerText = "The OTP you've entered is incorrect";
             document.getElementById("OTPTimeoutModalResendButton").style.display = "inline";
             $('#OTPModal').modal('show');
         }
@@ -33,7 +57,11 @@ function verifyOtp() {
     .catch(err => console.log(err));
 }
 
+
 const requestForOtp = (event) => {
+    // disable event source to avoid accidental double clicks
+    event.target.classList.add('loading');
+
     var textInput = document.getElementById("textField");
     if(event.target === submitBtn)
         phone = textInput.value;
@@ -42,7 +70,8 @@ const requestForOtp = (event) => {
     var elem = document.getElementById("err")
     if(!phoneNoRegEx.test(phone))
     {
-        document.getElementById("OTPModalTitle").innerText = "Enter a valid Phone Number";
+        document.getElementById("OTPModalTitle").innerText = "Invalid Phone Number";
+        document.getElementById("OTPModalMessage").innerText = "Please enter a valid phone number and try again";
         document.getElementById("OTPTimeoutModalResendButton").style.display = "none";
         $('#OTPModal').modal('show');
     }
@@ -63,9 +92,6 @@ const requestForOtp = (event) => {
         })
         .then(res => res.json())
         .then(data => {
-            // remove the loading spinner
-            spinner.classList.add("hidden");
-
             // temporarily logging otp to frontend for testing/dev
             console.log(data);
 
@@ -86,6 +112,9 @@ const requestForOtp = (event) => {
                 clearInterval(otpTimer);
             otpTimer = setInterval( () => {
                 if(timer === -1) {
+                    document.getElementById("OTPModalTitle").innerText = "Time Up!";
+                    document.getElementById("OTPModalMessage").innerText = "Current OTP has expired, please try again";
+                    document.getElementById("OTPTimeoutModalResendButton").style.display = "inline";
                     $('#OTPModal').modal('show');
                     return;
                 }
@@ -99,6 +128,10 @@ const requestForOtp = (event) => {
                         
             document.getElementById("resendBtn").style.display = "block";
             document.getElementById("resendBtn").style.opacity = "0.5";
+
+            // remove the loading spinner and enabling clicked button
+            spinner.classList.add("hidden");
+            event.target.classList.remove("loading");
         })
         .catch(err => console.log("Error" + err));
     }
