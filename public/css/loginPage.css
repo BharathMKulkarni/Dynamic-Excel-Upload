@@ -110,7 +110,6 @@ nav{
   position:fixed;
   width:100%;
   left:0;
-  z-index:1000;
   -webkit-transition:all 0.3s ease-out;
   transition:all 0.3s ease-out;
 } 
@@ -185,7 +184,6 @@ nav{
 
 #resendBtn:hover {
   cursor: pointer;
-  text-decoration: underline;
 }
 
 .a2
@@ -355,6 +353,12 @@ img:hover {
 .loginPageIllustration {
   height: 500px;
   width: 600px;
+}
+
+/****************************** SPINNER CLASS CSS ********************************/
+
+.translucent {
+  opacity: 0.5;
 }
  
 

@@ -2,7 +2,7 @@
 <script src="https://unpkg.com/read-excel-file@5.x/bundle/read-excel-file.min.js"></script>
 <script type="text/javascript" src="papaparse.min.js"></script>
 
-
+{{!--------------------------------- CHOOSE FILE VIEW (FIRST VIEW OF HOMEPAGE) -----------------}}
 <div id="chooseFileView">
 
   <div class="headTitle">
@@ -48,6 +48,9 @@
 
 </div>
 
+
+{{!---------------------- COLUMN MAPPING VIEW (SECOND VIEW OF HOMEPAGE) --------------------}}
+
 <div id="mapColumnView" style="display: none;">
   <h2 class="headTitle-title container mapTableHeading">Map your excel columns to our database columns</h2>
   <br>
@@ -66,7 +69,8 @@
   <div id="mapColumnDiv" class="container add-border" style="padding: 50px">
     <div class="row">
       <div class="col-md-12">
-        <span id="cancelBtn" data-bs-toggle="tooltip" data-bs-placement="left" title="discard and choose new file">X</span>
+        {{!-- <span id="cancelBtn" data-bs-toggle="tooltip" data-bs-placement="left" title="discard and choose new file">X</span> --}}
+        <i id="cancelBtn" class="fas fa-times" data-bs-toggle="tooltip" data-bs-placement="left" title="discard and choose new file"></i>
         <i id="autoMapBtn" class="fas fa-magic" data-bs-toggle="tooltip" data-bs-placement="right" title="Automap Columns"></i>
       </div>
     </div>
@@ -93,25 +97,35 @@
     </div>
     
     <div class="d-flex justify-content-between">
-      <button class="btn btn-primary" id="previewButton">
+      <button class="btn btn-primary" id="previewButton" disabled>
         <i class="far fa-eye"></i> Preview
       </button>
       <button class="btn btn-success" id="uploadButton">
-        <i class="fas fa-cloud-upload-alt"></i> Upload
+        <span id="upBtnNormal">
+          <i class="fas fa-cloud-upload-alt"></i> Upload
+        </span>
+        <span id="upBtnLoad" style="display: none">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Uploading...
+        </span>
       </button>
     </div>
   </div>
 
   <div id="previewSection" class="container center-align" style="visibility: hidden;">
     <h2 class="headTitle-title previewHeading">Preview</h2>
-    <div class="table-responsive add-border tableBody" style="width: 100%; max-height: 55vh;">
-      <table class="preview-table table table-striped table-borderless">
+    <div class="table-responsive add-border tableBody" id="previewTable" style="width: 100%; max-height: 55vh;">
+      <table class="preview-table table table-borderless">
         <tbody id="tableBody" class="noborder">
         </tbody>
       </table>
     </div>
     <button class="btn btn-success btn-style add-shadow" id="previewUploadBtn">
-      <i class="fas fa-cloud-upload-alt" style="padding: 5px;"></i> Upload
+      <span id="preUpNormal">
+        <i class="fas fa-cloud-upload-alt" style="padding: 5px;"></i> Upload
+      </span>
+      <span id="preUpLoad" style="display: none">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Uploading...
+      </span>
     </button>
   </div>
 </div>
@@ -130,4 +144,4 @@
   </div>
 </div> 
 
-<script src='homePage.js'></script>
+<script src='/homePage.js'></script>

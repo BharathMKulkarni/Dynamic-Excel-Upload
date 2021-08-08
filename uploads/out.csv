@@ -1,0 +1,7 @@
+﻿typeOfUser,phone,email,password,status,roleID,first_name,lastname,mobile,deptID,designationID
+vendor,1234,abc@gmail.com,1234,active,1,harish,jk,1234,1,1234
+vendor,1234,bcd@gmail.com,4567,passive,2,raghu,km,1234,2,1234
+warehouse,4567,abc@gmail.com,12,active,1,stephen,jk,4567,3,123
+vendor,4567,bcd@gmail.com,1234,passive,2,ram,mk,4567,4,12
+warehouse,1234,abc@gmail.com,4567,active,4,keerti,jh,1234,1,1243
+warehouse,12345,bcd@gmail.com,1234,passive,5,mango,ok,12345,2,123445

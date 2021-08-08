@@ -23,6 +23,7 @@ function verifyOtp() {
     .then(res => {
         if(res.status === 403) {
             document.getElementById("OTPModalTitle").innerText = "Invalid Credentials!";
+            document.getElementById("OTPTimeoutModalResendButton").style.display = "inline";
             $('#OTPModal').modal('show');
         }
         else if(res.status === 200) {
@@ -42,10 +43,16 @@ const requestForOtp = (event) => {
     if(!phoneNoRegEx.test(phone))
     {
         document.getElementById("OTPModalTitle").innerText = "Enter a valid Phone Number";
+        document.getElementById("OTPTimeoutModalResendButton").style.display = "none";
         $('#OTPModal').modal('show');
     }
     else{
-        elem.style.display='none'
+        elem.style.display='none';
+
+        // START THE LOADING SPINNER
+        var spinner = document.querySelector(".loader");
+        spinner.classList.remove("hidden");
+        spinner.classList.add("translucent");
     
         fetch('/login/get-otp', {
             method: 'POST',
@@ -56,6 +63,9 @@ const requestForOtp = (event) => {
         })
         .then(res => res.json())
         .then(data => {
+            // remove the loading spinner
+            spinner.classList.add("hidden");
+
             // temporarily logging otp to frontend for testing/dev
             console.log(data);
 
@@ -71,7 +81,7 @@ const requestForOtp = (event) => {
             $('#OTPModal').modal('hide');
 
             // Setting OTP timer
-            let timer = 30; // seconds to wait
+            let timer = 120; // seconds to wait
             if(otpTimer)
                 clearInterval(otpTimer);
             otpTimer = setInterval( () => {
@@ -79,18 +89,22 @@ const requestForOtp = (event) => {
                     $('#OTPModal').modal('show');
                     return;
                 }
-                document.getElementById("timer").innerHTML = `session expires in ${timer}s`;
+                else if(timer === 100) {
+                    document.getElementById("resendBtn").onclick = requestForOtp;
+                    document.getElementById("resendBtn").style.opacity = "1";
+                }
+                document.getElementById("timer").innerHTML = `${timer}`;
                 timer--;
             }, 1000);
-
+                        
             document.getElementById("resendBtn").style.display = "block";
+            document.getElementById("resendBtn").style.opacity = "0.5";
         })
         .catch(err => console.log("Error" + err));
     }
 }
 
 submitBtn.onclick = requestForOtp;
-document.getElementById("resendBtn").onclick = requestForOtp;
 OtpModalResendBtn.addEventListener('click', requestForOtp, false);
 
 

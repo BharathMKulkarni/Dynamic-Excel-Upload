@@ -2,9 +2,18 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const dotenv = require('dotenv');
+const fs = require('fs');
 const session = require('express-session');
 var passport = require('passport');
 const cors = require('cors');
+
+// USING ENV FILE 
+dotenv.config();
+
+// Creating uploads directory to store all uploaded files temporarily
+if(!fs.existsSync('./uploads')) {
+    fs.mkdirSync('./uploads');
+}
 
 // initalize sequelize with session store
 var SequelizeStore = require("connect-session-sequelize")(session.Store);
@@ -17,15 +26,12 @@ const loginRouter = require('./routes/loginRoute');
 const {schema} = require('./models/schema/schema')
 const {isAuth} = require('./controller/authMiddleware')
 
-// USING ENV FILE 
-dotenv.config();
-
 const app = express();
 const port = process.env.PORT || 4003;
 
 // SETTING THE STATIC FOLDER (public), ALL THE FRONTEND JS RESIDES HERE
 app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/uploads'));
+app.use('/uploads', express.static(__dirname + '/uploads'));
 app.use('/assets',express.static(__dirname + '/public/assets'))
 
 // EXPRESS MIDDLEWARES
@@ -39,13 +45,11 @@ app.engine('hbs', exphbs({
     extname: 'hbs',
     defaultLayout: 'main',
     partialsDir: __dirname + "/views/components"
-
 }));
 
 
 // -------------- SESSION SETUP ----------------
 
-app.use(session({ secret: 'somevalue' }));
 const sessionStore = new SequelizeStore({
     db: db.sequelize
 });

@@ -1,4 +1,5 @@
 {{>header}}
+
 <div class="container center-align" style="margin-top: 2rem;">
   <input id="searchText" type="search" placeholder="Search..." class="searchbar container center-align">
 
@@ -6,6 +7,13 @@
 </div>
  
 <div id="viewSection" class="container center-align table-responsive" >
+  <div class="div-loader">
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border spin-custom" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
 
   <table class="table view_table table-bordered table-borderless">
     <thead class="table-dark">
@@ -18,10 +26,24 @@
       </tr>
     </thead>
 
-    <tbody id="tableBody">
+    <tbody id="tableBody"> 
     </tbody>
+    
   </table>
+  
+
 </div>
+
+{{!---------- TABLE PAGINATION LINKS ------------}}
+<nav>
+  <div class="page-nav">
+    <div>
+      <span id="prevPage" class="pg-link"><i class="fas fa-less-than"></i>   Prev</span>
+      <span id="pageNumber">1</span>
+      <span id="nextPage" class="pg-link">Next   <i class="fas fa-greater-than"></i></span>
+    </div>
+  </div>
+</nav>
 
 {{!--------- DELETE CONFIRMATION MODAL --------}}
 <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

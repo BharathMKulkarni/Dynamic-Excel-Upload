@@ -1,0 +1,157 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Open Sans",sans-serif;
+    box-sizing: border-box;
+}
+
+body{
+    
+    min-height: 100vh;
+    
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f1f1;
+}
+.process-3 {
+    list-style: none;
+    position: relative;
+}
+.process-3 li {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.process-3 li .process__number {
+    float: left;
+    width: 3.71428571em;
+    height: 3.71428571em;
+    border-radius: 50%;
+    border: 2px solid #1c1c1d;
+    background: #fff;
+    text-align: center;
+}
+.process-3 li .process__number span {
+    font-size: 1.35714286em;
+    font-weight: 700;
+    color: #070808;
+    position: relative;
+    top: 12px;
+}
+.about-section{
+    /* background: url("../assets/pic3.jpg") no-repeat left; */
+    background-size: 55%;
+    background-color: #000000;
+    overflow: hidden;
+    padding: 100px 0;
+}
+.process_item{
+
+margin-bottom: 30px;
+
+}
+.process-3 li .process__body {
+    width: 80%;
+    float: right;
+}
+section{
+
+    padding-top: 30px;
+}
+.inner-container{
+    width: 55%;
+    float: right;
+    background-color: #fdfdfd;
+    padding: 150px;
+}
+
+.inner-container h1{
+    margin-bottom: 30px;
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.text{
+    font-size: 13px;
+    color: #545454;
+    line-height: 30px;
+    text-align: justify;
+    margin-bottom: 40px;
+}
+
+.skills{
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+footer p{
+    padding:0;
+    font-size: 0.8em;
+    color: hsla(0, 50%, 100%, 0.35);
+    margin: 1em 0;
+    font-size: 1rem;
+}
+footer ul{
+    list-style: none;
+    display: flex;
+    margin: 1em 0; 
+}
+footer ul li a{
+    padding: 1em; 
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.904);
+    transition: 100ms;
+}
+footer ul li a:hover{
+    color: var(--primary);
+}
+
+footer{
+    width: 100%;
+    background: #070707;
+    color: #fff; 
+    display: grid;
+    place-items: center;
+    padding: 2em; 
+    font-size: 1.2rem;
+}
+
+
+
+/* Sticky Footer Styling */
+body{
+    min-height: 100vh;
+}
+.sticky-footer{
+    position: sticky;
+    top: 100%;
+}
+
+
+@media screen and (max-width:1200px){
+    .inner-container{
+        padding: 80px;
+    }
+}
+
+@media screen and (max-width:1000px){
+    .about-section{
+        background-size: 100%;
+        padding: 100px 40px;
+    }
+    .inner-container{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:600px){
+    .about-section{
+        padding: 0;
+    }
+    .inner-container{
+        padding: 60px;
+    }
+}

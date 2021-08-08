@@ -34,13 +34,18 @@ module.exports = (sequelize, DataTypes) => {
                 model: 'uploader',
                 key: 'uploader_id'
             }
+        },
+        deletedFlag: {
+            type: DataTypes.ENUM('active', 'inactive'),
+            defaultValue: 'active',
         }
-    }, {
+    }, 
+    {
         indexes: [
             {
                 name: 'uploader_user_key',
                 unique: true,
-                fields: ['uploader_id', 'phone']
+                fields: ['uploader_id', 'phone', 'deleted_flag']
             }
         ],
         sequelize, 

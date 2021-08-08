@@ -238,7 +238,7 @@ label[for="input"] {
 
 .preview-table th {
     padding-left: 15px;
-    padding-top: 20px;
+    padding-top: 15px;
     padding-bottom: 20px;
     padding-right: 15px;
     font-weight: bold;
@@ -248,6 +248,18 @@ label[for="input"] {
 
 #tableRow0 {
     background-color: #212529;
+}
+
+#tableRow0 > th {
+    position: relative;
+}
+
+th > .col-head {
+    display: block;
+    padding-bottom: 5px;
+    font-style: italic;
+    font-size: 12px;
+    color: #00ead3;
 }
 
 .preview-table td {
@@ -294,6 +306,17 @@ label[for="input"] {
 }
 
 
+.messageWhenEmpty {
+    color: #656464;
+    opacity: 0.7;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    left: 50%;
+    transform: translate(-25%);
+    margin-bottom: 10px;
+}
+
 /*********************************** MAP COLUMN DIV **************************************/
 .col-md-3{
     padding-bottom:10px;
@@ -332,7 +355,6 @@ label[for="input"] {
     top: -10px;
     right: -10px;
     font-size: 25px;
-    font-weight: 600;
 }
 #cancelBtn:hover {
     color: #dc3545;
@@ -360,7 +382,9 @@ label[for="input"] {
     transform: rotate(-45deg);
 }
 .columns {
-    
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 /*********************************** MODAL STYLING **************************************/

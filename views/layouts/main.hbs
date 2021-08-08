@@ -30,12 +30,23 @@
 
     {{!-- LOCAL CSS --}}   
     <link rel="stylesheet" href="/css/header.css"> 
+    <link rel="stylesheet" href="/css/loader.css"> 
     <link rel="stylesheet" href="/css/{{cssPage}}.css"> 
 
 </head>
 <body>
+
+    <div class="loader">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border spin-custom" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
     
     {{{body}}}
+
+    <script src="/loader.js"></script>
 
     {{!-- POPPER JS --}}
     <script 

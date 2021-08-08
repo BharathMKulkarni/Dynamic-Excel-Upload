@@ -35,6 +35,12 @@ input.addEventListener('click',() => {
 input.addEventListener('change', ()=> {
 
     inputFileName = input.files[0];
+    if (!inputFileName.name.endsWith(".xlsx") && !inputFileName.name.endsWith(".xls") && !inputFileName.name.endsWith(".csv")) {
+        alert("please select .xlsx, .xls or .csv files");
+        inputFileName = undefined;
+    } else {
+        
+    }
     if(prevInputFileName == undefined){
         prevInputFileName = inputFileName;
     } else {
@@ -62,6 +68,9 @@ input.addEventListener('change', ()=> {
 
 // --------------------------------------------------HANDLING SHEET NO SELECTION---------------------------------------------------------------------
 const getSelectedSheetNo = async () => {
+    // Start the loading spinner animation
+    var spinner = document.querySelector(".loader");
+    spinner.classList.remove("hidden");
 
     // GETTING THE SHEET NO. SELECTED FROM THE DROPDOWN
     sheetNo = parseInt(sheetSelector.options[sheetSelector.selectedIndex].value);
@@ -91,6 +100,9 @@ const getSelectedSheetNo = async () => {
             individualdropDown.innerHTML += `<option>${col}</option>`;
         })
     })
+
+    //remove the loading spinner
+    spinner.classList.add("hidden");
 }
 
 
@@ -168,8 +180,14 @@ const dropZoneElement = document.getElementById('input').closest(".filePickerDiv
 
 
 
-// ------------------------------------------------------------HANDLING UPLOAD BUTTON CLICK---------------------------------------------------------
-const handleUpload = () => {
+// ------------------------------------------HANDLING UPLOAD BUTTON CLICK--------------------------------------------------
+const handleUpload = (event) => {
+    // add loading spinner to button
+    event.target.classList.add('loading');
+    document.getElementById("upBtnNormal").style.display = "none";
+    document.getElementById("upBtnLoad").style.display = "inline";
+    document.getElementById("preUpNormal").style.display = "none";
+    document.getElementById("preUpLoad").style.display = "inline";
 
     console.log("PRESSED UPLOAD BUTTON!");
     let dataToPost = new FormData();
@@ -198,6 +216,12 @@ const handleUpload = () => {
             modalBody.innerHTML = `<p class="alert alert-success" role="alert">${data.message}</p>`
         else 
             modalBody.innerHTML = `<p class="alert alert-danger" role="alert">At line ${data.line}: <br> ${data.message}`;
+
+        document.getElementById("upBtnNormal").style.display = "inline";
+        document.getElementById("upBtnLoad").style.display = "none";
+        document.getElementById("preUpNormal").style.display = "inline";
+        document.getElementById("preUpLoad").style.display = "none";
+        event.target.classList.remove('loading');
     })
     .catch(err => console.log(`ERROR>>> ${err}`))
 }
@@ -222,13 +246,15 @@ const handleCsvFiles = () => {
 
 // -----------------------------------------------------------HANDLING CLICK OF DONE BUTTON---------------------------------------------------------
 const handleDoneButton = async () => {
+    // Start the loading spinner animation
+    var spinner = document.querySelector(".loader");
+    spinner.classList.remove("hidden");
 
     document.getElementById("chooseFileView").style.display = "none";
     document.getElementById("mapColumnView").style.display = "block";
     console.log("PRESSED DONE BUTTON!");
 
-    
-    if(inputFileName.name.endsWith(".xlsx")==true){
+    if(inputFileName.name.endsWith(".xlsx") || inputFileName.name.endsWith(".xls")){
         await readXlsxFile(inputFileName, { getSheets: true }).then((sheets) => {
             sheetSelector.onchange = getSelectedSheetNo;
             console.log(sheets.length);
@@ -301,6 +327,9 @@ const handleDoneButton = async () => {
             },false);
         }
     }
+
+    //remove the loading spinner
+    spinner.classList.add("hidden");
 }
 
 const doneButton = document.getElementById("doneButton");
@@ -310,13 +339,15 @@ doneButton.onclick = handleDoneButton;
 
 // ----------------------------------------------HANDLING CLICK OF PREVIEW BUTTON------------------------------------------------------------------------
 const showPreview = () => {
+    console.log("inside showPreview");
     window.location.href = "#previewSection";
     document.getElementById("previewSection").style.visibility = "visible";
     document.getElementById("previewSection").style.height = "90vh";
 
-    if(dataFromExcel === []){
-        document.querySelector(".tableBody").innerHTML = "";
-        document.querySelector(".tableBody").innerHTML = "<h3 style='color: #ffffff'><i>No data to show. Your File must be empty !</i></h3>"
+    if(dataFromExcel.length <= 1){
+        console.log("excel is null");
+        // document.querySelector("#previewTable").innerHTML = "";
+        document.querySelector("#previewTable").innerHTML += "<h5 class='messageWhenEmpty'><i>No data to show. Looks like your file is empty !</i></h5>"
     }
     document.getElementById("previewUploadBtn").addEventListener("click", handleUpload, false);
     document.getElementById("tableBody").innerHTML = "";
@@ -353,7 +384,11 @@ const showPreview = () => {
             if(mappedElements.hasOwnProperty(colName)) {
                 let rowElement = row[colPositions[mappedElements[colName]]] || "";
                 let tableCell = document.createElement( (rowIndex === 0? "th" : "td") );
-                tableCell.innerHTML = rowElement;
+                if(rowIndex === 0) {
+                    tableCell.innerHTML = `<span class="col-head">${colName}</span>${rowElement}`;
+                }
+                else
+                    tableCell.innerHTML = rowElement;
                 tableRow.appendChild(tableCell);
             }
         });
@@ -361,13 +396,15 @@ const showPreview = () => {
 }
 
 const previewBtn = document.getElementById("previewButton");
-previewBtn.onclick = showPreview; 
+if(mappedElements !== {}){
+    previewBtn.onclick = showPreview;
+}
 
 
 
 // ---------------------------------------------------HANDLING AUTO MAP--------------------------------------------------------
 const mapColumnsByOrder = () => {
-
+    $('#previewButton').removeAttr('disabled');
     for(let i = 0; i < dbCols.length; i++) {
         let dropDown = document.getElementById(`selectedFor${dbCols[i]}`);
         dropDown.selectedIndex = i+1;

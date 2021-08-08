@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 body {
   background-color: black;
+  font-family: 'Montserrat', sans-serif;
 }
 .view_table{
     width:100%;
@@ -57,12 +60,20 @@ body {
 }
 
 #viewSection {
-    border: 5px solid #444444;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
-    padding-right: 0px;
-    padding-left: 0px;
+  position: relative;
+  border: 5px solid #444444;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  padding-right: 0px;
+  padding-left: 0px;
 }
+/* 
+#tableBody {
+  position: relative;
+  top: 0;
+  right: 0;
+} */
+
 tbody, td, tfoot, th, thead, tr {
   border-color: inherit;
   border-style:none;
@@ -126,5 +137,56 @@ input[type='search'] {
 } */
 
 .delete-btn {
-  
+}
+
+
+.messageWhenEmpty {
+  color: #656464;
+  opacity: 0.7;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  transform: translate(-50%);
+  margin-bottom: 10px;
+}
+
+/**************** PAGINATION CSS *****************/
+.page-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 3rem;
+}
+
+.pg-link {
+  background-color: black;
+  color: #00ead3;
+  border: #00ead3 solid 1px;
+}
+
+.pg-link, #pageNumber {
+  margin: 5px;
+  font-weight: lighter;
+  font-size: large;
+  padding: 5px 10px 5px 10px;
+  box-shadow: black;
+  border-radius: 3px;
+}
+
+#pageNumber {
+  background-color: #00ead3;
+  color: black;
+}
+
+.pg-link:hover {
+  background-color: #00ead3;
+  color: black;
+  cursor: pointer;
+}
+
+.pg-link.disable, .pg-link.disable:hover {
+  background-color: black;
+  color: #444444;
+  border-color: #444444;
 }
