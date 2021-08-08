@@ -15,7 +15,7 @@ const cols = document.querySelectorAll(".columns");
 cols.forEach(col => {
     dbCols.push(col.innerText.trim());
 })
-console.log(dbCols); 
+// console.log(dbCols); 
 
 // ----------------------------------------------HANDLING FILE INPUT EVENTS-----------------------------------------------------------------------------------
 const input = document.getElementById('input');
@@ -72,9 +72,10 @@ const getSelectedSheetNo = async () => {
     var spinner = document.querySelector(".loader");
     spinner.classList.remove("hidden");
 
+    
     // GETTING THE SHEET NO. SELECTED FROM THE DROPDOWN
     sheetNo = parseInt(sheetSelector.options[sheetSelector.selectedIndex].value);
-    console.log(`you have selected sheetNo ${sheetNo}`);
+    // console.log(`you have selected sheetNo ${sheetNo}`);
 
     // READING THE DATA FROM THE NEW SHEET
     await readXlsxFile(inputFileName, {sheet: sheetNo} )
@@ -83,7 +84,7 @@ const getSelectedSheetNo = async () => {
             rows.forEach( row => dataFromExcel.push(row) );
         })
 
-    console.log(dataFromExcel);
+    // console.log(dataFromExcel);
     
     // CLEARING THE LINKICON COLORS WHEN A NEW SHEET IS SELECTED
     for (let i = 0; i < dbCols.length; i++) {
@@ -100,6 +101,8 @@ const getSelectedSheetNo = async () => {
             individualdropDown.innerHTML += `<option>${col}</option>`;
         })
     })
+    // HIDING THE PREVIEW SECTION
+    document.getElementById("previewSection").style.display = "none";
 
     //remove the loading spinner
     spinner.classList.add("hidden");
@@ -150,35 +153,6 @@ const dropZoneElement = document.getElementById('input').closest(".filePickerDiv
 })
 
 
-//  ------------------------------------------------------TEXT ANIMATION -----------------------------------------------------
-
-// const headTitle = document.querySelector(".headTitle-title");
-// const headTitleText = headTitle.textContent;
-// const splitText = headTitleText.split("");
-// headTitle.textContent = "";
-// for (let i = 0; i < splitText.length; i++) {
-//     headTitle.innerHTML += "<span>"+splitText[i]+"</span>";
-    
-// }
-
-// let char = 0;
-// let timer = setInterval(onTick,500);
-// function onTick(){
-//     const span = headTitle.querySelectorAll("span")[char];
-//     span.classList.add('fade');
-//     char++;
-//     if(char===splitText.length){
-//         complete();
-//         return;
-//     }
-// }
-
-// function complete(){
-//     clearInterval(timer);
-//     timer=null;
-// }
-
-
 
 // ------------------------------------------HANDLING UPLOAD BUTTON CLICK--------------------------------------------------
 const handleUpload = (event) => {
@@ -189,7 +163,7 @@ const handleUpload = (event) => {
     document.getElementById("preUpNormal").style.display = "none";
     document.getElementById("preUpLoad").style.display = "inline";
 
-    console.log("PRESSED UPLOAD BUTTON!");
+    // console.log("PRESSED UPLOAD BUTTON!");
     let dataToPost = new FormData();
     dataToPost.append("file",inputFileName);
     Object.entries(mappedElements).forEach(pair => {
@@ -209,7 +183,7 @@ const handleUpload = (event) => {
     fetch('/userdata/upload/',params)
     .then(res => res.json())
     .then(data => {
-        console.log(data);
+        // console.log(data);
         $('#uploadStatusModal').modal('show')
         let modalBody = document.getElementById("uploadStatusModalBody");
         if(!data.line)
@@ -231,7 +205,7 @@ const handleUpload = (event) => {
 // --------------------------------------------------------HANDLING CSV FILES-----------------------------------------------------------------------
 const handleCsvFiles = () => {
     return new Promise((resolve,reject)=>{
-        console.log("inside HandleCSV")
+        // console.log("inside HandleCSV")
         Papa.parse(inputFileName, {
             worker:true,
             delimiter:',',
@@ -250,14 +224,19 @@ const handleDoneButton = async () => {
     var spinner = document.querySelector(".loader");
     spinner.classList.remove("hidden");
 
+    if(inputFileName == undefined){
+        alert("Please choose a valid file type");
+        window.location.reload();
+    }
+
     document.getElementById("chooseFileView").style.display = "none";
     document.getElementById("mapColumnView").style.display = "block";
-    console.log("PRESSED DONE BUTTON!");
+    // console.log("PRESSED DONE BUTTON!");
 
     if(inputFileName.name.endsWith(".xlsx") || inputFileName.name.endsWith(".xls")){
         await readXlsxFile(inputFileName, { getSheets: true }).then((sheets) => {
             sheetSelector.onchange = getSelectedSheetNo;
-            console.log(sheets.length);
+            // console.log(sheets.length);
             noOfSheets = sheets.length;
             for (let index = 1; index < noOfSheets; index++) {
                 sheetSelector.innerHTML += `<option value="${index+1}">sheet ${index+1}</option>`;  
@@ -267,22 +246,20 @@ const handleDoneButton = async () => {
         .then( rows => { 
             rows.forEach( row => dataFromExcel.push(row) );
         })
-        console.log(dataFromExcel);
-    }
-
-    if(inputFileName.name.endsWith(".csv")==true){
+        // console.log(dataFromExcel);
+    } else if(inputFileName.name.endsWith(".csv")==true){
         await handleCsvFiles().then(results =>{
             results.forEach(row => dataFromExcel.push(row))
         })
-        console.log(dataFromExcel);
-    }
+        // console.log(dataFromExcel);
+    } else return;
     
     const uploadButton = document.getElementById('uploadButton');
     uploadButton.style.display = "inline";
     uploadButton.addEventListener("click",handleUpload,false);
 
     columns = dataFromExcel[0];
-    console.log("EXCEL COLUMNS: ", columns);
+    // console.log("EXCEL COLUMNS: ", columns);
 
     document.querySelectorAll(".dropDownMenus").forEach(menuButton => {
         menuButton.setAttribute("style","display:inline;");
@@ -300,7 +277,7 @@ const handleDoneButton = async () => {
         if(selectedElement.addEventListener){
             selectedElement.addEventListener('change',()=>{
                 mappedElements[dbCols[i]] = columns[parseInt(selectedElement.selectedIndex)-1];
-                console.log(`${dbCols[i]} mapped to ${columns[parseInt(selectedElement.selectedIndex)-1]}`);
+                // console.log(`${dbCols[i]} mapped to ${columns[parseInt(selectedElement.selectedIndex)-1]}`);
                 if(columns[parseInt(selectedElement.selectedIndex)-1]!=undefined){
                     document.getElementById(`linkIconFor${dbCols[i]}`).style.color = "#00EAD3";
                     document.getElementById(`linkIconFor${dbCols[i]}`).style.opacity = "1";
@@ -309,12 +286,12 @@ const handleDoneButton = async () => {
                     document.getElementById(`linkIconFor${dbCols[i]}`).style.color = "#656464";
                     document.getElementById(`linkIconFor${dbCols[i]}`).style.opacity = "0.4";
                 }
-                console.log(mappedElements);
+                // console.log(mappedElements);
             },false);
         } else {
             selectedElement.attachEvent('onChange',()=>{
                 mappedElements[dbCols[i]] = columns[parseInt(selectedElement.selectedIndex)-1];
-                console.log(`${dbCols[i]} mapped to ${columns[parseInt(selectedElement.selectedIndex)-1]}`);
+                // console.log(`${dbCols[i]} mapped to ${columns[parseInt(selectedElement.selectedIndex)-1]}`);
                 if(columns[parseInt(selectedElement.selectedIndex)-1]){
                     document.getElementById(`linkIconFor${dbCols[i]}`).style.color = "#00EAD3";
                     document.getElementById(`linkIconFor${dbCols[i]}`).style.opacity = "1";
@@ -323,7 +300,7 @@ const handleDoneButton = async () => {
                     document.getElementById(`linkIconFor${dbCols[i]}`).style.color = "#656464";
                     document.getElementById(`linkIconFor${dbCols[i]}`).style.opacity = "0.4";
                 }
-                console.log(mappedElements);
+                // console.log(mappedElements);
             },false);
         }
     }
@@ -339,13 +316,15 @@ doneButton.onclick = handleDoneButton;
 
 // ----------------------------------------------HANDLING CLICK OF PREVIEW BUTTON------------------------------------------------------------------------
 const showPreview = () => {
-    console.log("inside showPreview");
+    // console.log("inside showPreview");
+
+
     window.location.href = "#previewSection";
     document.getElementById("previewSection").style.visibility = "visible";
     document.getElementById("previewSection").style.height = "90vh";
 
     if(dataFromExcel.length <= 1){
-        console.log("excel is null");
+        // console.log("excel is null");
         // document.querySelector("#previewTable").innerHTML = "";
         document.querySelector("#previewTable").innerHTML += "<h5 class='messageWhenEmpty'><i>No data to show. Looks like your file is empty !</i></h5>"
     }
@@ -366,7 +345,7 @@ const showPreview = () => {
         let tableRow = document.createElement("tr");
         tableRow.setAttribute('id',`tableRow${rowIndex}`);
         document.getElementById("tableBody").appendChild(tableRow);
-        console.log("outside foreach: ", row);
+        // console.log("outside foreach: ", row);
 
         // Ignoring empty rows
         let isEmpty = true;
@@ -380,7 +359,7 @@ const showPreview = () => {
             continue;
 
         dbCols.forEach( colName => {
-            console.log("Inside: ", row);
+            // console.log("Inside: ", row);
             if(mappedElements.hasOwnProperty(colName)) {
                 let rowElement = row[colPositions[mappedElements[colName]]] || "";
                 let tableCell = document.createElement( (rowIndex === 0? "th" : "td") );
