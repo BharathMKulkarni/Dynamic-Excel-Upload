@@ -72,7 +72,10 @@ const getSelectedSheetNo = async () => {
     var spinner = document.querySelector(".loader");
     spinner.classList.remove("hidden");
 
-    
+    // CLEARING THE MAPPED ELEMENTS OBJECT AND DISABLING THE PREVIEW BUTTON:
+    mappedElements = {};
+    document.getElementById("previewButton").disabled = "true";
+
     // GETTING THE SHEET NO. SELECTED FROM THE DROPDOWN
     sheetNo = parseInt(sheetSelector.options[sheetSelector.selectedIndex].value);
     // console.log(`you have selected sheetNo ${sheetNo}`);
@@ -84,7 +87,10 @@ const getSelectedSheetNo = async () => {
             rows.forEach( row => dataFromExcel.push(row) );
         })
 
-    // console.log(dataFromExcel);
+    if(dataFromExcel == []){
+        document.getElementById("mapColumnView").style.display = "none";
+        document.getElementById("outer").innerHTML = "<h1 style='color: #ffffff' >No data to show</h1>"
+    }
     
     // CLEARING THE LINKICON COLORS WHEN A NEW SHEET IS SELECTED
     for (let i = 0; i < dbCols.length; i++) {
@@ -229,6 +235,8 @@ const handleDoneButton = async () => {
         window.location.reload();
     }
 
+
+
     document.getElementById("chooseFileView").style.display = "none";
     document.getElementById("mapColumnView").style.display = "block";
     // console.log("PRESSED DONE BUTTON!");
@@ -246,14 +254,19 @@ const handleDoneButton = async () => {
         .then( rows => { 
             rows.forEach( row => dataFromExcel.push(row) );
         })
-        // console.log(dataFromExcel);
+        console.log(dataFromExcel);
     } else if(inputFileName.name.endsWith(".csv")==true){
         await handleCsvFiles().then(results =>{
             results.forEach(row => dataFromExcel.push(row))
         })
-        // console.log(dataFromExcel);
+        console.log(dataFromExcel);
     } else return;
     
+    if(dataFromExcel.length == 0){
+        document.getElementById("mapColumnView").style.display = "none";
+        document.getElementById("messageWhenNullFileIsChosen").style.display = "flex";
+    } else {
+
     const uploadButton = document.getElementById('uploadButton');
     uploadButton.style.display = "inline";
     uploadButton.addEventListener("click",handleUpload,false);
@@ -305,6 +318,10 @@ const handleDoneButton = async () => {
         }
     }
 
+    
+
+    }
+
     //remove the loading spinner
     spinner.classList.add("hidden");
 }
@@ -318,6 +335,8 @@ doneButton.onclick = handleDoneButton;
 const showPreview = () => {
     // console.log("inside showPreview");
 
+    // HIDING THE PREVIEW SECTION
+    document.getElementById("previewSection").style.display = "flex";
 
     window.location.href = "#previewSection";
     document.getElementById("previewSection").style.visibility = "visible";

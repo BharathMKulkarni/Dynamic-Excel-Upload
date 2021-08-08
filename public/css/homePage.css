@@ -72,6 +72,14 @@ body {
 
 /* ----------------------------------------------FIRST VIEW OF HOMEPAGE------------------------------------------------------------------*/
 
+#messageWhenNullFileIsChosen {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20%;
+}
+
 #chooseFileView{
     display: flex;
     flex-direction: column;
