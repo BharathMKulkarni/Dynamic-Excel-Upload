@@ -21,14 +21,12 @@
           <button class="btn btn-outline-success nav2" type="submit" aria-disabled="true">Search</button>
         </form>
       
-      <form class="d-flex" method="GET" action="/logout">
-        <button class="btn btn-sm btn-outline-danger logoutButton" type="submit">
-          <span class="material-icons logoutIcon" style="padding-right: 5px;">
-          logout
-          </span>
-          logout
-        </button>
-      </form>
+      <button class="btn btn-sm btn-outline-danger logoutButton" type="submit">
+        <span class="material-icons logoutIcon" style="padding-right: 5px;">
+        logout
+        </span>
+        logout
+      </button>
     </div>
   </div>
 </nav>  
@@ -55,4 +53,20 @@
     </form></li>
   </ul>
 </nav> --}}
+
+<!-- Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" id="logoutModalContent">
+      <div class="modal-header" style="color: white">
+        <h5 class="modal-title">Are you sure you want to logout?</h5>
+      </div>
+      <div class="modal-footer d-flex justify-content-between" id="logoutModalBody">
+        <button id="logoutModalCancelBtn"type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <a type="button" href="/logout" class="btn btn-danger">Logout</a>
+      </div>
+    </div>
+  </div>
+</div> 
+
 <script src="/header.js"></script>

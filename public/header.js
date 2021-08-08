@@ -6,15 +6,20 @@ const onClickViewSchemaButton = () => {
     .catch(err => console.log(err))
 }
 
-const onClickHistoryButton = () => {
-    // handle HISTORY here
+const onClickLogoutButton = () => {
+    // handle logout here
+    $('#logoutModal').modal('show');
 }
+
+const logoutButton = document.querySelector(".logoutButton");
+logoutButton.addEventListener("click", onClickLogoutButton, false);
+
+const logoutCancel = document.getElementById("logoutModalCancelBtn");
+logoutCancel.addEventListener("click", () => $('#logoutModal').modal('hide'), false);
 
 const viewSchemaButton = document.getElementById("viewSchemaButton");
 viewSchemaButton.addEventListener("click",onClickViewSchemaButton,false);
 
-// const historyButton = document.getElementById("historyButton");
-// historyButton.addEventListener("click",onClickHistoryButton,false);
 
 switch (window.location.pathname) {
     case "/home":
