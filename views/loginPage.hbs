@@ -4,25 +4,6 @@
     <nav class="navbar navbar-expand-lg navigation-wrap">
       <div class="container">
         <a class="navbar-brand" href="#">Dynamic Excel Upload</a>
-        <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            {{!-- <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">About Us</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#about">Contact Us</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#explore-food">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#testimonial">Reviews</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#faq">FAQ</a>
-            </li> --}}
-          </ul>
-        </div>
       </div>
     </nav>
   </header>
@@ -35,8 +16,8 @@
           <div class="col-lg-5 col-md-6">
             <h1>Welcome To<br>
                 Dynamic Excel Upload</h1>
-            <p class="p3" style="font-size: 25px; padding-left: 10px">3 easy steps</p>
-            <div class="p3">
+            <p class="intro-text" style="font-size: 25px; padding-left: 10px">3 easy steps</p>
+            <div class="intro-text">
               <p>
                 <ol>
                   <li>Choose Your file</li>
@@ -47,8 +28,8 @@
             </div>
             <div class="form-group">
             <div class="mt-4 col-lg-7">
-              <input class="form-control a1" id="textField" placeholder="Enter your phone number" autocomplete="off">
-              <input class="form-control a2" type="submit" id="submitBtn" value="Get OTP">
+              <input class="form-control input-field" id="textField" placeholder="Enter your phone number" autocomplete="off">
+              <input class="form-control input-button" type="submit" id="submitBtn" value="Get OTP">
                <span id="resendBtn" style="display: none">Resend OTP</span>
                <p id="timer" style="display: block"></p>
                <p id="err" class="err-msg" style="color:red"></p>
@@ -83,7 +64,7 @@
         </button> --}}
       </div>
       <div class="modal-body">
-        <h6>Re-enter your Phone Number and Try Again!</h6>
+        <h6 id="OTPModalMessage">Re-enter your Phone Number and Try Again!</h6>
       </div>
        <div class="modal-footer">
         <button type="button" class="btn btn-success btn-sm" id="OTPTimeoutModalRetryButton">Retry</button>

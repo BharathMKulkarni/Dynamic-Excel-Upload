@@ -66,7 +66,7 @@ h1 {
 
 
 
-.p3 {
+.intro-text {
   background-image: linear-gradient( 45deg, #f3ec78, #af4261);
   background-repeat: repeat;
   -webkit-background-clip: text;
@@ -82,6 +82,7 @@ h1 {
   color:#f9dfdc;
   padding-left: 30px;
 }
+
 .newslatter .h12{
     width:380px;
     max-width: 100%;
@@ -98,6 +99,7 @@ h1 {
    Header Design
 ==========================================
 */
+
 nav{
   background-image: linear-gradient( 45deg, #f3ec78, #af4261);
   background-repeat: repeat;
@@ -120,7 +122,7 @@ nav{
 .navigation-wrap .navbar-brand{
     font-size:30px;
     color:#f9dfdc;
-  }
+}
 .navbar-toggler:focus{
   outline:unset;
   border:unset;
@@ -186,7 +188,7 @@ nav{
   cursor: pointer;
 }
 
-.a2
+.input-button
 {
     border: 2px solid #000000;
     outline: none;
@@ -196,7 +198,7 @@ nav{
     height: 50px;
     margin-top: 10px;
 }
-.a1
+.input-field
 {
     background-color: #000000; 
     border: 2px solid #00ead3;
@@ -204,13 +206,6 @@ nav{
     border-radius: 30px;
     height: 50px;
 }
-/* .how-img
-{
-  margin-top: 0px;
-  margin-right: 0px;
-  border-style: solid;
-  border-color: coral;
-} */
 
 img {
   opacity: 0.7;
@@ -258,7 +253,7 @@ img:hover {
     {
         width:300px;
     }
-    .a1 .a2{
+    .input-field .input-button{
         width:100px;
      }
     
@@ -288,7 +283,7 @@ img:hover {
         height:auto;
         padding:3rem 0;
     }
-    .a1 .a2{
+    .input-field .input-button{
        width:100px;
     }
     
@@ -327,13 +322,11 @@ img:hover {
         height:auto;
         padding:3rem 0;
     }
-    .a1 .a2{
+    .input-field .input-button{
         display: flex;
         flex-direction: column;
     }
-    
-    
-    }
+}
   
         
 /*
