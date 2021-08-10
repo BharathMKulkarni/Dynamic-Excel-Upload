@@ -8,22 +8,16 @@ const {parseExcel} = require('../lib/parseExcel');
 const {Op}=require('sequelize');
 
 const UploadExcelToDb = async (req, res) => {
-    console.log("EXECUTING uploadExcelToDb() from userDataController.js");
-    console.log(`\n\n\nBODY OF THE REQUEST:\n${req.file.filename}`);
     let filePath = path.resolve('uploads/' + req.file.filename);
 
     try {
-        console.log("TRYING TO RECEIVE THE RECORDS ARRAY FROM parseExcel()")
         let sheetNo = req.body.sheetNo;
         delete req.body.sheetNo;
         let records = await parseExcel(filePath, req.body, sheetNo);
-        console.log("RECORDS RECEIVED");
         records.forEach( row => {
             row.uploaderId = req.user.uploaderId;
         });
-        console.log("uploaderID ADDED TO EACH RECORD");
         const msg = await addRecords(records);
-        console.log("EXECUTED addRecords() SUCCESSFULLY");
         res.status(200).json(msg);
     } catch(error) {
         res.status(200).json({message: "Error reading the file!"});
@@ -34,13 +28,11 @@ const UploadExcelToDb = async (req, res) => {
 // This function creates a transaction to add all records sent as argument to the database
 // When more tables are added to schema this function can be generalised for all tables
 const addRecords = async (records) => {
-    console.log("adding records")
     const t = await db.sequelize.transaction();
     
     try {
         var line = 1;
         for(let entry of records) {
-            console.log(entry);
             await UserData.create(entry, { transaction: t });
             line++;
         }
@@ -52,7 +44,6 @@ const addRecords = async (records) => {
         // If the execution reaches this line, an error occurred.
         // The transaction has already been rolled back automatically by Sequelize!
         await t.rollback();
-        console.log("Transaction rolled back!");
         const uiError = {}
         switch(error.name) {
             case 'SequelizeUniqueConstraintError': 
@@ -64,7 +55,6 @@ const addRecords = async (records) => {
             default: 
                 uiError.message = "An error occured. Please make sure if the file data is valid."
         }
-        console.log(error.name);
         uiError.line = line;
         return uiError;
     }
