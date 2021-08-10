@@ -6,7 +6,7 @@
 <div id="chooseFileView">
 
   <div class="headTitle">
-    <h1 id="headTitle-title" class="headTitle-title">Map and Upload Excel Files on the Go</h1>
+    <h1 id="headTitle-title" class="headTitle-title">Map and Upload Your Excel Files on the Go</h1>
   </div>
   
   <div class="filePickerDiv">
@@ -50,6 +50,13 @@
 
 
 {{!---------------------- COLUMN MAPPING VIEW (SECOND VIEW OF HOMEPAGE) --------------------}}
+
+<div id="messageWhenNullFileIsChosen" >
+  <div>
+  <h1>No data to show :(</h1>
+  </div>
+  <button class="btn btn-sm btn-outline-secondary" onclick="window.location.reload()" >Select Another File</button>
+</div>
 
 <div id="mapColumnView" style="display: none;">
   <h2 class="headTitle-title container mapTableHeading">Map your excel columns to our database columns</h2>
@@ -111,6 +118,7 @@
     </div>
   </div>
 
+  {{!-- PREVIEW SECTION --}}
   <div id="previewSection" class="container center-align" style="visibility: hidden;">
     <h2 class="headTitle-title previewHeading">Preview</h2>
     <div class="table-responsive add-border tableBody" id="previewTable" style="width: 100%; max-height: 55vh;">
@@ -128,6 +136,11 @@
       </span>
     </button>
   </div>
+
+
+
+
+
 </div>
 
 <!-- Modal -->

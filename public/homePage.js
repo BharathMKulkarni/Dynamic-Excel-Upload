@@ -72,7 +72,10 @@ const getSelectedSheetNo = async () => {
     var spinner = document.querySelector(".loader");
     spinner.classList.remove("hidden");
 
-    
+    // CLEARING THE MAPPED ELEMENTS OBJECT AND DISABLING THE PREVIEW BUTTON:
+    mappedElements = {};
+    document.getElementById("previewButton").disabled = "true";
+
     // GETTING THE SHEET NO. SELECTED FROM THE DROPDOWN
     sheetNo = parseInt(sheetSelector.options[sheetSelector.selectedIndex].value);
 
@@ -82,6 +85,11 @@ const getSelectedSheetNo = async () => {
             dataFromExcel = [];
             rows.forEach( row => dataFromExcel.push(row) );
         })
+
+    if(dataFromExcel == []){
+        document.getElementById("mapColumnView").style.display = "none";
+        document.getElementById("outer").innerHTML = "<h1 style='color: #ffffff' >No data to show</h1>"
+    }
     
     // CLEARING THE LINKICON COLORS WHEN A NEW SHEET IS SELECTED
     for (let i = 0; i < dbCols.length; i++) {
@@ -231,6 +239,8 @@ const handleDoneButton = async () => {
         window.location.reload();
     }
 
+
+
     document.getElementById("chooseFileView").style.display = "none";
     document.getElementById("mapColumnView").style.display = "block";
     // console.log("PRESSED DONE BUTTON!");
@@ -254,6 +264,11 @@ const handleDoneButton = async () => {
         })
     } else return;
     
+    if(dataFromExcel.length == 0){
+        document.getElementById("mapColumnView").style.display = "none";
+        document.getElementById("messageWhenNullFileIsChosen").style.display = "flex";
+    } else {
+
     const uploadButton = document.getElementById('uploadButton');
     uploadButton.style.display = "inline";
     uploadButton.addEventListener("click",handleUpload,false);
@@ -300,6 +315,10 @@ const handleDoneButton = async () => {
         }
     }
 
+    
+
+    }
+
     //remove the loading spinner
     spinner.classList.add("hidden");
 }
@@ -311,6 +330,9 @@ doneButton.onclick = handleDoneButton;
 
 // ----------------------------------------------HANDLING CLICK OF PREVIEW BUTTON------------------------------------------------------------------------
 const showPreview = () => {
+
+    // HIDING THE PREVIEW SECTION
+    document.getElementById("previewSection").style.display = "flex";
 
     window.location.href = "#previewSection";
     document.getElementById("previewSection").style.visibility = "visible";
@@ -349,7 +371,7 @@ const showPreview = () => {
             continue;
 
         dbCols.forEach( colName => {
-            
+
             if(mappedElements.hasOwnProperty(colName)) {
                 let rowElement = row[colPositions[mappedElements[colName]]] || "";
                 let tableCell = document.createElement( (rowIndex === 0? "th" : "td") );
