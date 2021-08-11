@@ -15,7 +15,6 @@ const cols = document.querySelectorAll(".columns");
 cols.forEach(col => {
     dbCols.push(col.innerText.trim());
 })
-// console.log(dbCols); 
 
 // ----------------------------------------------HANDLING FILE INPUT EVENTS-----------------------------------------------------------------------------------
 const input = document.getElementById('input');
@@ -35,8 +34,8 @@ input.addEventListener('click',() => {
 input.addEventListener('change', ()=> {
 
     inputFileName = input.files[0];
-    if (!inputFileName.name.endsWith(".xlsx") && !inputFileName.name.endsWith(".xls") && !inputFileName.name.endsWith(".csv")) {
-        alert("please select .xlsx, .xls or .csv files");
+    if (!inputFileName.name.endsWith(".xlsx") && !inputFileName.name.endsWith(".csv")) {
+        alert("please select .xlsx or .csv files");
         inputFileName = undefined;
     } else {
         
@@ -138,7 +137,7 @@ const dropZoneElement = document.getElementById('input').closest(".filePickerDiv
         if(dragType=="drop"){
             e.preventDefault();
             inputFileName = e.dataTransfer.files[0];
-            if(inputFileName.name.endsWith(".xlsx") || inputFileName.name.endsWith(".csv") || inputFileName.name.endsWith(".xls")){
+            if(inputFileName.name.endsWith(".xlsx") || inputFileName.name.endsWith(".csv")){
                 const nameOfFileChosen = document.getElementById("nameOfFileChosen");
                 nameOfFileChosen.innerText = inputFileName.name;
                 document.getElementById("choseFileInstruction").innerHTML = `<u>${inputFileName.name}</u> is selected`;
@@ -146,7 +145,7 @@ const dropZoneElement = document.getElementById('input').closest(".filePickerDiv
                 $("#doneButton").attr("disabled",false);
                 document.getElementById("fileNameForMappingView").innerHTML = `<i>you are now mapping <span id="fileNameForMappingView-withFileName">${inputFileName.name}</span></i>`;
             } else {
-                alert("Only .xlsx, .xls and .csv files are accepted");
+                alert("Only .xlsx and .csv files are accepted");
                 const nameOfFileChosen = document.getElementById("nameOfFileChosen");
                 nameOfFileChosen.innerText = "no file chosen";
                 document.getElementById("choseFileInstruction").innerHTML = `choose a file or drag and drop a file here`;
@@ -248,7 +247,6 @@ const handleDoneButton = async () => {
     if(inputFileName.name.endsWith(".xlsx")){
         await readXlsxFile(inputFileName, { getSheets: true }).then((sheets) => {
             sheetSelector.onchange = getSelectedSheetNo;
-            // console.log(sheets.length);
             noOfSheets = sheets.length;
             for (let index = 1; index < noOfSheets; index++) {
                 sheetSelector.innerHTML += `<option value="${index+1}">sheet ${index+1}</option>`;  
