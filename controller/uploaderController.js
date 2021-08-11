@@ -18,7 +18,7 @@ const getOtp = async (req, res) => {
             user.otp = otp;
             await user.save();
         }
-        res.status(200).json({message: `otp for user: ${otp}`});
+        res.status(200).json({message: `Your OTP: ${otp}`});
     }
     catch(error) {
         console.log(error);

@@ -93,7 +93,7 @@ const requestForOtp = (event) => {
         .then(res => res.json())
         .then(data => {
             // temporarily logging otp to frontend for testing/dev
-            console.log(data);
+            alert(data.message);
 
             // Changing button functionality and text field placeholders
             submitBtn.innerHTML = "Enter OTP";
