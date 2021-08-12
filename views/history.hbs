@@ -1,0 +1,50 @@
+{{>header}}
+<div id="viewSection" class="container center-align table-responsive " >
+  <table class="table view_table table-bordered table-borderless">
+    <thead class="table-dark">
+      <tr line-height="50px">
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Type</th>
+        <th scope="col">CreatedAt</th>
+        <th class="fixed-column" scope="col">Options</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each rows}}
+        <tr>
+          <td>{{this.EId}}</td>
+          <td>{{this.name}}</td>
+          <td>{{this.Dtype}}</td>
+          <td>{{this.createdAt}}</td>
+          <td class="text-end fixed-column" style="background-color: black"><a id="{{this.EId}}" type="button" class="btn btn-info btn-small delete-btn"><i class="bi bi-person-x"></i> Delete</a></td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+{{!--------- DELETE CONFIRMATION MODAL --------}}
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" id="deleteModalContent" style="background-color: #2a2b2b; color: white">
+      <div class="modal-header">
+        <h5 class="modal-title" id="" style="color: brown;">Warning!</h5>
+        {{!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> --}}
+      </div>
+      <div class="modal-body">
+        Are you sure you want to revert this file? <br>
+        All data uploaded through the file will be deleted
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="deleteModalNoBtn" class="btn btn-danger" data-dismiss="modal">No</button>
+        <button type="button" id="deleteModalYesBtn" class="btn btn-success">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src='/historyPage.js'></script>

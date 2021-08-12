@@ -1,8 +1,22 @@
 const multer = require('multer');
 const path = require('path');
+const db = require("../models");
+const History = require('../models/History.js')(db.sequelize, db.Sequelize);
 
-const excelFilter = (req, file, cb) => {
+const excelFilter = async (req, file, cb) => {
    if (file.originalname.endsWith(".xlsx") || file.originalname.endsWith(".csv")) {
+      //inserting file names 
+      try {
+         var fileObj = await History.create({
+            Dtype: file.mimetype,
+            name: file.originalname,
+            uploaderId: req.user.uploaderId
+         });
+      }
+      catch(error) {
+         return;
+      }
+      req.fileId = fileObj.EId;
       cb(null, true);
    } else {
      cb("Please upload either .xlsx or .csv files", false);

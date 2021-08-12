@@ -15,11 +15,14 @@
        <li class="nav-item pageNames">
           <a class="nav-link " href="/view/table" id="viewDataButton" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View Uploaded Data">Data</a>
         </li>
+          <li class="nav-item pageNames">
+          <a class="nav-link" href="/userdata/history" id="historyButton" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View Upload History">History</a>
+        </li>
       </ul>
-       <form class="d-flex" method="POST" action="/view/table" novalidate>
-          <input class="form-control me-2 nav1" type="search" placeholder="Search" name="search" aria-label="Search">
-          <button class="btn btn-outline-success nav2" type="submit" aria-disabled="true">Search</button>
-        </form>
+      <form class="d-flex" method="POST" action="/view/table" novalidate>
+        <input class="form-control me-2 nav1" type="search" placeholder="Search" name="search" aria-label="Search">
+        <button class="btn btn-outline-success nav2" type="submit" aria-disabled="true">Search</button>
+      </form>
       
       <button class="btn btn-sm btn-outline-danger logoutButton" type="submit">
         <span class="material-icons logoutIcon" style="padding-right: 5px;">

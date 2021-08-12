@@ -23,7 +23,7 @@ sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USER, 
 });
 
 
-['Uploader.js','UserExcelData.js'] // list of all the model files
+['Uploader.js', 'History.js', 'UserExcelData.js'] // list of all the model files
   .forEach(file => {
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
     db[model.name] = model;
