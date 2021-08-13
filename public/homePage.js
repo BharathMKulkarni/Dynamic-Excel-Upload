@@ -1,3 +1,5 @@
+// import {clickEventListener,inputFileName} from './helpers/clickEventListener.mjs';
+
 let columns;
 let dataFromExcel = [];
 let prevInputFileName;
@@ -20,8 +22,7 @@ cols.forEach(col => {
 // ----------------------------------------------HANDLING FILE INPUT EVENTS-----------------------------------------------------------------------------------
 const input = document.getElementById('input');
 
-input.addEventListener('click',() => {
-
+input.addEventListener('click', () => {
     // WHEN NO FILE IS SELECTED
     if(inputFileName === undefined){
         nameOfFileChosen.innerText = 'no file chosen';
@@ -30,7 +31,7 @@ input.addEventListener('click',() => {
         document.getElementById("doneButton").style = "cursor: auto";
         $("#doneButton").attr("disabled",true);
     }
-})
+});
 
 input.addEventListener('change', ()=> {
 
@@ -162,6 +163,7 @@ const dropZoneElement = document.getElementById('input').closest(".filePickerDiv
 
 // ------------------------------------------HANDLING UPLOAD BUTTON CLICK--------------------------------------------------
 const handleUpload = (event) => {
+
     // add loading spinner to button
     event.target.classList.add('loading');
     document.getElementById("upBtnNormal").style.display = "none";
