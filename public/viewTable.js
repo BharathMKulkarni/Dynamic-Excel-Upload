@@ -9,7 +9,7 @@ fetch('/userdata/key', {
 .then( json => {
     keyColumn = json.data;
 })
-.catch(err => console.log("Error in /userdata/key api call"));
+.catch(err => window.location.reload());
 
 
 //------------------------------- HANDLING DELETE REQUEST FOR EACH ROW IN TABLE --------------------------
@@ -40,7 +40,7 @@ const handleDeleteClick = (event) => {
             window.location.reload();
         })
         .catch(err => {
-            console.error("Error /userdata/delete")
+            window.location.reload();
         });
     };
 }

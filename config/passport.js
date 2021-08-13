@@ -14,12 +14,10 @@ console.log("passport config called")
 
 const verifyCallback = (phone, otp, done) => {
     
-    console.log(`Phone: ${phone}, otp: ${otp}`)
     Uploader.findOne({ 
         where: {
             phoneNo: phone,
             updatedAt: {
-                //[Op.gte]: db.Sequelize.literal("(NOW() - (INTERVAL '3 MINUTE'))")
                 [Op.gte]: new Date(new Date() - 2 * 60 * 1000)
             }
         } 
@@ -38,7 +36,7 @@ const verifyCallback = (phone, otp, done) => {
         }
     })
     .catch( error => {
-        console.log("Error asdlkfjsld");
+        console.log(error);
         done(error);
     });
 }

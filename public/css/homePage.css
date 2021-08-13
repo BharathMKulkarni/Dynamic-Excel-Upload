@@ -322,6 +322,8 @@ th > .col-head {
     align-items: center;
     left: 50%;
     transform: translate(-25%);
+    padding-top: 50px;
+    padding-bottom: 50px;
     margin-bottom: 10px;
 }
 

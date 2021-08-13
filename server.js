@@ -73,11 +73,6 @@ require('./config/passport');
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use((req, res, next) => {
-    console.log(req.session);
-    console.log(req.user);
-    next();
-});
 
 // USING THE ROUTES CREATED
 app.use("/userdata", isAuth, userDataRouter);
@@ -89,18 +84,11 @@ app.use("/logout", (req, res) => {
 })
 
 // HOME PAGE
-app.get('/home', isAuth, (req, res) => {
+app.get(['/home', '/'], isAuth, (req, res) => {
     res.render('homePage',{
         documentTitle:"Dynamic-Excel-Upload/Home",
         cssPage: "homePage",
         dbCols: schema
-    });
-});
-
-app.get('/', (req, res) => {
-    res.render('loginPage', {
-        documentTitle:"Dynamic-Excel-Upload/Login",
-        cssPage: "loginPage"
     });
 });
 

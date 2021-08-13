@@ -54,7 +54,7 @@ function verifyOtp() {
             window.location.href = '/home';
         }
     })
-    .catch(err => console.log(err));
+    .catch(err => window.location.href = '/home');
 }
 
 
@@ -66,7 +66,7 @@ const requestForOtp = (event) => {
     if(event.target === submitBtn)
         phone = textInput.value;
     const phoneNoRegEx = new RegExp('[789][0-9]{9}', 'g');
-    console.log("Inside on click", phone)
+
     var elem = document.getElementById("err")
     if(!phoneNoRegEx.test(phone))
     {
@@ -93,7 +93,7 @@ const requestForOtp = (event) => {
         .then(res => res.json())
         .then(data => {
             // temporarily logging otp to frontend for testing/dev
-            console.log(data);
+            alert(data.message);
 
             // Changing button functionality and text field placeholders
             submitBtn.innerHTML = "Enter OTP";
@@ -133,7 +133,7 @@ const requestForOtp = (event) => {
             spinner.classList.add("hidden");
             event.target.classList.remove("loading");
         })
-        .catch(err => console.log("Error" + err));
+        .catch(err => window.location.href = '/home');
     }
 }
 
