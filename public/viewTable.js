@@ -165,7 +165,7 @@ const renderTable = (tableData, tableHead) => {
                 tableRow.appendChild(tableCell);
             }
         });
-        const deleteColumnHtml = `<td class="text-end fixed-column" style="background-color: black"><a id="del${rowIndex}" type="button" class="delete-btn btn btn-info btn-small"><i class="bi bi-person-x"></i> Delete</a></td>`
+        const deleteColumnHtml = `<td class="text-end fixed-column" style="background-color: black"><a id="del${rowIndex}" type="button" class="delete-btn btn btn-info btn-small"><i class="bi bi-person-x"></i><i class="fas fa-trash-alt"></i> Delete</a></td>`
         tableRow.innerHTML += deleteColumnHtml;
     });
 

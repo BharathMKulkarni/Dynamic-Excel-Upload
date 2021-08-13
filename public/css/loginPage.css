@@ -15,6 +15,15 @@ ol {
   margin: 0;
   padding: 0;
 }
+input[type="text"], .a1 {
+
+  background-color : black !important;
+  color:rgb(27, 231, 238) !important;
+}
+input[type="text"], .a2 {
+
+  background-color : #00ead3 !important;
+}
 
 
 /*===== Variable Define =====*/

@@ -1,11 +1,12 @@
-//const readXlsxFile = require('read-excel-file/node');
 const db = require('../models');
 const UserData = require('../models/UserExcelData.js')(db.sequelize, db.Sequelize);
-const Uploader = require('../models/Uploader.js')(db.sequelize, db.Sequelize);
 const path = require('path');
+const fs = require('fs');
 const {schema} = require('../models/schema/schema');
 const {parseExcel} = require('../lib/parseExcel');
+const {writeCsv} = require('../lib/writeCsv');
 const {Op}=require('sequelize');
+const History = require('../models/History.js')(db.sequelize, db.Sequelize);
 
 const UploadExcelToDb = async (req, res) => {
     let filePath = path.resolve('uploads/' + req.file.filename);
@@ -16,8 +17,9 @@ const UploadExcelToDb = async (req, res) => {
         let records = await parseExcel(filePath, req.body, sheetNo);
         records.forEach( row => {
             row.uploaderId = req.user.uploaderId;
+            row.EId = req.fileId;
         });
-        const msg = await addRecords(records);
+        const msg = await addRecords(records, req.fileId);
         res.status(200).json(msg);
     } catch(error) {
         res.status(200).json({message: "Error reading the file!"});
@@ -27,9 +29,9 @@ const UploadExcelToDb = async (req, res) => {
 
 // This function creates a transaction to add all records sent as argument to the database
 // When more tables are added to schema this function can be generalised for all tables
-const addRecords = async (records) => {
+const addRecords = async (records, fileId) => {
+
     const t = await db.sequelize.transaction();
-    
     try {
         var line = 1;
         for(let entry of records) {
@@ -44,6 +46,15 @@ const addRecords = async (records) => {
         // If the execution reaches this line, an error occurred.
         // The transaction has already been rolled back automatically by Sequelize!
         await t.rollback();
+        //rollback 
+        try {
+            await History.destroy({
+                where: { EId: fileId }
+            });
+        }
+        catch(error) {
+            return;
+        }
         const uiError = {}
         switch(error.name) {
             case 'SequelizeUniqueConstraintError': 
@@ -133,4 +144,95 @@ const GetUserData = async (req, res) => {
     });
 }
 
-module.exports = {UploadExcelToDb, DeleteUserData, GetUserData};
+const GetHistory = async (req, res) => {
+
+    let fileList;
+    try {
+        fileList = await History.findAll({
+            raw: true,
+            where: {
+                uploaderId: req.user.uploaderId,
+            },
+            order: [
+                ['e_id', 'DESC']
+            ],
+        });
+    }
+    catch(error) {
+        res.status(500).json({message: error});
+        return;
+    }
+    res.render('history',{ 
+        documentTitle:"Dynamic-Excel-Upload/History",
+        cssPage: "viewtable",
+        rows: fileList,
+    });
+ }
+
+const DeleteHistory = async (req, res) => {
+
+    const t = await db.sequelize.transaction();
+    try {
+        await UserData.destroy({
+            where: {
+                EId: req.params['EId'],
+                uploaderId: req.user.uploaderId
+            }
+        }, { transaction: t });
+   
+        await History.destroy({
+            where: {
+                EId: req.params['EId']
+            }
+        }, { transaction: t });
+
+        await t.commit();
+    }
+    catch(error) {
+        await t.rollback();
+        console.log(error);
+        res.status(403).json({message: "Error while deleting file entry"});
+        return;
+    }
+
+    res.redirect('/userdata/history');
+}
+
+const DownloadFile = async (req, res) => {
+    try {
+        let data = await UserData.findAll({
+            raw: true,
+            where: {
+                EId: req.params['EId'],
+                uploaderId: req.user.uploaderId
+            }
+        });
+
+        data.forEach(row => {
+            delete row.EId;
+            delete row.id;
+            delete row.deletedFlag;
+            delete row.uploaderId;
+        });
+
+        var outputPath = await writeCsv(data);
+
+        const file = fs.createReadStream(outputPath)
+        const filename = (new Date()).toISOString()
+        res.setHeader('Content-Disposition', 'attachment; filename=' + filename + '.csv');
+        res.setHeader('Content-Type', 'text/csv');
+        file.pipe(res)
+        .on("end", () => {
+            fs.unlink(filePath, err => {
+                if(err) {
+                    console.log(err);
+                }
+            });
+        });
+    }
+    catch(error) {
+
+    }
+}
+
+module.exports = {UploadExcelToDb, DeleteUserData, GetUserData, GetHistory, DeleteHistory, DownloadFile};

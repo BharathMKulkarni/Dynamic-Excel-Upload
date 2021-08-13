@@ -36,6 +36,11 @@ switch (window.location.pathname) {
         document.getElementById("viewDataButton").style.color = "#00ead3";
         document.getElementById("viewDataButton").style.textDecoration = "underline";
         break;
+        
+    case "/userdata/history":
+        document.getElementById("historyButton").style.color = "#00ead3";
+        document.getElementById("historyButton").style.textDecoration = "underline";
+        break;
 
     default:
         break;
