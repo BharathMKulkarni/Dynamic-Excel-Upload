@@ -1,10 +1,10 @@
-//const readXlsxFile = require('read-excel-file/node');
 const db = require('../models');
 const UserData = require('../models/UserExcelData.js')(db.sequelize, db.Sequelize);
-//const Uploader = require('../models/Uploader.js')(db.sequelize, db.Sequelize);
 const path = require('path');
+const fs = require('fs');
 const {schema} = require('../models/schema/schema');
 const {parseExcel} = require('../lib/parseExcel');
+const {writeCsv} = require('../lib/writeCsv');
 const {Op}=require('sequelize');
 const History = require('../models/History.js')(db.sequelize, db.Sequelize);
 
@@ -170,8 +170,8 @@ const GetHistory = async (req, res) => {
  }
 
 const DeleteHistory = async (req, res) => {
-    const t = await db.sequelize.transaction();
 
+    const t = await db.sequelize.transaction();
     try {
         await UserData.destroy({
             where: {
@@ -194,6 +194,45 @@ const DeleteHistory = async (req, res) => {
         res.status(403).json({message: "Error while deleting file entry"});
         return;
     }
+
     res.redirect('/userdata/history');
 }
-module.exports = {UploadExcelToDb, DeleteUserData, GetUserData, GetHistory, DeleteHistory};
+
+const DownloadFile = async (req, res) => {
+    try {
+        let data = await UserData.findAll({
+            raw: true,
+            where: {
+                EId: req.params['EId'],
+                uploaderId: req.user.uploaderId
+            }
+        });
+
+        data.forEach(row => {
+            delete row.EId;
+            delete row.id;
+            delete row.deletedFlag;
+            delete row.uploaderId;
+        });
+
+        var outputPath = await writeCsv(data);
+
+        const file = fs.createReadStream(outputPath)
+        const filename = (new Date()).toISOString()
+        res.setHeader('Content-Disposition', 'attachment; filename=' + filename + '.csv');
+        res.setHeader('Content-Type', 'text/csv');
+        file.pipe(res)
+        .on("end", () => {
+            fs.unlink(filePath, err => {
+                if(err) {
+                    console.log(err);
+                }
+            });
+        });
+    }
+    catch(error) {
+
+    }
+}
+
+module.exports = {UploadExcelToDb, DeleteUserData, GetUserData, GetHistory, DeleteHistory, DownloadFile};
