@@ -15,7 +15,7 @@ router.post("/delete", isAuth, DeleteUserData);
 
 router.get('/history/:EId', isAuth, DeleteHistory);
 router.get("/history", isAuth, GetHistory);
-router.get("/history/download/:EId", isAuth, DownloadFile);
+router.get("/download/:EId", isAuth, DownloadFile);
 
 router.get("/key", isAuth, (req, res) => {
     res.status(200).json({data: keys["userData"]})

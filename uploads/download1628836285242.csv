@@ -1,9 +1,0 @@
-userType,phone,email,userPassword,userStatus,roleId,firstName,lastName,mobile,deptId,designationId,createdAt,updatedAt
-Playmaker,111,neymar@yahoo.com,hijk,Inactive,10,Neymar,Jr,,3,10,2021-08-13,Fri Aug 13 2021 12:01:20 GMT+0530 (India Standard Time)
-Playmaker,123,messi@gmail.com,abc,Active,10,Lionel,Messi,,1,10,2021-08-13,Fri Aug 13 2021 12:01:20 GMT+0530 (India Standard Time)
-Playmaker,222,neymar@yahoo.com,hijk,Inactive,10,Neymar,Jr,,3,10,2021-08-13,Fri Aug 13 2021 12:01:20 GMT+0530 (India Standard Time)
-Playmaker,333,neymar@yahoo.com,hijk,Inactive,10,Neymar,Jr,,3,10,2021-08-13,Fri Aug 13 2021 12:01:20 GMT+0530 (India Standard Time)
-Playmaker,444,neymar@yahoo.com,hijk,Inactive,10,Neymar,Jr,,3,10,2021-08-13,Fri Aug 13 2021 12:01:20 GMT+0530 (India Standard Time)
-Striker,456,ronaldo@gmail.com,degh,Active,7,Cristanio,Ronaldo,,2,9,2021-08-13,Fri Aug 13 2021 12:01:20 GMT+0530 (India Standard Time)
-Playmaker,555,neymar@yahoo.com,hijk,Inactive,10,Neymar,Jr,,3,10,2021-08-13,Fri Aug 13 2021 12:01:20 GMT+0530 (India Standard Time)
-Playmaker,789,neymar@yahoo.com,hijk,Inactive,10,Neymar,Jr,,3,10,2021-08-13,Fri Aug 13 2021 12:01:20 GMT+0530 (India Standard Time)
