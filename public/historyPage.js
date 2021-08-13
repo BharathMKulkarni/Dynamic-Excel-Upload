@@ -20,8 +20,7 @@ const handleDeleteClick = (event) => {
 
 const handleDownloadClick = (event) => { 
     const fileId = event.target.id.substring(3);
-
-    window.location.href = `/userdata/history/download/${fileId}`;
+    window.location.href = `/userdata/download/${fileId}`;
 }
 
 allDeleteButtons.forEach(delBtn => {

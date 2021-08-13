@@ -222,8 +222,8 @@ const DownloadFile = async (req, res) => {
         res.setHeader('Content-Disposition', 'attachment; filename=' + filename + '.csv');
         res.setHeader('Content-Type', 'text/csv');
         file.pipe(res)
-        .on("end", () => {
-            fs.unlink(filePath, err => {
+        .on("finish", () => {
+            fs.unlink(outputPath, err => {
                 if(err) {
                     console.log(err);
                 }
