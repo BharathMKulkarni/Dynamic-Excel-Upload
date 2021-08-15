@@ -46,7 +46,6 @@ const addRecords = async (records, fileId) => {
         // If the execution reaches this line, an error occurred.
         // The transaction has already been rolled back automatically by Sequelize!
         await t.rollback();
-        //rollback 
         try {
             await History.destroy({
                 where: { EId: fileId }
