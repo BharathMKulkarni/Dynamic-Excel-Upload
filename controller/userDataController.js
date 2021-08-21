@@ -60,7 +60,7 @@ const addRecords = async (records, fileId) => {
                 uiError.message = "Data in the file has possible duplicate values which might have been uploaded from another file.";
                 break;
             case 'SequelizeValidationError':
-                uiError.message = "An error occured while validating file data. This error can occur if a mandatory column is not mapped.";
+                uiError.message = "An error occured while validating file data. This error can occur if a mandatory column is not mapped or a necessary field is not empty";
                 break;
             default: 
                 uiError.message = "An error occured. Please make sure if the file data is valid."
